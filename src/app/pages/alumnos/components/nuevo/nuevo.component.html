@@ -1,0 +1,337 @@
+<app-botonera-alumnos></app-botonera-alumnos>
+<div class="containter main justify-content-center">
+  <hr>
+  <br><br>
+    <div class="row">
+        <div class="col" style="font-size: 30px;">
+            Agregar Alumno
+        </div>
+    </div>
+    <hr>
+
+    <!-- <pre>
+      Dirty: 
+      {{alumnForm.dirty}}
+    </pre>
+    
+    <pre>
+      Touched: 
+      {{alumnForm.touched}}
+    </pre> -->
+    {{isValidField('nombre')}}
+    <form [formGroup]="alumnForm" (ngSubmit)="onSubmit()">
+        <div class="form-row justify-content-between">
+          <div class="col-5">
+            <label for="name"><b>Nombre/s</b></label>
+            <input 
+            id="name"
+            type="text" 
+            class="form-control" 
+            placeholder="Ingrese Nombre Completo" 
+            formControlName="nombre" 
+            [ngClass]="{
+              'is-invalid': isValidField('nombre')
+            }"
+            >
+            <div class="invalid-feedback">
+                  <span *ngIf="alumnForm.get('nombre').errors?.required">
+                    Debe ingresar un nombre
+                  </span>
+                  <span *ngIf="alumnForm.get('nombre').errors?.minlength">
+                    Mínimo {{alumnForm.get('nombre').errors?.minlength?.requiredLength}} caracteres
+                  </span>
+            </div>
+          </div>
+          <div class="col-5">
+            <label for="surname"><b>Apellido/s</b></label>
+            <input 
+            id="surname" 
+            type="text" 
+            class="form-control" 
+            placeholder="Ingrese Apellido" 
+            formControlName="apellido" 
+            [ngClass]="{
+              'is-invalid': isValidField('apellido')
+            }"
+            required
+            >
+            <div class="invalid-feedback">
+                <span *ngIf="alumnForm.get('apellido').errors?.required">
+                  Debe ingresar apellido
+                </span>
+                <span *ngIf="alumnForm.get('apellido').errors?.minlength">
+                  Mínimo {{alumnForm.get('apellido').errors?.minlength?.requiredLength}} caracteres
+                </span>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="form-row justify-content-between">
+          <div class="col-5">
+              <label for="doc"><b>DNI</b></label>
+              <input 
+              id="doc" 
+              type="text" 
+              class="form-control" 
+              placeholder="Sin puntos" 
+              formControlName="dni" 
+              required
+              [ngClass]="{
+                'is-invalid': isValidField('dni')
+              }"
+              >
+          </div>
+
+          <div class="invalid-feedback">
+            <span *ngIf="alumnForm.get('dni').errors?.required">
+              Debe ingresar DNI
+            </span>
+            <span *ngIf="alumnForm.get('dni').errors?.minlength">
+              Mínimo {{alumnForm.get('dni').errors?.minlength?.requiredLength}} números
+            </span>
+            <span *ngIf="alumnForm.get('dni').errors?.required">
+              Debe ingresar DNI
+            </span>
+            <span *ngIf="alumnForm.get('dni').errors?.pattern">
+              Ingresar solo números
+            </span>
+          </div>
+          <div class="col-5">
+            <label for="nacimiento"><b>Fecha de Nacimiento</b></label>
+            <input 
+            id="nacimiento" 
+            type="date" 
+            class="form-control" 
+            formControlName="fecha_de_nacimiento" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('nacimiento')
+            }"
+            >
+          </div>
+        </div>
+        <br>
+        <hr>
+        <div class="form-row justify-content-center">
+          <div class="col-8">
+            <label for="direccion"><b>Domicilio</b></label>
+            <input 
+            id="direccion" 
+            type="text" 
+            class="form-control" 
+            placeholder="Calle y nro, tira-depto, barrio nro de casa, etc. " 
+            formControlName="domicilio" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('domicilio')
+            }"
+            >
+          </div>
+        </div>
+        <hr>
+        <br>
+        <div class="row">
+          <div class="col"  style="font-size: 22px;">
+            Datos de Nacimiento
+          </div>
+        </div>  
+        <hr>
+        <div class="form-row justify-content-center">
+          <div class="col-4">
+            <label for="locNac"><b>Localidad</b></label>
+            <input 
+            id="locNac" 
+            type="text" 
+            class="form-control" 
+            placeholder="Localidad de Nacimiento" 
+            formControlName="loc_nac" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('loc_nac')
+            }"
+            >
+          </div>
+          <div class="col-4">
+            <label for="provNac"><b>Provincia</b></label>
+            <input 
+            id="provNac" 
+            type="text" 
+            class="form-control" 
+            placeholder="Provincia de Nacimiento" 
+            formControlName="prov_nac" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('prov_nac')
+            }"
+            >
+          </div>
+          <div class="col-4">
+            <label for="paisNac"><b>País de Nacimiento</b></label>
+            <input 
+            id="paisNac" 
+            type="text" 
+            class="form-control" 
+            placeholder="País de Nacimiento" 
+            formControlName="pais_nac" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('pais_nac')
+            }"
+            >
+          </div>
+        </div>
+        <hr>
+        <br>
+        <div class="row">
+          <div class="col" style="font-size: 22px;">
+            Datos de Contacto
+          </div> 
+        </div>
+        <hr>
+        <div class="form-row justify-content-between">
+          <div class="col-6">
+            <label for="telAlum"><b>Teléfono del Alumno</b></label>
+            <input 
+            id="telAlum" 
+            type="text" 
+            class="form-control" 
+            placeholder="Teléfono Fijo o Celular" 
+            formControlName="tel_alumno" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('tel_alumno')
+            }"
+            >
+          </div>
+  
+          <div class="col-6">
+            <label for="e-mail"><b>Correo electrónico</b></label>
+            <input 
+            id="e-mail" 
+            type="text" 
+            class="form-control"
+            placeholder="email de contacto" 
+            formControlName="email" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('email')
+            }"
+            />
+          </div>
+          {{alumnForm.get('email').errors?.pattern?.match}}
+          <div class="invalid-feedback">
+            <span *ngIf="alumnForm.get('email').errors?.pattern">
+              Debe ingresar un email válido
+            </span>
+     
+      </div>
+        </div>
+        <br>
+        <div class="form-row justify-content-between">
+          <div class="col-6">
+            <label for="tutor"><b>Padre/Madre o Tutor</b></label>
+            <input 
+            id="tutor" 
+            type="text" 
+            class="form-control" 
+            placeholder="Persona que pueda responder por el alumno" 
+            formControlName="nombre_tutor" 
+            required
+            
+            >
+          </div>
+          <div class="col-6">
+            <label for="telTutor"><b>Tel. Padre/Madre o Tutor</b></label>
+            <input 
+            id="telTutor" 
+            type="email" 
+            class="form-control" 
+            placeholder="Teléfono Fijo o Celular" 
+            formControlName="tel_tutor" 
+            required
+            >
+          </div>
+        </div>
+        <hr>
+        <br>
+        <div class="row">
+          <div class="col" style="font-size: 22px;">
+            Documentación que presenta
+          </div> 
+        </div>
+        <hr>
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input 
+          type="checkbox" 
+          class="custom-control-input" 
+          id="fotDni" 
+          formControlName="fot_dni" 
+          required
+          >
+          <label class="custom-control-label" for="fotDni">Fotocopia DNI</label>
+        </div>
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input 
+          type="checkbox" 
+          class="custom-control-input" 
+          id="certEstudio"
+          formControlName="cert_estudio"
+          >
+          <label class="custom-control-label" for="certEstudio">Certificado de Estudio</label>
+        </div>
+   
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input 
+          type="checkbox" 
+          class="custom-control-input" 
+          id="pase"
+          formControlName="pase"
+          >
+          <label class="custom-control-label" for="pase">Pase</label>
+        </div>
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input 
+          type="checkbox" 
+          class="custom-control-input" 
+          id="cuil"
+          formControlName="cuil"
+          >
+          <label class="custom-control-label" for="cuil">Cuil</label>
+        </div>
+        <br>
+ 
+        <div class="row justify-content-end">
+          <div class="col-2">
+            <button type="submit" class="btn btn-primary" [disabled]="alumnForm.invalid">Continuar</button>
+          </div>
+        </div>
+    </form>
+</div>
+<div class="row justify-content-start">
+  <div class="col-2">
+    <button class="btn btn-info" (click)="onSetDefault()">Default</button>
+  </div>
+  <div class="col-2">
+    <button class="btn btn-info" (click)="onPatchValue()">Patch</button>
+  </div>
+  <div class="col-2">
+    <button class="btn btn-info" (click)="onSetValue()">Set</button>
+  </div>
+</div>
+<hr>
+<div class="row justify-content-center">
+  <div class="col-2">
+    <button class="btn btn-warning" (click)="onReset()">Reset</button>
+  </div>
+</div>
+<!-- <pre>
+  Value:
+  {{alumnForm.value | json }}
+</pre> -->
+<!-- <pre>
+  Status: 
+  {{alumnForm.status}}
+</pre> -->
+
+
+<br><br><br><br>

@@ -1,0 +1,34 @@
+.contenedor {
+    margin-left: 187px;
+    width: 85%;
+}
+
+.contenedor .my-list {
+    font-size: 13px;
+    margin-top: 0px;
+}
+
+.my-list .thead {
+    background: rgb(63, 63, 65);
+    color: white;
+    font-weight: normal;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#thead:hover {
+    background: black !important;
+}
+
+.my-list .fila:hover {
+    background: gray;
+    color: white;
+    cursor: pointer;
+}
+
+.my-list .fila {
+    text-align: start;
+}
+.busqueda{
+   
+    width: 85%;
+}

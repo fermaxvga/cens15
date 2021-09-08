@@ -1,0 +1,36 @@
+
+.barra-lateral {
+    background: rgba(202, 199, 199, 0.59);
+    height: 100vh;
+    position: absolute;
+    transform: translateX(-55%); 
+    transition: all .3s ease;
+    /* overflow: scroll; */
+    width: 190px;
+    z-index: 0;
+}
+.item {
+    align-items: center;
+    cursor: pointer;
+    color: rgb(59, 58, 58);
+    font-size: 22px;
+}
+.item:hover{
+    color: #000;
+    font-weight: bold;
+}
+
+.barra-lateral .menu a {
+    display: block;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+   /* color: #000;*/
+    border-bottom: none;
+    text-decoration: none;
+    width: 80px;
+}
+
+.barra-lateral.active {
+    transform: translateX(0%);
+}

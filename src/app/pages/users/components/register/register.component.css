@@ -1,0 +1,34 @@
+.container{
+    margin-top: 10vh;
+    
+}
+
+.card-register{
+    width: 70%;
+    background: rgb(13, 32, 94);
+    color: white;
+
+}
+
+.spinner{
+    margin-top: -110px;
+}
+
+.btn-editar{
+    color: #fff;
+    background: rgba(224, 70, 9, 0.836);
+}
+
+.campo{
+    font-weight: bold;
+}
+
+.noValido{
+    color: rgba(224, 70, 9, 0.836);
+    font-size: 12px;
+}
+
+.validado{
+    color: green;
+    font-size: 12px;
+}

@@ -1,0 +1,117 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card card-register" >
+            <div class="card-header text-center">
+                Registro
+             </div>
+             <div class="card-body">
+                    <form action="" #validarDni="ngForm" (ngSubmit)="getDni()">
+                        <div class="row justify-content-center">
+                            <div class="col-4">
+                               <div class="row justify-content-center">
+                                   <label for="dni">Ingrese su Numero de DNI</label>
+                               </div>
+                               <div class="row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="dni" name="doc" #doc="ngModel" [(ngModel)]="dni" aria-describedby="emailHelp" [disabled]="validar">
+                                    </div>
+                                   <div *ngIf="validar" class="col-4">
+                                       <button  class="btn btn-editar" (click)="limpiar()"><fa-icon [icon]="editar"></fa-icon></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary btn-block" [disabled]="validar">Continuar</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+             <div class="card-footer" *ngIf="!validar">
+                 <p>
+                     Para poder registrarse, sus datos deben estar precargados en el sistema.<br> Si aún no lo hizo, envié un correo a <b>sga-cens15@gmail.com</b> indicando DNI y cargo.
+                </p>
+             </div>
+         </div>
+        <div class="card card-register mb-4" *ngIf="validar">
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-primary">
+                        <p class="text-center">{{dni_dni.message}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form #registro="ngForm" (ngSubmit)="onSubmit1()">
+                    <div class="row justify-content-center mb-2">
+                        <div class="col-6">
+                         <label for="name" class="campo">Nombre/s</label>
+                         <input type="text" class="form-control" id="name" name="nombre" #nombre="ngModel" [(ngModel)]="usuario.name" aria-describedby="emailHelp" required>    
+                         <span *ngIf="!nombre.valid && nombre.touched" class="noValido">El nombre no es válido</span>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-2">
+                        <div class="col-6">
+                            <label for="surname" class="campo">Apellido/s</label>
+                            <input type="text" class="form-control" id="surname" name="apellido" #apellido="ngModel" [(ngModel)]="usuario.surname" aria-describedby="emailHelp" required> 
+                            <span *ngIf="!apellido.valid && apellido.touched" class="noValido">El apellido no es válido</span>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-2">
+                        <div class="col-6">
+                            <label for="exampleInputEmail1" class="campo">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="correo" #correo="ngModel" [(ngModel)]="usuario.email" aria-describedby="dniHelp" required (keyup)="esEmailValido(usuario.email)" autocomplete="off">
+                            <span *ngIf="(!correo.valid && correo.touched) || !mailValido" class="noValido">Ingrese un correo válido</span>
+                            
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-center mb-2">
+                        <div class="col-4">
+                            <label for="password" class="campo">Password</label>
+                            <input type="password" class="form-control" id="password" aria-describedby="dniHelp" name="pass1" #pass1="ngModel" [(ngModel)]="password1" required (keyup)="esPassValida(password1)">
+                        
+                            <small id="dniHelp" class="form-text  noValido"  *ngIf="!passValido">Mínimo ocho caracteres, al menos una letra y un número</small>
+                            <small id="dniHelp" class="form-text validado" *ngIf="passValido">La contraseña cumple las condiciones</small>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-2">
+                        <div class="col-4">
+                            <label for="repeatPassword" class="campo">Repita Password</label>
+                            <input type="password" class="form-control" id="repeatPassword" name="pass2" #pass2="ngModel" [(ngModel)]="password2" aria-describedby="dniHelp" required [disabled]="!passValido" (keyup)="comparar()">
+                            <small id="dniHelp" class="form-text  noValido"  *ngIf="!coincide && passValido">Las contraseñas no coinciden</small>
+                            <small id="dniHelp" class="form-text validado" *ngIf="coincide">Coincidencia correcta</small>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block" [disabled]="!usuario.name || !usuario.surname || !usuario.email || !coincide" >Registrarse</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card card-register mb-4" *ngIf="dni_dni && !validar">
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-danger">
+                        <p class="text-center">{{dni_dni.message}}</p>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="card card-register mb-4" *ngIf="errorRegistro">
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-danger">
+                        <p class="text-center">{{errorRegistro}}</p>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <br><br>
+    <div *ngIf="buscando"  class="spinner">
+        <app-spinner-master></app-spinner-master>
+    </div>

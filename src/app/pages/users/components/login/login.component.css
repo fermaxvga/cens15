@@ -1,0 +1,14 @@
+.card-login{
+    margin-top: 20vh;
+    width: 35%;
+    color: #fff;
+    background: rgb(13, 32, 94);
+  } 
+
+  .registro{
+    font-size: 14px;
+  }
+
+  .recuperarPassword{
+    color: rgb(236, 37, 11) !important;
+  }

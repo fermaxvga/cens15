@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="barra-lateral" [ngClass]="activar">
+        <nav class="menu d-flex d-sm-block justify-content-between flex-wrap align-items-center">
+            <div class="row w-100 item">
+                <div class="col ml-1">
+                    <a href="alumnos">
+                        <span>Alumnos</span>
+                    </a>
+                </div>
+                <div class="col text-right">
+                      <fa-icon [icon]="student"></fa-icon>
+                </div>
+            </div>
+            <div class="row w-100 item">
+                <div class="col ml-1">
+                    <a>
+                        <span>Listados</span>
+                    </a>
+                </div>
+                <div class="col text-right">
+                    <fa-icon [icon]="lista"></fa-icon>
+                </div>
+            </div>
+            <div class="row w-100 item">
+                <div class="col ml-1">
+                    <a>
+                        <span>Notas</span>
+                    </a>
+                </div>
+                <div class="col text-right">
+                    <fa-icon [icon]="nota"></fa-icon> 
+                </div>
+            </div>
+   
+            <div class="row w-100 item">
+                <div class="col ml-1">
+                    <a>
+                        <span>Opciones</span>
+                    </a>
+                </div>
+                <div class="col text-right">
+                    <fa-icon [icon]="opciones"></fa-icon>
+                </div>
+            </div>
+            <div class="row w-100 item">
+                <div class="col ml-1">
+                    <a>
+                        <span>Presentismo</span>
+                    </a>
+                </div>
+                <div class="col text-right">
+                    <fa-icon [icon]="presentismo"></fa-icon>
+                </div>
+            </div>
+            <div class="row w-100 item">
+                <div class="col ml-1">
+                    <a>
+                        <span>Informes</span>
+                    </a>
+                </div>
+                <div class="col text-right">
+                    <fa-icon [icon]="info"></fa-icon>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- <div *ngIf="activar">
+    <a class="fondo-enlace d-md-none" (click)="ocultarMenu()"></a>
+</div> -->

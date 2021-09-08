@@ -1,0 +1,31 @@
+<div class="container-fluid barra-superior">
+    <div class="row align-items-center toolbar justify-content-between">
+        <div class="col">
+                    
+                    <a class="nav-link bar text-right" (click)="mostrarMenu()">
+                        <fa-icon [icon]="bar"></fa-icon>
+                    </a>
+        </div>
+        <div class="col-4 col-sm-4 col-md-6 col-xl-6 text-center home">
+            <a href="home">CENS N°15</a>
+        </div>
+        <div class="col login text-right mr-4">
+            <ul class="navbar-nav" id="login">
+                <li class="nav-item">
+                    <a *ngIf="!identity" class="nav-link text-white sigIn ml-2" href="users/login">
+                        <div class="col">
+                                Login    
+                                <fa-icon class="icon" [icon]="sigIn"></fa-icon>
+                            </div>
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="identity">
+                    <a class="nav-link nombre" (click)="logout()" data-toggle="tooltip" data-placement="top" title="{{role}}">
+                        {{identity.name + ' ' + identity.surname}} 
+                        <fa-icon class="icon" [icon]="sigOut"></fa-icon>
+                    </a>
+                </li>
+            </ul> 
+        </div>
+    </div>
+</div>

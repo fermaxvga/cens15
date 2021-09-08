@@ -1,0 +1,126 @@
+.barra-superior {
+    background: rgb(11, 24, 139);
+    color: #fff;
+}
+
+.barra-superior a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.barra-superior a span {
+    font-size: 18px;
+}
+
+.barra-superior a:hover {
+    color: rgb(180, 175, 175);
+    text-decoration: none;
+}
+.sigIn2{
+    display: none;
+}
+
+
+.login {
+    font-size: 14px;
+}
+
+.icon {
+    font-size: 18px;
+}
+
+.login2 {
+    display: none;
+}
+
+.home{
+    font-weight: bold;
+}
+
+
+nav-link {
+    align-items: center;
+}
+
+a {
+    cursor: pointer;
+}
+
+
+
+@media screen and (max-width: 1340px) {
+    #login {
+        width: 250px;
+    }
+    .login {
+        padding: 0px;
+    }
+    .nombre {
+        float: right;
+        margin-right: 15px;
+    }
+
+}
+
+@media screen and (max-width: 870px) {
+    #login {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .logo {
+        display: none;
+    }
+    #login {
+        width: 250px;
+    }
+    .sigIn {
+        margin-left: 180px;
+    }
+    .nombre {
+        margin-right: 40px;
+    }
+    .sigIn2{
+        display: block;
+    }
+    .sigIn{
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 443px) {
+    .iaNexo {
+        width: 100%;
+        align-self: center;
+        margin-left: 10px;
+        float: left;
+    }
+    .bar {
+        float: right;
+    }
+    .login {
+        display: none;
+    }
+    .login2 {
+        display: block;
+        width: 100%;
+    }
+    .login2 .sigIn2 {
+        margin-left: 23px;
+    }
+    .login2 .nombre2 {
+        float: right;
+        margin-right: 0;
+    }
+    .ingresar{
+        display: none;
+    }
+}
+
+@media print {
+    header {
+        display: none;
+    }
+}

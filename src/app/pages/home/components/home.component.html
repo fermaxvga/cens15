@@ -1,0 +1,44 @@
+<div class="containter main justify-content-center">
+    <div class="jumbotron m-4 p-10">
+        <h1 class="display-4 welcome">SGA - CENS N°15</h1>
+        <p class="lead texto-bienvenida">Bienvenido al sistema de gestión de Alumnos del CENS N°15 - Ushuaia - Tierra del Fuego</p>
+        <hr class="my-4">
+        <p *ngIf="!identity">Si posee una cuenta inicie una sesión, o bien registrese</p>
+        <div *ngIf="!identity" class="row justify-content-center">
+           <div class="col">
+                <a href="users/login" role="button" class="btn btn-iniciarSesion">Iniciar Sesión</a>
+                <a href="users/register" class="btn btn-registrarse" role="button">Registrarse</a>
+           </div>
+        </div>
+        <div *ngIf="identity" class="row justify-content-center">
+            <div class="col-4 logueado">
+                  {{identity.name}} {{identity.surname}}
+            </div>
+         </div>
+         <hr>
+         <div *ngIf="identity" class="row justify-content-center">
+            <div class="col">
+                  Elija alguna opción del menú para comenzar
+            </div>
+         </div>
+
+        <div class="row justify-content-center mt-4">
+            <p>Versión 1.0.0</p>
+        </div>
+     </div>
+    <!-- <div class="row justify-content-center">
+            <div class="col text-center">
+                <h1 class="display-1 text-center welcome">CENS N°15</h1>
+            </div> 
+       </div>
+       <div class="row mt-4">
+            <div class="col text-center texto-bienvenida">
+                <p>Bienvenido al sistema de gestión de Alumnos del CENS N°15 - Ushuaia - Tierra del Fuego</p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col text-center">
+                <p> <b>V 1.0.0</b> </p>
+            </div>
+        </div> -->
+</div>

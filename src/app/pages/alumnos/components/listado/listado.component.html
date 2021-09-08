@@ -1,0 +1,74 @@
+<app-botonera-alumnos></app-botonera-alumnos>
+<div class="contenedor">
+    <div class="row text-left justify-content-start" >
+        <div class="col">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="customRadioInline1" name="customRadioInline" class="custom-control-input">
+                <label class="custom-control-label" for="customRadioInline1">Todos</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="customRadioInline2" name="customRadioInline" class="custom-control-input">
+                <label class="custom-control-label" for="customRadioInline2">Por Curso</label>
+              </div>
+        </div>
+    </div>
+<div *ngIf="!alumnos">
+    <app-spinner-master></app-spinner-master>
+</div>
+
+<div class="row busqueda justify-content-end">
+    <div class="col-6">
+        <div class="form-group">
+            <input class="form-control" type="search" placeholder="Buscar..."  aria-label="Search">
+        </div>
+    </div>
+</div>
+<div class="row">
+        <div class="col-10">
+                <table class="table my-list mt-5" id="cars-list">
+                    <thead class="thead" id="thead">
+                        <tr>
+                            <th> Apellido</th>
+                            <th> Nombre </th>
+                            <th> DNI </th>
+                            <th> CURSO </th>
+                            <th> ORIENTACION </th>
+                            <th> Última Inscripción </th>
+
+
+                   
+                            <!-- <th> </th> -->
+                        </tr>
+                    </thead>
+                    <tr class="fila" *ngFor="let alumno of alumnos">
+                        <td>
+                            {{alumno.apellido}}
+                        </td>
+                        <td>
+                            {{alumno.nombre}}
+                        </td>
+                        <td>
+                            {{alumno.dni}}
+                        </td>
+                        <td>
+                            {{alumno.curso.curso}}-{{alumno.curso.division}}
+                        </td>
+                        <td>
+                            {{alumno.curso.especialidad}}
+                        </td>
+                        <td>
+                            {{alumno.inscripcion}}
+                        </td>
+                      
+                    </tr>
+                </table>
+
+        </div>
+        <!-- <div class="text-center ">
+            <pagination-controls (pageChange)="pActual=$event "></pagination-controls>
+        </div> -->
+    </div>
+
+
+    <!-- fin sin ordenamiento-->
+</div>
