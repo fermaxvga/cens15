@@ -47,6 +47,14 @@ export class CursosService {
   }
 
 
+  updateCurso(curso:any, id:number):Observable<any>{
+    let json=JSON.stringify(curso);
+    let params = "json="+json;
+    console.log(params);
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.put(this.url+'cursos/update'+'/'+id,params,{headers: headers});
+  }
+
 
 
 }

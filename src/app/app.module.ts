@@ -8,13 +8,14 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AlumnosModule } from './pages/alumnos/alumnos.module';
 import { CursosModule } from './pages/cursos/cursos.module';
+import { MateriasModule } from './pages/materias/materias.module';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ],
+     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,7 +24,8 @@ import { CursosModule } from './pages/cursos/cursos.module';
     RouterModule,
     HttpClientModule,
     AlumnosModule,
-    CursosModule
+    CursosModule,
+    MateriasModule
   ],
   providers: [],
   bootstrap: [AppComponent]

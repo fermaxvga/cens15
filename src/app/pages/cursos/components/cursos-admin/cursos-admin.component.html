@@ -35,12 +35,12 @@
                 <td *ngIf="curso.semipresencial==1">Si</td>
                 <td *ngIf="curso.semipresencial==0">No</td>
                 <td>
-                    <button class="btn btn-warning" >
+                    <button class="btn btn-warning" (click)="editarCurso(curso)">
                     <fa-icon [icon]="edit"></fa-icon>
                     </button>
                 </td>
                 <td>
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger" (click)="eliminarCurso(curso)">
                     <fa-icon [icon]="trash"></fa-icon>
                     </button>
                 </td>
@@ -49,66 +49,152 @@
             </tbody>
           </table>
 
-          <br><br><br>
-          <hr>
-          <p>Agregar Curso</p>
 
 
 
-<div class="container-fluid agregar-curso">
-
-<form [formGroup]="cursoForm" (ngSubmit)="onSubmit()">
-    <div class="row justify-content-start align-items-center w-100 p-0">
-        <div class="col">
-            <label for="curso">Curso</label>
-            <select name="nro_curso" id="curso" class="form-control"  
-            formControlName="curso" 
-            [ngClass]="{'is-invalid': isValidField('curso')}" style="font-size: 12px;">
-                <option> </option>
-                <option *ngFor="let option of nro_cursos">{{option.numero}}°</option>
-            </select>
+<div class="modal fade" id="agregarCurso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Curso</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="col">
-            <label for="div">Division</label>
-            <select name="div" id="division" class="form-control" 
-            formControlName="division" 
-            [ngClass]="{'is-invalid': isValidField('division')}" style="font-size: 12px;">
-                <option> </option>
-                <option *ngFor="let option of divisiones">{{option.division}} </option>
-            </select>
+        <div class="modal-body">
+            <form [formGroup]="cursoForm" (ngSubmit)="onSubmit()">
+                <div class="row justify-content-start align-items-center w-100 p-0">
+                    <div class="col">
+                        <label for="curso">Curso</label>
+                        <select name="nro_curso" id="curso" class="form-control"  
+                        formControlName="curso" 
+                        [ngClass]="{'is-invalid': isValidField('curso')}" style="font-size: 12px;">
+                            <option> </option>
+                            <option *ngFor="let option of nro_cursos">{{option.numero}}°</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="div">Division</label>
+                        <select name="div" id="division" class="form-control" 
+                        formControlName="division" 
+                        [ngClass]="{'is-invalid': isValidField('division')}" style="font-size: 12px;">
+                            <option> </option>
+                            <option *ngFor="let option of divisiones">{{option.division}} </option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="especialidad">Especialidad</label>
+            
+                        <select name="esp" id="especialidad" class="form-control" 
+                        formControlName="especialidad" 
+                        [ngClass]="{'is-invalid': isValidField('especialidad')}"
+                        style="font-size: 12px;">
+                            <option></option>
+                            <option *ngFor="let option of especialidades">{{option.especialidad}}</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="modalidad">Modalidad</label>
+            
+                        <select name="mod" id="modalidad" class="form-control"
+                        formControlName="modalidad" 
+                        [ngClass]="{'is-invalid': isValidField('modalidad')}"
+                        style="font-size: 12px;">
+                            <option></option>
+                            <option *ngFor="let option of modalidades">{{option.modalidad}}</option>
+                        </select>
+                    </div>
+                    <div class="col custom-control custom-checkbox semi">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="semipresencial">
+                        <label class="custom-control-label" for="customCheck1">SemiPres</label>
+                    </div>
+                    <div class="col align-self-end">
+                        <button type="submit" class="btn btn-primary btn-sm" [disabled]="cursoForm.invalid">Crear</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="col-3">
-            <label for="especialidad">Especialidad</label>
-
-            <select name="esp" id="especialidad" class="form-control" 
-            formControlName="especialidad" 
-            [ngClass]="{'is-invalid': isValidField('especialidad')}"
-            style="font-size: 12px;">
-                <option></option>
-                <option *ngFor="let option of especialidades">{{option.especialidad}}</option>
-            </select>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
-        <div class="col-3">
-            <label for="modalidad">Modalidad</label>
-
-            <select name="mod" id="modalidad" class="form-control"
-            formControlName="modalidad" 
-            [ngClass]="{'is-invalid': isValidField('modalidad')}"
-            style="font-size: 12px;">
-                <option></option>
-                <option *ngFor="let option of modalidades">{{option.modalidad}}</option>
-            </select>
-        </div>
-        <div class="col custom-control custom-checkbox semi">
-            <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="semipresencial">
-            <label class="custom-control-label" for="customCheck1">SemiPres</label>
-        </div>
-        <div class="col align-self-end">
-            <button type="submit" class="btn btn-primary btn-sm" [disabled]="cursoForm.invalid">Crear</button>
-        </div>
+      </div>
     </div>
-</form>
+  </div>
 
-</div>
+
+
+  <div class="modal fade" id="editarCurso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar Curso</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="cursoToEditForm" (ngSubmit)="onSubmitUpdate()">
+                <div class="row justify-content-start align-items-center w-100 p-0">
+                    <div class="col">
+                        <label for="curso">Curso</label>
+                        <select name="nro_curso" id="curso" class="form-control"  
+                        formControlName="curso" 
+                        [ngClass]="{'is-invalid': isValidField('curso')}" style="font-size: 12px;">
+                            <option> </option>
+                            <option *ngFor="let option of nro_cursos">{{option.numero}}°</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="div">Division</label>
+                        <select name="div" id="division" class="form-control" 
+                        formControlName="division" 
+                        [ngClass]="{'is-invalid': isValidField('division')}" style="font-size: 12px;">
+                            <option> </option>
+                            <option *ngFor="let option of divisiones">{{option.division}} </option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="especialidad">Especialidad</label>
+            
+                        <select name="esp" id="especialidad" class="form-control" 
+                        formControlName="especialidad" 
+                        [ngClass]="{'is-invalid': isValidField('especialidad')}"
+                        style="font-size: 12px;">
+                            <option></option>
+                            <option *ngFor="let option of especialidades">{{option.especialidad}}</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="modalidad">Modalidad</label>
+            
+                        <select name="mod" id="modalidad" class="form-control"
+                        formControlName="modalidad" 
+                        [ngClass]="{'is-invalid': isValidField('modalidad')}"
+                        style="font-size: 12px;">
+                            <option></option>
+                            <option *ngFor="let option of modalidades">{{option.modalidad}}</option>
+                        </select>
+                    </div>
+                    <div class="col custom-control custom-checkbox semi">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="semipresencial">
+                        <label class="custom-control-label" for="customCheck1">SemiPres</label>
+                    </div>
+                    <div class="col align-self-end">
+                        <button type="submit" class="btn btn-warning btn-sm" [disabled]="cursoToEditForm.invalid">Editar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
 
 

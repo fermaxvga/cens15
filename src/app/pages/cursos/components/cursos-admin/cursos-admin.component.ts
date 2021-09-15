@@ -3,6 +3,8 @@ import { CursosService } from '../../services/cursos.service';
 import { FormGroup, FormControl,FormBuilder,Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import * as $AB from 'jquery';
+
 
 @Component({
   selector: 'app-cursos-admin',
@@ -18,6 +20,9 @@ export class CursosAdminComponent implements OnInit {
   respuesta:any;
   trash=faTrashAlt;
   edit=faPencilAlt;
+  cursoActual:any;
+  $:any; 
+
   cursoForm=this.fb.group({
     curso: ['',Validators.required], 
     division: ['',Validators.required],
@@ -25,6 +30,16 @@ export class CursosAdminComponent implements OnInit {
     modalidad:['',Validators.required],
     semipresencial:false,
   });
+
+  cursoToEditForm=this.fb.group({
+    curso: ['',Validators.required], 
+    division: ['',Validators.required],
+    especialidad:['',Validators.required],
+    modalidad:['',Validators.required],
+    semipresencial:false,
+  })
+
+
 
 
   constructor(
@@ -186,6 +201,50 @@ export class CursosAdminComponent implements OnInit {
     );
   }
 
+  editarCurso(curso:any):void{
+    console.log(curso);
+    this.cursoActual=curso;
+    ($('#editarCurso') as any).modal('toggle');
+
+   const cursoToEdit={
+      curso: curso.curso, 
+      division: curso.division,
+      especialidad: curso.especialidad,
+      modalidad: curso.modalidad,
+      semipresencial:curso.semipresencial,
+      }; 
+      this.cursoToEditForm?.setValue(cursoToEdit);
+  }
+
+  onSubmitUpdate(){
+   console.log(this.cursoToEditForm.value); 
+   this._cursoService.updateCurso(this.cursoToEditForm.value,this.cursoActual.id).subscribe(
+     response=>{
+      console.log(response);
+     },
+     error=>{
+      console.log(<any>error);
+     }
+   );
+  }
+
+  eliminarCurso(curso:any){
+    Swal.fire({
+      title: '¿Eliminar Curso?',
+      text: `¿Está segur que desea eliminar el curso ${curso.curso} ${curso.division}`,
+      showDenyButton: true,
+      confirmButtonText: 'Cancelar',
+      denyButtonText: `Eliminar`,
+      reverseButtons:true
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isDenied) {
+        Swal.fire('Curso Eliminado!', '', 'success')
+      } 
+ 
+    })
+  }
+
   success(mensaje:any){
     Swal.fire({
       icon: 'success',
@@ -196,8 +255,6 @@ export class CursosAdminComponent implements OnInit {
     });
     this.cursoForm.reset();
     this.traerCursos();
-
-
   }
 
   error(mensaje:any){
@@ -210,6 +267,9 @@ export class CursosAdminComponent implements OnInit {
     this.traerCursos();
   //  this.cursoForm.reset();
   }
+  
+
+
 }
 
 

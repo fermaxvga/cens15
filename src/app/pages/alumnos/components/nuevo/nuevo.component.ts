@@ -69,8 +69,6 @@ export class NuevoComponent implements OnInit {
 
   }
 
-
-
   onSetDefault():void{
     const defAlum={
       nombre:  'Juan' ,
