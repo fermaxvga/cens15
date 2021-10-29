@@ -15,34 +15,77 @@
               </div>
         </div>
         <div class="col-2 align-self-end">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#agregarMateria">
+            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#agregarMateria">
                 Agregar
             </button>
         </div>
     </div>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">Materia</th>
             <th scope="col">Curso</th>
             <th scope="col">Division</th>
             <th colspan="2">Prof. a Cargo</th>
+            <th></th>
+            <th></th>
           
           </tr>
         </thead>
-        <tbody>
-        <tr>
-            <th>Biología</th>
-            <td>1ro</td>
-            <td>A</td>
-            <td>Profesor 1</td>
-            <td>Profesor 2</td>
-
+        <div *ngIf="!materias && !mensaje"> 
+            <app-spinner-master></app-spinner-master> 
+        </div>
+ 
+        <tbody *ngIf="materias">
+        <tr *ngFor="let materia of materias" class="materia-table">
+            <td style="text-align: start;">{{materia.materia}}</td>
+            <td>{{materia.curso.curso}}</td>
+            <td>{{materia.curso.division}}</td>
+            <td>{{materia.profesor1}}</td>
+            <td>{{materia.profesor2}}</td> 
+            <td>
+                <button type="button" class="btn btn-warning"  (click)="editarMateria(materia)" data-toggle="modal" data-target="#editarMateria" >
+                    <fa-icon [icon]="edit"></fa-icon>
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-danger" (click)="eliminarMateria(materia)">
+                <fa-icon [icon]="trash"></fa-icon>
+                </button>
+            </td>
         </tr>
 
         </tbody>
       </table>
+      <div *ngIf="mensaje">
+        <div class="row justify-content-center">
+          <div class="col">
+            <div class="alert alert-dark"><p>{{mensaje}}</p></div>
+          </div>
+        </div>
+      </div>
+ 
+  <!-- Modal -->
+  <div class="modal fade" id="editarMateria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar Materia</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-editar></app-editar>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 </div>
 
@@ -57,73 +100,15 @@
           </button>
         </div>
         <div class="modal-body">
-            <form [formGroup]="addMateriaForm" (ngSubmit)="onSubmit()">
-                <div class="row justify-content-center align-items-center w-100 p-0">
-                    <div class="col-6">
-                        <label for="materia">Materia</label>
-                        <input type="text" name="materia" id="materia" class="form-control"  
-                        formControlName="materia" 
-                        [ngClass]="{'is-invalid': isValidField('materia')}">
-                         
-                    </div>
-                    </div>
-                    <div class="row justify-content-center align-items-center w-100 p-0">
-
-                    <div class="col-3">
-                        <label for="curso">Curso</label>
-                        <select name="curso" id="curso" class="form-control" 
-                        formControlName="curso" 
-                        [ngClass]="{'is-invalid': isValidField('curso')}">
-                            <option> </option>
-                            <option *ngFor="let option of nroCursos"> {{option.numero}} </option>
-                        </select>
-                    </div>
-
-                    <div class="col-3">
-                        <label for="division">Division</label>
-                        <select name="division" id="division" class="form-control" 
-                        formControlName="division" 
-                        [ngClass]="{'is-invalid': isValidField('division')}">
-                            <option> </option>
-                            <option *ngFor="let option of divisiones">{{option.division}} </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row justify-content-center align-items-center w-100 p-0">
-                    <div class="col-6">
-                        <label for="prof1">Profesor 1</label>
-            
-                        <input type="text" name="profesor1" id="profesor1" class="form-control" 
-                        formControlName="profesor1" 
-                        [ngClass]="{'is-invalid': isValidField('profesor1')}">
-                            
-                    </div>
-                </div>
-                <div class="row justify-content-center align-items-center w-100 p-0">
-               
-                    <div class="col-6">
-                        <label for="modalidad">Profesor 2</label>
-            
-                        <input type="text" name="profesor2" id="profesor2" class="form-control" 
-                        formControlName="profesor2" 
-                        [ngClass]="{'is-invalid': isValidField('profesor2')}">
-
-                    </div>
-                </div>
-                <div class="row justify-content-end align-items-center w-100">
-                    <div class="col-2">
-                        <button type="submit" class="btn btn-info" [disabled]="addMateriaForm.invalid">Guardar</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        {{addMateriaForm.invalid}}
-        <pre>
-            {{addMateriaForm.value | json}}
-        </pre>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        </div>
+            <app-agregar></app-agregar>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
       </div>
     </div>
   </div>
+</div>
+
+
+
+

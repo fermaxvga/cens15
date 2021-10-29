@@ -8,19 +8,25 @@ import { AlumnosService } from '../../services/alumnos.service';
 })
 export class ListadoComponent implements OnInit {
   alumnos:any; 
+  listado:boolean|undefined;
+  mensaje:any;
 
   constructor(
     private _alumnos: AlumnosService
   ) { }
 
   ngOnInit(): void {
+
+
     this._alumnos.getAlumnos().subscribe(
       (response:any)=>{
-        if(response.status='success'){
+        this.listado=true;
+        if(response.status=='success'){
           console.log(response);
           this.alumnos=response.alumnos; 
         }else{
           console.log(response.message);
+          this.mensaje=response.message;
         }
       },
       error=>{

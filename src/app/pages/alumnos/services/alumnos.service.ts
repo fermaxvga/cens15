@@ -27,4 +27,9 @@ export class AlumnosService {
     return this._http.post(this.url+'alumnos/inscribir',params,{headers: headers});
   }
 
+  getAlumno(id:number):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'alumnos/'+id,{headers: headers});
+  }
+
 }

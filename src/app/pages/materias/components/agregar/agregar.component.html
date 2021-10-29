@@ -1,0 +1,38 @@
+<form #addMateria="ngForm" (ngSubmit)="onSubmit(addMateria)" *ngIf="cursos">
+    <div class="form-row justify-content-center">
+      <div class="form-group col-md-6">
+        <label for="materia">Materia</label>
+        <input type="email" class="form-control" id="materia" name="materia" #materia="ngModel" [(ngModel)]="nombreMateria">
+      </div>
+    </div>
+ 
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-6">
+            <label for="curso">Curso</label>
+            <select id="id_curso" class="form-control" name="id_curso" #id_curso="ngModel" [(ngModel)]="cursoSelect">
+              <option value=""></option>
+              <option *ngFor="let option of cursos" value={{option.id}}>
+                {{option.curso}} - {{option.division}} - {{option.especialidad}} - {{option.modalidad}}
+              </option>
+            </select>
+        </div> 
+    </div>
+    
+    <div class="form-row justify-content-center">
+      <div class="form-group col-md-4">
+        <label for="profesor1">Profesor 1</label>
+        <input type="text" class="form-control" id="profesor1" name="profe1" #profe1="ngModel" [(ngModel)]="profesor1">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="profesor2">Profesor 2</label>
+        <input type="text" class="form-control" id="profesor2" name="profe2" #profe2="ngModel" [(ngModel)]="profesor2">
+      </div>
+    </div>
+    <div class="form-row justify-content-center">
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </div>
+  </form>
+
+  <div *ngIf="!cursos">
+    <app-spinner-master></app-spinner-master>
+  </div>

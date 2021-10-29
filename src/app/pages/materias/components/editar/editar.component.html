@@ -1,0 +1,32 @@
+<form #editarMateria="ngForm" (ngSubmit)="onSubmit(editarMateria)">
+    <div class="form-row justify-content-center">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Materia</label>
+        <input type="email" class="form-control" id="inputEmail4" name="name" #name="ngModel" [(ngModel)]="nombreMateria">
+      </div>
+    </div>
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-6">
+            <label for="curso">Curso</label>
+            <select id="curso" class="form-control" name="id_curso" #id_curso="ngModel" [(ngModel)]="cursoSelect">
+              <option selected value={{cursoActual?.id}}>{{cursoActual?.curso}} - {{cursoActual?.division}} - {{cursoActual?.especialidad}} - {{cursoActual?.modalidad}} </option>
+              <option>------------------------</option>
+              <option *ngFor="let curso of cursos" value={{curso.id}}>{{curso.curso}} - {{curso.division}} - {{curso.especialidad}} - {{curso.modalidad}} </option>
+            </select>
+          </div>
+    </div>
+    <div class="form-row justify-content-center">
+      <div class="form-group col-md-4" >
+        <label for="profesor1">Profesor 1</label>
+        <input type="text" class="form-control" id="profesor1" name="profesor1" #profesor1="ngModel" [(ngModel)]="prof1">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="profesor2">Profesor 2</label>
+        <input type="text" class="form-control" id="profesor2" name="profesor2" #profesor2="ngModel" [(ngModel)]="prof2">
+      </div>
+    </div>
+    
+    <div class="form-row justify-content-center">
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </div>
+  </form>

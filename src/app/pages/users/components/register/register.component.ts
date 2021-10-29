@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { User } from '../../Models/user';
 import { UsersService } from '../../services/users.service';
 import { Router} from '@angular/router';
+import { CompartidosService } from '../../../../shared/services/compartidos.service';
 
 
 
@@ -34,6 +35,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private _userService: UsersService,
     private _router: Router,
+    private _compartidosService:CompartidosService
   ) {
     this.validar=false; 
     this.buscando=false;
@@ -120,41 +122,18 @@ export class RegisterComponent implements OnInit {
 
   onSubmit1(){
     this.usuario.dni=this.dni_dni.dni;
+  //  this.usuario.name=this.capitalizar(this.usuario.name);
+    this.usuario.name=this._compartidosService.capitalizar(this.usuario.name);
 
-    this.usuario.name=this.capitalizar(this.usuario.name);
-    this.usuario.surname=this.capitalizar(this.usuario.surname);
-    this.usuario.email=this.todoMinuscula(this.usuario.email);
+    this.usuario.surname=this._compartidosService.capitalizar(this.usuario.name);
+ //  this.usuario.surname=this.capitalizar(this.usuario.surname);
 
+   // this.usuario.email=this.todoMinuscula(this.usuario.email);
+    this.usuario.email=this._compartidosService.todoMinuscula(this.usuario.email);
     this.registrarUsuario();
   //  console.log(this.usuario);
   }
 
-  capitalizar(string:string) {
-    console.log('Capitalizar');
-
-    let corte=string.indexOf(' ');
-
-    if(corte!=-1){
-      let nombre1=string.slice(0,corte);
-      let nombre2=string.slice(corte+1,string.length);
-      let capital1=nombre1.charAt(0).toUpperCase();
-      let resto1=nombre1.slice(1).toLocaleLowerCase();
-      let capital2=nombre2.charAt(0).toUpperCase();
-      let resto2=nombre2.slice(1).toLocaleLowerCase();
-      let name=capital1+resto1+' '+capital2+resto2;
-      return name;
-    }else{
-      let capital=string.charAt(0).toUpperCase();
-      let resto=string.slice(1).toLocaleLowerCase();
-      let word = capital + resto;
-      return word
-    }
-  }
-
-  todoMinuscula(string:string){
-    string=string.toLocaleLowerCase();
-    return string;
-  }
   registrarUsuario(){
     this._userService.userRegister(this.usuario).subscribe(
       response=>{
@@ -184,8 +163,20 @@ export class RegisterComponent implements OnInit {
       },
       error=>{
         console.log(<any>error);
+        this.error(<any>error.error.message);
       });
   //  console.log(this.usuario); 
+  }
+
+
+  error(message:any){
+    Swal.fire({
+      icon: 'error',
+      title: 'Crear Usuario',
+      text:`Error al tratar de crear usuario ${message}`,
+      showConfirmButton: true
+    });
+
   }
 
 

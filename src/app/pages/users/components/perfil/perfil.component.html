@@ -1,0 +1,129 @@
+<div class="container mt-4 main">
+    <div class="row renglon">
+        <div class="col">
+            <h1>
+                Perfil
+            </h1>
+        </div>
+    </div>
+    <p style="margin-bottom: 80px">Si modifica algún campo, al guardar los cambios deberá iniciar sesión nuevamente</p>
+
+    <div class="row renglon" style="margin-bottom: 30px;">
+        <div class="col">
+            <h3 style="margin-bottom: 30px;">
+                Datos Personales
+            </h3>
+        </div>
+    </div>
+    <form #editarPerfil="ngForm" (ngSubmit)="onSubmit(editarPerfil)">
+
+        
+        <div class="row renglon">
+                    <div class="col">
+                        <h4>
+                            Nombres 
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col renglon2">
+                        <input type="text" class="input" [ngClass]="{'editable':editarNombre}" id="name" name="name" #name="ngModel" [(ngModel)]="nombre" [disabled]="!editarNombre" autocomplete="off" (keyup)="esNameValido(nombre)" required>
+                        <p *ngIf="editarNombre && !nameValido" class="noValido" style="font-size: 10px;">{{errorName}}</p>
+
+                    </div>
+                    <div class="col-2 text-right">
+                        <fa-icon [icon]="edit" style="cursor:pointer" [ngClass]="{'btn-editando':editarNombre}" (click)="editarName()"></fa-icon>
+                    </div>
+                </div>
+                <div class="row renglon">
+                    <div class="col">
+                        <h4>
+                            Apellido 
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col renglon2">
+                        <input type="text" class="input" [ngClass]="{'editable':editarApellido}" id="apellido" name="surname" #surname="ngModel" [(ngModel)]="apellido" [disabled]="!editarApellido" autocomplete="off" (keyup)="esSurnameValido(apellido)" required>
+                        <p *ngIf="editarApellido && !surnameValido" class="noValido" style="font-size: 10px;">{{errorSurname}}</p>
+                    </div>
+                    <div class="col-2 text-right">
+                        <fa-icon [icon]="edit" style="cursor:pointer" [ngClass]="{'btn-editando':editarApellido}"  (click)="editarSurname()"></fa-icon>
+                    </div>
+                </div>
+                
+                <div class="row renglon">
+                    <div class="col">
+                        <h4>
+                            Correo Electrónico 
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col renglon2">
+                    <input type="text" class="input" autocomplete="off" [ngClass]="{'editable':editarCorreo}"  [disabled]="!editarCorreo" id="correo" name="mail" #mail="ngModel" [(ngModel)]="email" (keyup)="esEmailValido(email)">
+                    <p *ngIf="editarCorreo && !mailValido" class="noValido" style="font-size: 10px;">{{errorEmail}}</p>
+   
+                </div>
+                <div class="col-2 text-right">
+                        <fa-icon [icon]="edit" style="cursor:pointer" [ngClass]="{'btn-editando':editarCorreo}" (click)="editarEmail()" ></fa-icon>
+                    </div>
+                </div>
+                
+                
+                <div class="row renglon">
+                    <div class="col">
+                        <h4>
+                            DNI
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col renglon2">
+                        <input type="text" class="input" autocomplete="off"   id="doc" name="doc" #doc="ngModel" [(ngModel)]="dni" disabled>
+                    </div>
+                    <div class="col text-right">
+                        <p>Para modificar el DNI contacte a un administrador</p>
+                    </div> 
+                </div>
+                
+                
+                <div class="row renglon">
+                    <div class="col">
+                        <h4>
+                            Contraseña 
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 renglon2">
+                        <a class="link" role="button" (click)="cambiarClave()">Cambiar Contraseña</a>
+                        <input type="password" class="form-control" *ngIf="cambiarPass" name="pass" #pass="ngModel" [(ngModel)]="password"  (keyup)="esPassValida(password)">
+                        <p *ngIf="cambiarPass && !passValido" class="noValido" style="font-size: 10px;">Mínimo ocho caracteres, al menos una letra y un número</p>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-4">
+                        <button class="btn btn-dark" type="button" (click)="descartarCambios()" >
+                            Descartar 
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <!-- <button 
+                        class="btn btn-guardar" 
+                        (click)="actualizarUsuario()" 
+                        [disabled]="!mailValido">
+                            Guardar
+                        </button> -->
+                        <button 
+                        type="submit" 
+                        class="btn btn-guardar" 
+                        [disabled]="!editando || (editando  && (!mailValido || !passValido || !nameValido))">
+                            Guardar
+                        </button>
+               
+               
+                    </div>
+                </div>
+            </form>
+</div>

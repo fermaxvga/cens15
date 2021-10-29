@@ -1,1 +1,39 @@
-<p>detail works!</p>
+<div class="contanier main mt-4" *ngIf="alumno">
+    <!-- <pre>
+        {{alumno | json}}
+    </pre>  -->
+    <h1>
+        Datos del Alumno
+    </h1>
+    <hr>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <label for="apellido"><b>Apellido</b></label>
+            <input type="text" name="apellido" id="apellido" class="form-control" #apellido="ngModel" [(ngModel)]="alumno.apellido" [disabled]="!editar">
+        </div>
+        <div class="col-md-4">
+            <label for="nombre"><b>Nombre</b></label>
+            <input type="text" name="nombre" id="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="alumno.nombre" [disabled]="!editar">
+        </div>
+        <div class="col-md-4">
+            <label for="dni"><b>DNI</b></label>
+            <input type="text" name="dni" id="dni" class="form-control" #dni="ngModel" [(ngModel)]="alumno.dni" [disabled]="!editar">
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <label for="fec_de_nac"><b>Fecha de nacimiento</b></label>
+            <input type="text" name="fec_de_nac" id="fec_de_nac" class="form-control" #fec_de_nac="ngModel" [(ngModel)]="alumno.fecha_de_nacimiento" [disabled]="!editar">
+        </div>
+        <div class="col-md-4">
+            <label for="loc_nac"><b>Localidad de Nacimiento</b></label>
+            <input type="text" name="loc_nac" id="loc_nac" class="form-control" #loc_nac="ngModel" [(ngModel)]="alumno.loc_nac" [disabled]="!editar">
+        </div>
+        <div class="col-md-4">
+            <label for="prov_nac"><b>Provincia de Nacimiento</b></label>
+            <input type="text" name="prov_nac" id="prov_nac" class="form-control" #prov_nac="ngModel" [(ngModel)]="alumno.prov_nac" [disabled]="!editar">
+        </div>
+    </div>
+    <button class="btn btn-lg btn-edit"  (click)="editEnable()"><fa-icon [icon]="edit"></fa-icon></button>
+
+</div>

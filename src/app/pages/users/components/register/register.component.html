@@ -7,7 +7,7 @@
              <div class="card-body">
                     <form action="" #validarDni="ngForm" (ngSubmit)="getDni()">
                         <div class="row justify-content-center">
-                            <div class="col-4">
+                            <div class="col-md-4">
                                <div class="row justify-content-center">
                                    <label for="dni">Ingrese su Numero de DNI</label>
                                </div>
@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="row justify-content-center mt-2">
-                            <div class="col-4">
+                            <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary btn-block" [disabled]="validar">Continuar</button>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                     </div>
                     <hr>
                     <div class="row justify-content-center mb-2">
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <label for="password" class="campo">Password</label>
                             <input type="password" class="form-control" id="password" aria-describedby="dniHelp" name="pass1" #pass1="ngModel" [(ngModel)]="password1" required (keyup)="esPassValida(password1)">
                         
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="row justify-content-center mb-2">
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <label for="repeatPassword" class="campo">Repita Password</label>
                             <input type="password" class="form-control" id="repeatPassword" name="pass2" #pass2="ngModel" [(ngModel)]="password2" aria-describedby="dniHelp" required [disabled]="!passValido" (keyup)="comparar()">
                             <small id="dniHelp" class="form-text  noValido"  *ngIf="!coincide && passValido">Las contraseñas no coinciden</small>
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <button type="submit" class="btn btn-primary btn-block" [disabled]="!usuario.name || !usuario.surname || !usuario.email || !coincide" >Registrarse</button>
                         </div>
                     </div>

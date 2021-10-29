@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { faUsers,faUserGraduate,faListAlt, faClipboard,faSitemap,faHandPaper,faInfoCircle} from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit,DoCheck } from '@angular/core';
+import { faUsers,faUserGraduate,faListAlt, faClipboard,faSitemap,faHandPaper,faInfoCircle,faUsersCog, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import { TemplateService } from '../../services/template.service';
 import { Subscription } from 'rxjs';
+import { UsersService } from '../../../pages/users/services/users.service';
+
 
 
 @Component({
@@ -9,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.css']
 })
-export class SideBarComponent implements OnInit {
+export class SideBarComponent implements OnInit,DoCheck {
   student=faUserGraduate;
   users=faUsers;
   lista=faListAlt;
@@ -17,16 +19,27 @@ export class SideBarComponent implements OnInit {
   opciones=faSitemap;
   presentismo=faHandPaper;
   info=faInfoCircle;
+  userIcon=faUsersCog; 
+  profile=faUserCircle;
+  identity:any;
+  token:any;
+  role: any;
+
 
   menu: boolean=true; 
   menuSubscription: Subscription | undefined; 
   pruebaSubscription: Subscription | undefined;
   activar:string='active'; 
   constructor(
-    public _templateService:TemplateService
-  ) { }
+    public _templateService:TemplateService,
+    private _userService: UsersService,
+  ) {
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+   }
 
   ngOnInit(): void {
+  
     this.activar=''; 
     this.menuSubscription= this._templateService.menu_obs.subscribe(
       response=>{
@@ -45,6 +58,11 @@ export class SideBarComponent implements OnInit {
         console.log(<any>error);
       }
     );
+  }
+
+  ngDoCheck(){
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
   }
 
 }

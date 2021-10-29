@@ -1,0 +1,9 @@
+.badge-no-registrado{
+    background-color: rgba(245, 78, 56, 0.925); 
+    color: white;
+}
+
+.active{
+    background: rgb(194, 58, 58);
+    color: rgb(243, 237, 237);
+}

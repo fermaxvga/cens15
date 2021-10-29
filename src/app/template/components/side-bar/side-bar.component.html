@@ -1,6 +1,16 @@
-<div class="row">
+<div class="row" *ngIf="identity">
     <div class="barra-lateral" [ngClass]="activar">
         <nav class="menu d-flex d-sm-block justify-content-between flex-wrap align-items-center">
+            <div class="row w-100 item">
+                <div class="col ml-1">
+                    <a href="users/perfil">
+                        <span>Mi Perfil</span>
+                    </a>
+                </div>
+                <div class="col text-right">
+                      <fa-icon [icon]="profile"></fa-icon>
+                </div>
+            </div>
             <div class="row w-100 item">
                 <div class="col ml-1">
                     <a href="alumnos">
@@ -60,6 +70,16 @@
                 </div>
                 <div class="col text-right">
                     <fa-icon [icon]="info"></fa-icon>
+                </div>
+            </div>
+            <div class="row w-100 item" *ngIf="identity.role==1">
+                <div class="col ml-1">
+                    <a href="users/admin">
+                      <span>Usuarios</span>
+                    </a>
+                </div>
+                <div class="col text-right">
+                    <fa-icon [icon]="userIcon"></fa-icon>
                 </div>
             </div>
         </nav>

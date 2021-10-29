@@ -55,6 +55,19 @@ export class CursosService {
     return this._http.put(this.url+'cursos/update'+'/'+id,params,{headers: headers});
   }
 
+  getCurso(curso:any,division:any):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'cursos/consultar/'+curso+'/'+division, {headers: headers});
+  }
+
+  getCursoById(id:number):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'cursos/consultar/'+id, {headers: headers});
+  }
+  
+
+
+
 
 
 }

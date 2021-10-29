@@ -12,7 +12,7 @@
               </div>
         </div>
     </div>
-<div *ngIf="!alumnos">
+<div *ngIf="!listado">
     <app-spinner-master></app-spinner-master>
 </div>
 
@@ -40,29 +40,34 @@
                             <!-- <th> </th> -->
                         </tr>
                     </thead>
-                    <tr class="fila" *ngFor="let alumno of alumnos">
+                    <tr class="fila" *ngFor="let alumno of alumnos" [routerLink]="['/alumnos/detail/',alumno.id]">
                         <td>
-                            {{alumno.apellido}}
+                            {{alumno?.apellido}}
                         </td>
                         <td>
-                            {{alumno.nombre}}
+                            {{alumno?.nombre}}
                         </td>
                         <td>
-                            {{alumno.dni}}
+                            {{alumno?.dni}}
                         </td>
                         <td>
-                            {{alumno.curso.curso}}-{{alumno.curso.division}}
+                            {{alumno?.curso.curso}}-{{alumno?.curso.division}}
                         </td>
                         <td>
-                            {{alumno.curso.especialidad}}
+                            {{alumno?.curso.especialidad}}
                         </td>
                         <td>
-                            {{alumno.inscripcion}}
+                            {{alumno?.inscripcion}}
                         </td>
                       
                     </tr>
                 </table>
 
+                <div class="row justify-content-center">
+                       <p class="text-center">
+                           {{mensaje}}
+                       </p> 
+                </div>
         </div>
         <!-- <div class="text-center ">
             <pagination-controls (pageChange)="pActual=$event "></pagination-controls>

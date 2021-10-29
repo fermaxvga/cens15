@@ -1,4 +1,7 @@
-<div class="container">
+<div *ngIf="logueando">
+  <app-spinner-master></app-spinner-master>
+</div>
+<div class="container" *ngIf="!logueando">
   <div class="row justify-content-center">
     <div class="card card-login">
       <div class="card-header text-center">

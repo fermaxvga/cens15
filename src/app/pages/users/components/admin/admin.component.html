@@ -1,0 +1,105 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h1 class="text-center">Adminsitración de Usuarios</h1>
+        </div>
+    </div>
+
+    <div class="row justify-content-end">
+      <div class="col-2 text-right">
+        <button class="btn btn-info align-self-end" data-toggle="modal" data-target="#precargar">Pre-Cargar</button>
+      </div>
+      <div class="col-2 text-right">
+        <button class="btn btn-secondary align-self-end" data-toggle="modal" data-target="#listarPrecargados">Ver Pre-Cargados</button>
+      </div>
+    </div>
+ 
+
+    <table class="table mt-4" style="background: white;">
+        <thead>
+          <tr>
+            <th scope="col">Apellido</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Descripción</th>
+            <th colspan="2">
+                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#agregarCurso">
+                    <fa-icon [icon]="userPlus"></fa-icon>             
+                </button>
+            </th>
+           
+          </tr>
+        </thead>
+        <div *ngIf="!usuarios">
+          <app-spinner-master></app-spinner-master>
+        </div>
+        <tbody *ngIf="usuarios">
+          <tr *ngFor="let usuario of usuarios">
+            <th>{{usuario.surname}}</th>
+            <td>{{usuario.name}}</td>
+            <td>{{usuario.email}}</td>
+            <td>
+              {{usuario.role?.role}}
+            </td>
+            <td>
+              {{usuario.role?.description}}
+            </td>
+            
+            <td>
+                <button class="btn btn-warning" [routerLink]="['/users/edit',usuario.id]">
+                <fa-icon [icon]="edit" ></fa-icon>
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-danger">
+                <fa-icon [icon]="trash"></fa-icon>
+                </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+</div>
+
+<div class="modal fade" id="precargar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pre-cargar Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-pre-cargar></app-pre-cargar>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="listarPrecargados" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Precargados</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-listar-pre-cargados></app-listar-pre-cargados>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

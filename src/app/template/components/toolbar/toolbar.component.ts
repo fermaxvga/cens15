@@ -92,7 +92,6 @@ export class ToolbarComponent implements OnInit, DoCheck {
 		this.identity = null;
 		this.token = null;
     this._templateService.menu_obs.emit(false);
-
 	}
 
 }

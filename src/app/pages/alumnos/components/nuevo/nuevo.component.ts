@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Alumno } from '../../models/Alumno';
 import { AlumnosService } from '../../services/alumnos.service';
 import { FormGroup, FormControl,FormBuilder,Validators } from '@angular/forms';
+import { CursosService } from '../../../cursos/services/cursos.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-nuevo',
@@ -9,6 +13,8 @@ import { FormGroup, FormControl,FormBuilder,Validators } from '@angular/forms';
   styleUrls: ['./nuevo.component.css']
 })
 export class NuevoComponent implements OnInit {
+  cursos:any; 
+  id_curso:any;
 
   private isEmail:string='^[a-zA-Z0-9.%+-]+@[a-z0-9•-]+.[a-z]{2,4}$';
 
@@ -29,15 +35,19 @@ export class NuevoComponent implements OnInit {
     fot_dni: false ,
     cert_estudio: false ,
     pase: false ,
-    cuil: false 
+    cuil: false,
+    curso:0
   });
   
   constructor(
     private _alumnoService: AlumnosService,
-    private fb:FormBuilder
+    private _cursoService: CursosService,
+    private fb:FormBuilder,
+    private _router:Router
   ) { }
 
   ngOnInit(): void {
+    this.getCursos();
   }
 
   isValidField(name:string):boolean{
@@ -48,7 +58,6 @@ export class NuevoComponent implements OnInit {
 
   ingresarAlumno(newAlumno:any){
     console.log(newAlumno);
-
   }
 
   onSubmit():void{
@@ -57,8 +66,23 @@ export class NuevoComponent implements OnInit {
       (response:any)=>{
                 if(response.status=='success'){
                   console.log(response);
-                }else{
+                  Swal.fire({
+                    title: 'Inscripción',
+                    text: 'Alumno Inscripto',
+                    icon: 'success',
+                    showConfirmButton:false,
+                    timer:1500
+                });
+                this._router.navigate(['alumnos/listado']);
+              }else{
                   console.log(response.message);
+                  Swal.fire({
+                    title: 'Inscripción',
+                    text: `${response.message}`,
+                    icon: 'error',
+                    showConfirmButton:false,
+                    timer:1500
+                });
                 }
       },
       error=>{
@@ -86,7 +110,8 @@ export class NuevoComponent implements OnInit {
       fot_dni: true,
       cert_estudio: true ,
       pase: false ,
-      cuil: false
+      cuil: false,
+      curso:1
       }; 
       this.alumnForm.setValue(defAlum);
   }
@@ -100,6 +125,27 @@ export class NuevoComponent implements OnInit {
   }
   onReset():void{
     this.alumnForm.reset();
+  }
+
+  getCursos(){
+    this._cursoService.getCursos().subscribe(
+      response=>{
+        console.log(response);
+        this.cursos=response.cursos;
+        for (let i = 0; i < this.cursos.length; i++) {
+          if(this.cursos[i].semipresencial==1){
+            this.cursos[i].semipresencial='Semipresencial';
+          }
+          if(this.cursos[i].semipresencial==0){
+            this.cursos[i].semipresencial=' ';
+        }
+ 
+      }
+    },
+      error=>{
+        console.log(<any>error);
+      }
+    );
   }
 
 }

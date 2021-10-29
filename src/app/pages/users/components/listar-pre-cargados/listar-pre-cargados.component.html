@@ -1,0 +1,55 @@
+<div class="contanier mt-4">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-6">
+            <h1 class="text-center">Precargados</h1>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <div role="group" class="btn-group" aria-label="Basic example">
+            <button type="button" class="btn"  [ngClass]="{'btn-dark':todos, 'btn-outline-dark':!todos}" (click)="filtrar('todos')">Todos |</button>
+            <button type="button" class="btn" [ngClass]="{'btn-dark':noRegistrados, 'btn-outline-dark':!noRegistrados}" (click)="filtrar('noRegistrados')">No Registrados |</button>
+            <button type="button" class="btn"  [ngClass]="{'btn-dark':registrados, 'btn-outline-dark':!registrados}" (click)="filtrar('registrados')">Registrados</button>
+        </div>
+    </div>
+
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <table class="table mt-4 text-center" style="background: rgba(216, 214, 200, 0.589);" *ngIf="precargados">
+                <thead>
+            <tr>
+                <th scope="col">DNI</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+    
+            </tr>
+        </thead>
+        <tbody>
+                <tr *ngFor="let precargado of precargados">
+                    <td>
+                        {{precargado.dni}}
+                    </td>
+                    <td *ngIf="precargado.status==1">
+                        <span class="badge badge-primary">
+                            Registrado
+                        </span>
+                    </td>
+                    <td *ngIf="precargado.status==0">
+                        <span class="badge badge-no-registrado">
+                            No registrado
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" (click)="eliminarPre(precargado)" *ngIf="precargado.status==0">
+                        <fa-icon [icon]="trash"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
