@@ -116,6 +116,7 @@ export class CursosAdminComponent implements OnInit {
             resolve(response.cursos)
           }else{
             console.log(response.message);
+            this.cursos=true;
           }
         },
         error=>{
@@ -233,15 +234,35 @@ export class CursosAdminComponent implements OnInit {
       title: '¿Eliminar Curso?',
       text: `¿Está segur que desea eliminar el curso ${curso.curso} ${curso.division}`,
       showDenyButton: true,
-      confirmButtonText: 'Cancelar',
-      denyButtonText: `Eliminar`,
+      confirmButtonText: 'Eliminar',
+      confirmButtonColor:'Red',
+      denyButtonText: `Cancelar`,
+      denyButtonColor:'blue',
       reverseButtons:true
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isDenied) {
-        Swal.fire('Curso Eliminado!', '', 'success')
-      } 
- 
+      if(result.isConfirmed){
+        this._cursoService.deleteCurso(curso.id).subscribe(
+          response=>{
+            console.log(response);
+            if(response.status=='success'){
+              Swal.fire('Curso Eliminado!', '', 'success');
+              this.traerCursos();
+
+
+            }else{
+              Swal.fire('No se pudo eliminar el curso!', '', 'error');
+              this.traerCursos();
+                
+            }
+          },
+          error=>{
+            console.log(<any>error);
+            Swal.fire('No se pudo eliminar el curso!', '', 'error')
+
+          }
+          );
+         
+      }
     })
   }
 

@@ -4,12 +4,43 @@
     margin-top: 120px;
 }
 
-.btn-edit{
+.btn-circle{
     position: fixed; right: 5%;
     border-radius: 50%;
+    color: white;
+    z-index: 1
+}
+
+.btn-edit{
     background: rgb(226, 77, 40);
 }
 
 .btn-edit:hover{
     background: rgb(233, 129, 11);
 }
+
+.btn-historico{
+    background: rgb(40, 52, 226);
+    margin-top: 70px;
+}
+
+.btn-historico:hover{
+    background: rgb(11, 170, 233);
+}
+
+.btn-reinscripcion{
+    background: rgb(143, 3, 3);
+    margin-top: 140px;
+}
+
+.btn-reinscripcion:hover{
+    background: rgb(247, 10, 10);
+}
+
+.btn-notas{
+    background: rgb(8, 8, 8);
+    margin-top: 210px;
+}
+
+
+

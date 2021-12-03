@@ -32,4 +32,15 @@ export class CompartidosService {
     string=string.toLocaleLowerCase();
     return string;
   }
+
+  formatearFecha(fecha:string){
+    //a partir de un dato del tipo datetime , como created_at o updated_at, devuelve un arreglo, separando año, día, mes hora y minutos.
+    let year=fecha.substring(0,4);
+    let month=fecha.substring(5,7);
+    let day=fecha.substring(8,10);
+    let hour=fecha.substring(11,13);
+    let minutes=fecha.substring(14,16);
+    let date={year,month,day,hour,minutes}; 
+    return date; 
+  }
 }

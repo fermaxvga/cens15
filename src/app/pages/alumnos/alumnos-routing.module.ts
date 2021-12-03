@@ -5,6 +5,7 @@ import { AbmComponent } from './components/abm/abm.component';
 import { DetailComponent } from './components/detail/detail.component';
 import { HomeComponent } from './components/home/home.component';
 import { NuevoComponent } from './components/nuevo/nuevo.component';
+import { NotasComponent } from './components/notas/notas.component';
 
 const routes: Routes = [
     {
@@ -15,7 +16,7 @@ const routes: Routes = [
       {path:'detail/:id',component:DetailComponent},
       {path:'home',component:HomeComponent},
       {path:'nuevo',component:NuevoComponent},
-
+      {path:'notas/:id',component:NotasComponent},
       {path:'**',redirectTo :'home'},
 
 

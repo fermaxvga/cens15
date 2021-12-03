@@ -10,6 +10,8 @@ import { ListadoComponent } from './components/listado/listado.component';
 import { HomeComponent } from './components/home/home.component';
 import { BotoneraAlumnosComponent } from './components/botonera-alumnos/botonera-alumnos.component';
 import { NuevoComponent } from './components/nuevo/nuevo.component';
+import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
+import { NotasComponent } from './components/notas/notas.component';
 
 
 
@@ -19,7 +21,7 @@ import { NuevoComponent } from './components/nuevo/nuevo.component';
     ListadoComponent, 
     HomeComponent, 
     BotoneraAlumnosComponent, 
-    NuevoComponent],
+    NuevoComponent, InscripcionesComponent, NotasComponent],
   imports: [
     CommonModule,
     AlumnosRoutingModule,

@@ -8,20 +8,22 @@
         </div>
     </div>
     <hr>
+<!--
 
-    <!-- <pre>
-      Dirty: 
+  <pre>
+    Dirty: 
       {{alumnForm.dirty}}
     </pre>
     
     <pre>
       Touched: 
       {{alumnForm.touched}}
-    </pre> -->
+    </pre>
     {{isValidField('nombre')}}
+  -->
     <form [formGroup]="alumnForm" (ngSubmit)="onSubmit()">
         <div class="form-row justify-content-between">
-          <div class="col-5">
+          <div class="col-md-5">
             <label for="name"><b>Nombre/s</b></label>
             <input 
             id="name"
@@ -42,7 +44,7 @@
                   </span>
             </div>
           </div>
-          <div class="col-5">
+          <div class="col-md-5">
             <label for="surname"><b>Apellido/s</b></label>
             <input 
             id="surname" 
@@ -67,7 +69,7 @@
         </div>
         <br>
         <div class="form-row justify-content-between">
-          <div class="col-5">
+          <div class="col-md-5">
               <label for="doc"><b>DNI</b></label>
               <input 
               id="doc" 
@@ -96,7 +98,7 @@
               Ingresar solo números
             </span>
           </div>
-          <div class="col-5">
+          <div class="col-md-5">
             <label for="nacimiento"><b>Fecha de Nacimiento</b></label>
             <input 
             id="nacimiento" 
@@ -113,7 +115,7 @@
         <br>
         <hr>
         <div class="form-row justify-content-center">
-          <div class="col-8">
+          <div class="col-md-8">
             <label for="direccion"><b>Domicilio</b></label>
             <input 
             id="direccion" 
@@ -137,7 +139,7 @@
         </div>  
         <hr>
         <div class="form-row justify-content-center">
-          <div class="col-4">
+          <div class="col-md-4">
             <label for="locNac"><b>Localidad</b></label>
             <input 
             id="locNac" 
@@ -151,7 +153,7 @@
             }"
             >
           </div>
-          <div class="col-4">
+          <div class="col-md-4">
             <label for="provNac"><b>Provincia</b></label>
             <input 
             id="provNac" 
@@ -165,7 +167,7 @@
             }"
             >
           </div>
-          <div class="col-4">
+          <div class="col-md-4">
             <label for="paisNac"><b>País de Nacimiento</b></label>
             <input 
             id="paisNac" 
@@ -189,7 +191,7 @@
         </div>
         <hr>
         <div class="form-row justify-content-between">
-          <div class="col-6">
+          <div class="col-md-6">
             <label for="telAlum"><b>Teléfono del Alumno</b></label>
             <input 
             id="telAlum" 
@@ -204,7 +206,7 @@
             >
           </div>
   
-          <div class="col-6">
+          <div class="col-md-6">
             <label for="e-mail"><b>Correo electrónico</b></label>
             <input 
             id="e-mail" 
@@ -228,7 +230,7 @@
         </div>
         <br>
         <div class="form-row justify-content-between">
-          <div class="col-6">
+          <div class="col-md-6">
             <label for="tutor"><b>Padre/Madre o Tutor</b></label>
             <input 
             id="tutor" 
@@ -237,10 +239,9 @@
             placeholder="Persona que pueda responder por el alumno" 
             formControlName="nombre_tutor" 
             required
-            
             >
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <label for="telTutor"><b>Tel. Padre/Madre o Tutor</b></label>
             <input 
             id="telTutor" 
@@ -309,10 +310,25 @@
         <hr>
         <br>
         <div class="row justify-content-center mt-2 mb-2">
-          <div class="col-6">
+          <div class="col-md-6">
             <select id="curso"  name="curso" class="form-control"  formControlName="curso" >
               <option></option>
               <option *ngFor="let curso of cursos" value="{{curso.id}}">{{curso.curso}} - {{curso.division}} - {{curso.especialidad}} - {{curso.modalidad}} - {{curso.semipresencial}} </option>
+            </select>
+          </div>
+        </div>
+        <hr>
+        <div class="row justify-content-center mt-2 mb-2">
+          <div class="col" style="font-size: 22px;">
+            Año de inscripción 
+          </div> 
+        </div>
+        <hr>
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <select id="inscr"  name="inscr" class="form-control"  formControlName="inscripcion" >
+              <option></option>
+              <option *ngFor="let anio of years">{{anio}} </option>
             </select>
           </div>
         </div>
@@ -327,12 +343,12 @@
   <div class="col-2">
     <button class="btn btn-info" (click)="onSetDefault()">Default</button>
   </div>
-  <div class="col-2">
+  <!-- <div class="col-2">
     <button class="btn btn-info" (click)="onPatchValue()">Patch</button>
   </div>
   <div class="col-2">
     <button class="btn btn-info" (click)="onSetValue()">Set</button>
-  </div>
+  </div> -->
 </div>
 <hr>
 <div class="row justify-content-center">
@@ -340,6 +356,7 @@
     <button class="btn btn-warning" (click)="onReset()">Reset</button>
   </div>
 </div>
+
 <!-- <pre>
   Value:
   {{alumnForm.value | json }}
@@ -351,3 +368,5 @@
 
 
 <br><br><br><br>
+
+

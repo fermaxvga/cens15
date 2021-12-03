@@ -23,7 +23,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="listado">
         <div class="col-10">
                 <table class="table my-list mt-5" id="cars-list">
                     <thead class="thead" id="thead">
@@ -34,8 +34,6 @@
                             <th> CURSO </th>
                             <th> ORIENTACION </th>
                             <th> Última Inscripción </th>
-
-
                    
                             <!-- <th> </th> -->
                         </tr>
@@ -51,14 +49,14 @@
                             {{alumno?.dni}}
                         </td>
                         <td>
-                            {{alumno?.curso.curso}}-{{alumno?.curso.division}}
+                            {{alumno?.curso?.curso}}-{{alumno?.curso?.division}}
                         </td>
                         <td>
-                            {{alumno?.curso.especialidad}}
+                            {{alumno?.curso?.especialidad}}
                         </td>
                         <td>
                             {{alumno?.inscripcion}}
-                        </td>
+                        </td> 
                       
                     </tr>
                 </table>

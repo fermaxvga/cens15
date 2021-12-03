@@ -86,6 +86,7 @@ export class LoginComponent implements OnInit {
           }else{
             console.log('Login Error');
             this.error('Email y/o contraseña erroneos');
+            this.logueando=!this.logueando; 
           }
                   
          //obtener objeto de usuario identificado

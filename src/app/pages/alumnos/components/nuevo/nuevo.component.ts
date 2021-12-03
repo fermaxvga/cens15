@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class NuevoComponent implements OnInit {
   cursos:any; 
   id_curso:any;
+  years:any; 
 
   private isEmail:string='^[a-zA-Z0-9.%+-]+@[a-z0-9•-]+.[a-z]{2,4}$';
 
@@ -36,7 +37,8 @@ export class NuevoComponent implements OnInit {
     cert_estudio: false ,
     pase: false ,
     cuil: false,
-    curso:0
+    curso:0,
+    inscripcion:0
   });
   
   constructor(
@@ -48,7 +50,27 @@ export class NuevoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCursos();
+    this.yearGenerations(); 
   }
+  yearGenerations(){
+    this.years=[];
+    let year=2000;
+    let yearLimit=2100;
+    let i=0;
+    while(year<2100){
+      console.log(year);
+      this.years[i]=year; 
+      i++;
+      year++; 
+    } 
+
+    // for (let i = 2000; i < 2100; i++) {
+    //   this.years[i]=i;
+      
+    // }
+  }
+
+
 
   isValidField(name:string):boolean{
     const fieldName:any=this.alumnForm.get(name);
@@ -84,6 +106,7 @@ export class NuevoComponent implements OnInit {
                     timer:1500
                 });
                 }
+                
       },
       error=>{
         console.log(<any>error);
@@ -111,7 +134,8 @@ export class NuevoComponent implements OnInit {
       cert_estudio: true ,
       pase: false ,
       cuil: false,
-      curso:1
+      curso:8,
+      inscripcion:2021
       }; 
       this.alumnForm.setValue(defAlum);
   }

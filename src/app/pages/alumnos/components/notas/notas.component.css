@@ -1,0 +1,33 @@
+.main{
+    margin-left: 100px;
+}
+
+.table-notas{
+margin-bottom: 100px;
+font-size: 14px;
+}
+
+.header-curso{
+    width: 250px;
+}
+.calificacion{
+    width: 80px;
+    text-align: center;
+}
+
+.btn-edit{
+    /* position: fixed;  */
+    right: 5%;
+    /* border-radius: 50%; */
+    color: white;
+    z-index: 1;
+    max-width: 30px;
+    max-height: 30px;
+    cursor: pointer;
+}
+
+.btn-edit:hover{
+    color: rgb(63, 61, 61);
+}
+
+

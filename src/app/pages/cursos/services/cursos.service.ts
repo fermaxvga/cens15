@@ -60,11 +60,20 @@ export class CursosService {
     return this._http.get(this.url+'cursos/consultar/'+curso+'/'+division, {headers: headers});
   }
 
-  getCursoById(id:number):Observable<any>{
+  getCursoById(id:number|undefined):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.get(this.url+'cursos/consultar/'+id, {headers: headers});
   }
   
+  deleteCurso(id:number):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.delete(this.url+'cursos/delete/'+id, {headers: headers});
+  }
+
+  getCursoPorMateria(id_curso:number|undefined):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'cursos/materias-curso/'+id_curso, {headers: headers});
+  }
 
 
 

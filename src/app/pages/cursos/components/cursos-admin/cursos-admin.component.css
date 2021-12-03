@@ -14,3 +14,11 @@
     height: 200px;
 }
 
+.renglon-curso{
+    cursor: pointer;
+}
+
+.renglon-curso:hover{
+    background: gray;
+}
+

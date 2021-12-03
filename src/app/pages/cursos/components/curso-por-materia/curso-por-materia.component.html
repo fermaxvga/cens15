@@ -1,0 +1,28 @@
+<div class="container mt-4 main">
+    <div class="row justify-content-center renglon">
+        <div class="col-8" *ngIf="curso">
+            <h1>
+                {{curso.curso}} {{curso.division}} - {{curso.especialidad}} {{curso.modalidad}}
+            </h1>
+        </div>
+    </div>
+<div class="row justify-content-center mt-4">
+    <table class="col-8 table">
+        <thead>
+            <tr>
+              <th scope="col">Materia</th>
+              <th scope="col">Profesor 1 </th>
+              <th scope="col">Profesor 2 </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let materia of materias">
+                <td>{{materia.materia}}</td>
+                <td>{{materia.profesor1}}</td>
+                <td>{{materia.profesor2}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>

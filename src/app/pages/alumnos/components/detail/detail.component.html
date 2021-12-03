@@ -1,39 +1,229 @@
 <div class="contanier main mt-4" *ngIf="alumno">
     <!-- <pre>
         {{alumno | json}}
-    </pre>  -->
-    <h1>
-        Datos del Alumno
-    </h1>
+    </pre> -->
+    <div class="row">
+        <div class="col">
+            <h1>
+                Datos del Alumno
+            </h1>
+        </div>
+ 
+    </div>
     <hr>
+
+    <div class="row">
+        <button class="btn btn-circle btn-lg btn-edit" (click)="editEnable()" data-toggle="tooltip" data-placement="Modificar Datos" title="Modificar Datos">
+            
+            <fa-icon [icon]="edit"></fa-icon>
+        </button>
+    </div>
+    <div class="row">
+        <button class="btn btn-circle btn-lg btn-historico" data-toggle="modal" data-target="#historialModal"  data-placement="Modificar Datos" title="Historial de Inscripciones">
+            <fa-icon [icon]="book"></fa-icon>
+        </button>
+    </div>
+    <div class="row">
+        <button class="btn btn-circle btn-lg btn-reinscripcion" data-toggle="modal" data-target="#reinscribirModal" (click)="editEnable()" title="Reinscribir">
+            <fa-icon [icon]="reInscribir"></fa-icon>
+        </button>
+    </div>
+    <div class="row">
+        <button class="btn btn-circle btn-lg btn-notas" (click)="verNotas()" title="Notas">
+            <fa-icon [icon]="notas"></fa-icon>
+        </button>
+    </div>
+    
+
     <div class="row mt-4">
         <div class="col-md-4">
             <label for="apellido"><b>Apellido</b></label>
-            <input type="text" name="apellido" id="apellido" class="form-control" #apellido="ngModel" [(ngModel)]="alumno.apellido" [disabled]="!editar">
+            <input type="text" name="apellido" id="apellido" class="form-control" #apellido="ngModel"
+                [(ngModel)]="alumno.apellido" [disabled]="!editar">
         </div>
         <div class="col-md-4">
             <label for="nombre"><b>Nombre</b></label>
-            <input type="text" name="nombre" id="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="alumno.nombre" [disabled]="!editar">
+            <input type="text" name="nombre" id="nombre" class="form-control" #nombre="ngModel"
+                [(ngModel)]="alumno.nombre" [disabled]="!editar">
         </div>
         <div class="col-md-4">
             <label for="dni"><b>DNI</b></label>
-            <input type="text" name="dni" id="dni" class="form-control" #dni="ngModel" [(ngModel)]="alumno.dni" [disabled]="!editar">
+            <input type="text" name="dni" id="dni" class="form-control" #dni="ngModel" [(ngModel)]="alumno.dni"
+                [disabled]="!editar">
         </div>
+        
     </div>
     <div class="row mt-4">
         <div class="col-md-4">
             <label for="fec_de_nac"><b>Fecha de nacimiento</b></label>
-            <input type="text" name="fec_de_nac" id="fec_de_nac" class="form-control" #fec_de_nac="ngModel" [(ngModel)]="alumno.fecha_de_nacimiento" [disabled]="!editar">
+            <input type="date" name="fec_de_nac" id="fec_de_nac" class="form-control" #fec_de_nac="ngModel"
+                [(ngModel)]="alumno.fecha_de_nacimiento" [disabled]="!editar">
         </div>
-        <div class="col-md-4">
-            <label for="loc_nac"><b>Localidad de Nacimiento</b></label>
-            <input type="text" name="loc_nac" id="loc_nac" class="form-control" #loc_nac="ngModel" [(ngModel)]="alumno.loc_nac" [disabled]="!editar">
-        </div>
-        <div class="col-md-4">
-            <label for="prov_nac"><b>Provincia de Nacimiento</b></label>
-            <input type="text" name="prov_nac" id="prov_nac" class="form-control" #prov_nac="ngModel" [(ngModel)]="alumno.prov_nac" [disabled]="!editar">
+        <div class="col-md-8">
+            <label for="domicilio"><b>Domicilio</b></label>
+            <input type="text" name="domicilio" id="domicilio" class="form-control" #domicilio="ngModel"
+                [(ngModel)]="alumno.domicilio" [disabled]="!editar">
         </div>
     </div>
-    <button class="btn btn-lg btn-edit"  (click)="editEnable()"><fa-icon [icon]="edit"></fa-icon></button>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <label for="loc_nac"><b>Localidad de Nacimiento</b></label>
+            <input type="text" name="loc_nac" id="loc_nac" class="form-control" #loc_nac="ngModel"
+                [(ngModel)]="alumno.loc_nac" [disabled]="!editar">
+        </div>
+        <div class="col-md-4">
+            <label for="pais_nac"><b>País de Nacimiento</b></label>
+            <input type="text" name="pais_nac" id="pais_nac" class="form-control" #loc_nac="ngModel"
+                [(ngModel)]="alumno.pais_nac" [disabled]="!editar">
+        </div>
+
+        <div class="col-md-4">
+            <label for="prov_nac"><b>Provincia de Nacimiento</b></label>
+            <input type="text" name="prov_nac" id="prov_nac" class="form-control" #prov_nac="ngModel"
+                [(ngModel)]="alumno.prov_nac" [disabled]="!editar">
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <label for="tel_alumno"><b>Teléfono del Alumno</b></label>
+            <input type="text" name="tel_alumno" id="tel_alumno" class="form-control" #loc_nac="ngModel"
+                [(ngModel)]="alumno.tel_alumno" [disabled]="!editar">
+        </div>
+        <div class="col-md-4">
+            <label for="email"><b>Email</b></label>
+            <input type="email" name="email" id="email" class="form-control" #loc_nac="ngModel"
+                [(ngModel)]="alumno.email" [disabled]="!editar">
+        </div>
+
+        <div class="col-md-4">
+            <label for="nombre_tutor"><b>Nombre Tutor</b></label>
+            <input type="text" name="nombre_tutor" id="nombre_tutor" class="form-control" #prov_nac="ngModel"
+                [(ngModel)]="alumno.nombre_tutor" [disabled]="!editar">
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <label for="tel_tutor"><b>Teléfono del Tutor</b></label>
+            <input type="text" name="tel_tutor" id="tel_tutor" class="form-control" #tel_tutor="ngModel"
+                [(ngModel)]="alumno.tel_tutor" [disabled]="!editar">
+        </div>
+        <div class="col-md-8">
+            <div class="contanier ml-2 mt-2">
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <input type="checkbox" name="cert_estudio" id="cert_estudio" class="form-check-input"
+                            #cert_estudio="ngModel" [(ngModel)]="alumno.cert_estudio" [disabled]="!editar">
+                        <label for="cert_estudio"><b>Certificado de Estudio</b></label>
+                    </div>
+                    <div class="col">
+                        <input type="checkbox" name="cuil" id="cuil" class="form-check-input" #cert_estudio="ngModel"
+                            [(ngModel)]="alumno.cuil" [disabled]="!editar">
+                        <label for="cuil"><b>CUIL</b></label>
+                    </div>
+
+                    <div class="col">
+                        <input type="checkbox" name="pase" id="pase" class="form-check-input" #pase="ngModel"
+                            [(ngModel)]="alumno.pase" [disabled]="!editar">
+                        <label for="pase"><b>Pase</b></label>
+                    </div>
+                    <div class="col">
+                        <input type="checkbox" name="fot_dni" id="fot_dni" class="form-check-input"
+                            #cert_estudio="ngModel" [(ngModel)]="alumno.fot_dni" [disabled]="!editar">
+                        <label for="fot_dni"><b>Fotocopia DNI</b></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6 mt-4">
+            <button class="btn btn-block btn-primary" [disabled]="!editar" >Guardar Cambios</button>
+        </div>
+    </div>
 
 </div>
+
+<div class="modal fade" id="historialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row justify-content-center bg-dark text-white">
+                <h5 class="modal-title text-center" id="exampleModalLabel" *ngIf="alumno" >Historial de Inscripciones para: <b> {{alumno.nombre}} {{alumno.apellido}}</b></h5>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col">
+                    <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Curso</th>
+                                    <th>Año</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr *ngFor="let hist of historico" >
+                                        <td>
+                                            {{hist.curso}}
+                                        </td>
+                                        <td>
+                                            {{hist.anio}}
+                                        </td>
+                                    </tr>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="reinscribirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row justify-content-center bg-dark text-white">
+                <h5 class="modal-title text-center" id="exampleModalLabel" *ngIf="alumno" >Reinscribir - <b> {{alumno.nombre}} {{alumno.apellido}}</b></h5>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col">
+                    <h5>Seleccione curso</h5>
+                    <div class="row justify-content-center mt-2 mb-2">
+                        <div class="col-md-8">
+                          <select id="curso" class="form-control" name="curse" #curse="ngModel" [(ngModel)]="curso">
+                            <option></option>
+                            <option *ngFor="let curse of cursos" value="{{curse.id}}">{{curse.curso}} - {{curse.division}} - {{curse.especialidad}} - {{curse.modalidad}} - {{curse.semipresencial}} </option>
+                          </select>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <button type="button" class="btn btn-dark btn-block"  (click)="reinscribir(curso)" [disabled]="!curso">Reinscribir</button>
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
