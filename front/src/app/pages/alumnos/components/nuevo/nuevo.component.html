@@ -238,7 +238,6 @@
             class="form-control" 
             placeholder="Persona que pueda responder por el alumno" 
             formControlName="nombre_tutor" 
-            required
             >
           </div>
           <div class="col-md-6">
@@ -249,7 +248,6 @@
             class="form-control" 
             placeholder="Teléfono Fijo o Celular" 
             formControlName="tel_tutor" 
-            required
             >
           </div>
         </div>
@@ -334,15 +332,17 @@
         </div>
         <div class="row justify-content-end mt-2 mb-2">
           <div class="col-2">
-            <button type="submit" class="btn btn-primary" [disabled]="alumnForm.invalid">Continuar</button>
+            <!-- <button type="submit" class="btn btn-primary" [disabled]="alumnForm.invalid">Continuar</button> -->
+            <button type="submit" class="btn btn-primary">Continuar</button>
+
           </div>
         </div>
     </form>
 </div>
 <div class="row justify-content-start">
-  <div class="col-2">
+  <!-- <div class="col-2">
     <button class="btn btn-info" (click)="onSetDefault()">Default</button>
-  </div>
+  </div> -->
   <!-- <div class="col-2">
     <button class="btn btn-info" (click)="onPatchValue()">Patch</button>
   </div>
@@ -351,11 +351,11 @@
   </div> -->
 </div>
 <hr>
-<div class="row justify-content-center">
+<!-- <div class="row justify-content-center">
   <div class="col-2">
     <button class="btn btn-warning" (click)="onReset()">Reset</button>
   </div>
-</div>
+</div> -->
 
 <!-- <pre>
   Value:

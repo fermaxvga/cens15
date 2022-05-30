@@ -10,6 +10,7 @@ use App\CursoModalidad;
 use App\CursoNumero;
 use App\Materia;
 use App\Nota; 
+use App\Preceptor;
 
 class CursosController extends Controller
 {
@@ -144,22 +145,33 @@ class CursosController extends Controller
         header('Access-Control-Allow-Methods','*');
         $json=$request->input('json',null);
         $params=json_decode($json);
-        //Controlar si el curso no existe....
-        /*
-        Armar el arreglo para actualizar
-        $update->curso=$params->curso;
-        $update->division=$params->division;
-        $update->especialidad=$params->especialidad;
-        $update->modalidad=$params->modalidad;
-        $update->semipresencial=$params->semipresencial;
-        */
-        $curso=Curso::select('*')->where('id',$id)->update($update);
-
-       // dd($curso);
-        $data=array(
-            'curso'=>$curso,
-            'status'=>'success'
+        // $repetido=Curso::select('*')
+        //             ->where('curso',$params->curso)
+        //             ->where('division',$params->division)
+        //             ->get();
+        /* Armar el arreglo para actualizar*/
+        $update=array(
+            'curso'=>$params->curso,
+            'division'=>$params->division,
+            'especialidad'=>$params->especialidad,
+            'modalidad'=>$params->modalidad,
+            'semipresencial'=>$params->semipresencial
         );
+            // $update->curso=$params->curso;
+            // $update->division=$params->division;
+            // $update->especialidad=$params->especialidad;
+            // $update->modalidad=$params->modalidad;
+            // $update->semipresencial=$params->semipresencial;
+            
+           // dd($update);
+            $curso=Curso::select('*')->where('id',$id)->update($update);
+    
+           // dd($curso);
+            $data=array(
+                'curso'=>$curso,
+                'status'=>'success'
+            );
+  
         return response()->json($data,200);
     }
 
@@ -222,6 +234,63 @@ class CursosController extends Controller
             'materias'=>$materias,
             'status'=>'success'
         );
+        return response()->json($data,200);
+    }
+
+
+    public function asignarPreceptor(Request $request){
+        header('Access-Control-Allow-Origin','*');
+        header('Access-Control-Allow-Methods','*');
+        $json=$request->input('json',null);
+        $params=json_decode($json);
+      
+        $id_curso=$params->curso_id;
+        $preceptor=$params->preceptor;
+
+
+        $buscar_preceptor=Preceptor::select('*')->where('curso_id',$id_curso)->get();
+
+       // dd($preceptor);
+
+        if(count($buscar_preceptor)==0){
+
+           $add_preceptor=new Preceptor();
+           $add_preceptor->preceptor=$preceptor;
+           $add_preceptor->curso_id=$id_curso; 
+           $add_preceptor->save();  
+           
+           $data=array(
+            'message'=>'Preceptor agregado',
+            'status'=>'success'
+            );  
+        }else{
+            $preceptor=Preceptor::select('*')->where('curso_id',$id_curso)->update(['preceptor'=>$preceptor]);
+            $data=array(
+                'message'=>'Preceptor actualizado',
+                'status'=>'success'
+                );
+        }
+    
+        return response()->json($data,200);
+    }
+
+    public function buscarPreceptor($id_curso){
+        header('Access-Control-Allow-Origin','*');
+        header('Access-Control-Allow-Methods','*');
+        $preceptor=Preceptor::select('*')->where('curso_id',$id_curso)->get();
+
+        if(count($preceptor)==0){
+            $data=array(
+                'preceptor'=>'No se encontro preceptor',
+                'status'=>'empty'
+                ); 
+        }else{
+            $data=array(
+                'preceptor'=>$preceptor,
+                'status'=>'success'
+            );
+        }
+
         return response()->json($data,200);
     }
 

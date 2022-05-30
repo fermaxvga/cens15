@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } 	from '@angular/common/http'; 
 import { Observable } 				from 'rxjs'
 import { GLOBAL } from 'src/app/shared/models/global';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class MateriaService {
   constructor(
     public _http: HttpClient 
   ) { 
-    this.url=GLOBAL.url;
+    this.url=environment.url;
   }
 
   sendMateria(materia:any):Observable<any>{

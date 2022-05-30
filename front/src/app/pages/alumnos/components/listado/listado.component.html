@@ -3,11 +3,11 @@
     <div class="row text-left justify-content-start" >
         <div class="col">
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline1" name="customRadioInline" class="custom-control-input">
+                <input type="radio" id="customRadioInline1" name="customRadioInline" class="custom-control-input" checked (change)="porCurso()">
                 <label class="custom-control-label" for="customRadioInline1">Todos</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline2" name="customRadioInline" class="custom-control-input">
+                <input type="radio" id="customRadioInline2" name="customRadioInline" class="custom-control-input" (change)="porCurso()">
                 <label class="custom-control-label" for="customRadioInline2">Por Curso</label>
               </div>
         </div>
@@ -19,13 +19,14 @@
 <div class="row busqueda justify-content-end">
     <div class="col-6">
         <div class="form-group">
-            <input class="form-control" type="search" placeholder="Buscar..."  aria-label="Search">
+            <input class="form-control" type="search" placeholder="Buscar..."  aria-label="Search" name="filtroAlumno" [(ngModel)]="filtroAlumno">
         </div>
     </div>
 </div>
+
 <div class="row" *ngIf="listado">
-        <div class="col-10">
-                <table class="table my-list mt-5" id="cars-list">
+        <div class="col-10" *ngIf="todos">
+                <table class="table my-list mt-5" id="cars-list" >
                     <thead class="thead" id="thead">
                         <tr>
                             <th> Apellido</th>
@@ -33,12 +34,14 @@
                             <th> DNI </th>
                             <th> CURSO </th>
                             <th> ORIENTACION </th>
+                            <th> MODALIDAD </th>
                             <th> Última Inscripción </th>
-                   
-                            <!-- <th> </th> -->
+                            <th>  </th> 
+                            <th>  </th> 
+
                         </tr>
                     </thead>
-                    <tr class="fila" *ngFor="let alumno of alumnos" [routerLink]="['/alumnos/detail/',alumno.id]">
+                    <tr class="fila" *ngFor="let alumno of alumnos | filtro:filtroAlumno">
                         <td>
                             {{alumno?.apellido}}
                         </td>
@@ -55,8 +58,17 @@
                             {{alumno?.curso?.especialidad}}
                         </td>
                         <td>
+                            {{alumno?.curso?.modalidad}}
+                        </td>
+                        <td>
                             {{alumno?.inscripcion}}
                         </td> 
+                        <td>
+                            <button class="btn btn-warning" *ngIf="identity.role==1 || identity.role==2" [routerLink]="['/alumnos/detail/',alumno.id]"> <fa-icon [icon]="edit"></fa-icon></button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" *ngIf="identity.role==1 || identity.role==2" (click)="eliminarAlumno(alumno)"> <fa-icon [icon]="delete"></fa-icon></button>
+                        </td>
                       
                     </tr>
                 </table>
@@ -67,6 +79,15 @@
                        </p> 
                 </div>
         </div>
+
+        <div class="col-10">
+            <div class="row mt-4 ml-4" *ngFor="let curso of cursos">
+              <h5 class="course" (click)="alumnosPorCurso(curso.id)">
+                  {{curso.curso}} - {{curso.division}} - {{curso.especialidad}} - {{curso.modalidad}}
+              </h5>
+            </div>
+        </div>
+        <!-- <app-listado-por-curso></app-listado-por-curso> -->
         <!-- <div class="text-center ">
             <pagination-controls (pageChange)="pActual=$event "></pagination-controls>
         </div> -->

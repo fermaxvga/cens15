@@ -9,6 +9,7 @@ use App\ValidarDni;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\JwtAuth;
 use App\UserPrecarga; 
+use App\Role; 
 
 class UserSgaController extends Controller
 {
@@ -110,13 +111,16 @@ class UserSgaController extends Controller
                 'name'      =>  $params->name,
                 'surname'   =>  $params->surname,
                 'email'     =>  $params->email,
-                'password'  =>  $pwd
+                'password'  =>  $pwd,
+            //    'role_id'   =>  $params->role_id
+
             );
         }else{
             $update=array(
                 'name'      =>  $params->name,
                 'surname'   =>  $params->surname,
                 'email'     =>  $params->email,
+            //    'role_id'   =>  $params->role_id
             );
         };
 
@@ -199,7 +203,7 @@ class UserSgaController extends Controller
             $user=new UserPrecarga();
             
             $user->dni = $params->dni;
-
+            
             $user->status =0;
 
 
@@ -246,6 +250,39 @@ class UserSgaController extends Controller
             'status'=>'success'
         );
         return response()->json($data,200);
+    }
+
+    public function getRoles(){
+        header('Access-Control-Allow-Origin', '*');
+        header('Access-Control-Allow-Methods', '*');
+
+        $roles=Role::select('*')->get();
+
+        //$roles=Role::all()->get();
+       // dd($roles);
+        
+        $data=array(
+            'roles'=>$roles,
+            'status'=>'success'
+        );
+
+        return response()->json($data,200);
+
+    }
+
+    public function deleteUser($id){
+        header('Access-Control-Allow-Origin', '*');
+        header('Access-Control-Allow-Methods', '*');
+        $usuario=User::select('*')->where('id',$id)->delete();
+                
+        $data=array(
+            'message'=>'usuario eliminado',
+            'status'=>'success'
+        );
+
+        return response()->json($data,200);
+
+
     }
 
 

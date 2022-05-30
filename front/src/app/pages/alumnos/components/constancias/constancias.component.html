@@ -1,0 +1,93 @@
+<div class="contanier main">
+    <br>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-3">
+            <button class="btn btn-primary">Constancia Salario Familiar</button>
+        </div>
+        <div class="col-3">
+            <button class="btn btn-primary">Constancia Años Cursados</button>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container A4" *ngIf="inscripcion">
+    <div *ngIf="salarioFamiliar">
+
+    </div>
+    <div class="row justify-content-start">
+        <div class="col-4">
+            <img src="assets/images/logo_tdf_byn.png" width="100" class="logo">
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-between">
+        <div class="col-4">
+            <p class="parrafo-cabecera">
+                Provincia de Tierra del Fuego, Antártida e Islas del Atlántico Sur - República Argentina MINISTERIO DE EDUCACIÓN Centro Educativo de Nivel Secundario N°15                                                                                                                                                                                                                                                                   
+            </p>
+        </div>
+        <div class="col-6">
+            <p class="parrafo-cabecera">
+             “2022- 40° ANIVERSARIO DE LA GESTA HEROICA DE MALVINAS            
+            </p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col">
+            <h5 class="titulo-central">
+                CERTIFICADO ESCOLAR
+            </h5>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <p class="parrafo-central">
+                La Direccion del <b>“Centro Educativo de Nivel secundario N°15”</b> 
+                certifica que el alumno/a: <b>{{inscripcion.apellido.toUpperCase()}}, {{inscripcion.nombre}} DNI N° {{inscripcion.dni}}</b> 
+                ha iniciado  en el ciclo lectivo <input type="text" class="inline-form-control para-completar" name="year" #year="ngModel" [(ngModel)]="anio"> el <input type="text" class="inline-form-control col-3 para-completar-fecha" placeholder={{fecha}} > como alumno/a regular en la Orientacion de <input type="text" class="para-completar-orientacion" name="formal" #formal="ngModel" [(ngModel)]="orientacion"> en el curso {{this.inscripcion.curso}} año “{{this.inscripcion.division}}”.
+                Este Certificado se extiende en Ushuaia, a los <input type="text" class="inline-form-control para-completar-dia" name="day" #day="ngModel" [(ngModel)]="dia">  días del mes de <input type="text" class="inline-form-control para-completar-mes" name="month" #month="ngModel" [(ngModel)]="mes"> de <input type="text" class="inline-form-control para-completar" name="year" #year="ngModel" [(ngModel)]="anio"> para ser presentado por <input type="text" class="inline-form-control para-completar-interesado" placeholder="Nombre de la persona..." >  DNI N° <input type="text" class="inline-form-control para-completar-fecha" placeholder="dni..." > ante las autoridades de: Gobierno de la Provincia de Tierra del Fuego
+                Con el objeto de percibir Salario Familiar.
+            </p>
+        </div>
+    </div>
+            <div class="row justify-content-center">
+                <div class="col">
+                    <img src="assets/images/sello-cens15.png" width="100" class="logo">
+                </div>
+                <div class="col">
+                    <img src="assets/images/firma-carolina-vaca.png" width="200" class="firma">
+                </div>
+            </div>
+            <div class="container footer">
+                <div class="row justify-content-center">
+                    <div class="col text-center">
+                        ------------------------
+                    </div>
+                    <div class="col text-center">
+                        ------------------------
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col m-2 text-center">
+                        Sello del establecimiento
+                    </div>
+                    <div class="col m-2 text-center">
+                        Firma y Sello Rector/a
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="row justify-content-center footer">
+                    <div class="col text-center">
+                        “Las Islas Malvinas, Georgias y Sándwich del Sur son y serán Argentinas”     
+                    </div>
+            </div>
+        
+</div>

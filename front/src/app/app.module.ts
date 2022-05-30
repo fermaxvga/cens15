@@ -25,7 +25,8 @@ import { MateriasModule } from './pages/materias/materias.module';
     HttpClientModule,
     AlumnosModule,
     CursosModule,
-    MateriasModule
+    MateriasModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

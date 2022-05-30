@@ -1,5 +1,5 @@
 <div class="contanier main mt-4">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" *ngIf="alumno">
         <div class="col">
             <h3>
                 Notas del Alumno: {{alumno[0]?.apellido}}, {{alumno[0]?.nombre}}
@@ -7,44 +7,77 @@
         </div>
     </div>
     <hr>
-
-<table class="table mt-4 table-notas col-10 align-items-center" *ngFor="let curso of cursos">
-    <thead class="thead-dark justify-content-center">
-       <tr>
-           <th class="header-curso">{{curso[0].curso}} {{curso[0].division}} {{curso[0].especialidad}}</th>
-           <th class="header-curso">Cuatrimestre 1</th>
-           <th class="header-curso">Cuatrimestre 2</th>
-           <th class="header-curso">Diciembre</th>
-           <th class="header-curso">Febrero</th>
-           <th class="header-curso">Nota Final</th>
-           <th class="header-curso">   
-               <button class="btn btn-circle btn-lg btn-edit" (click)="editEnable()" data-toggle="tooltip" data-placement="Modificar Datos" title="Modificar Datos">
-                    <fa-icon [icon]="edit"></fa-icon>
-                </button>
-            </th>
-       </tr> 
-    </thead>
-    <tbody>
-        <tr *ngFor="let nota of curso"> 
-            <td>{{nota.materia}}</td>
-            <td class="text-center">
-                <input type="number" min="1" max="10" class="form-control calificacion" name="nota1" id="nota1" #nota1="ngModel" [(ngModel)]="nota.cuatrimestre1" [disabled]="!editar" (change)="modifNota(nota)">
-            </td>
-            <td class="text-center">
-                <input type="number" min="1" max="10" class="form-control calificacion" name="nota2" id="nota2" #nota2="ngModel" [(ngModel)]="nota.cuatrimestre2" [disabled]="!editar" (change)="modifNota(nota)">
-            </td>
-            <td class="text-center">
-                <input type="number" min="1" max="10" class="form-control calificacion" name="notaDic" id="notaDic" #notaDic="ngModel" [(ngModel)]="nota.diciembre" [disabled]="!editar" (change)="modifNota(nota)">
-            </td>
-            <td class="text-center">
-                <input type="number" min="1" max="10" class="form-control calificacion" name="notaFeb" id="notaFeb" #notaFeb="ngModel" [(ngModel)]="nota.febrero" [disabled]="!editar" (change)="modifNota(nota)">
-            </td>
-            <td class="text-center">
-                <input type="number" min="1" max="10" class="form-control calificacion" name="notaFinal" id="notaFinal" #notaAnual="ngModel" [(ngModel)]="nota.final_anual" [disabled]="!editar" (change)="modifNota(nota)">
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-</div>
+   <!-- <pre>
+       {{notas | json}}
+   </pre> -->
+  
+ <table class="table mt-4 table-notas col-10 align-items-center" *ngFor="let curso of id_cursos">
+            <thead class="thead-dark justify-content-center">
+                <tr>
+                    <th class="header-curso">{{curso}}</th>
+                    <th class="header-curso">Cuatrimestre 1</th>
+                    <th class="header-curso">Cuatrimestre 2</th>
+                    <th class="header-curso">Nota Final</th>
+                    <th class="header-curso">Diciembre</th>
+                    <th class="header-curso">Febrero</th>
+                    <th class="header-curso">Definitiva</th>
+                    <th class="header-curso">
+                        <button class="btn btn-circle btn-lg btn-edit" (click)="editEnable()" data-toggle="tooltip"
+                            data-placement="Modificar Datos" title="Modificar Datos" [disabled]="identity.role===3">
+                            <fa-icon [icon]="edit"></fa-icon>
+                        </button>
+                    </th>
+                    <th>
+                        <button class="btn btn-circle btn-lg btn-edit" data-toggle="tooltip"
+                        data-placement="Eliminar Ciclo" title="Eliminar Ciclo" (click)="borrarCiclo(curso)">
+                        <fa-icon [icon]="borrar"></fa-icon>
+                    </button>
+                    </th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                <tr *ngFor="let nota of notas">
+                    <td *ngIf="curso == nota.curso">{{nota.materia}}</td>
+                        <td class="text-center" *ngIf="curso == nota.curso">
+                            <input type="number" min="0" max="10" class="form-control calificacion" name="nota1" id="nota1"
+                            #nota1="ngModel" [(ngModel)]="nota.cuatrimestre1" [disabled]="!editar"
+                            (change)="modifNota(nota)">
+                        </td>
+                        <td class="text-center" *ngIf="curso == nota.curso">
+                            <input type="number" min="0" max="10" class="form-control calificacion" name="nota2" id="nota2"
+                            #nota2="ngModel" [(ngModel)]="nota.cuatrimestre2" [disabled]="!editar"
+                            (change)="modifNota(nota)"
+                            [readOnly]="nota.cuatrimestre1==null">
+                        </td>
+                        <td class="text-center" *ngIf="curso == nota.curso">
+                            <input type="number" class="form-control calificacion final_anual" name="notaFinal"
+                            id="notaFinal" #notaAnual="ngModel" [(ngModel)]="nota.final_anual" [disabled]="!editar"
+                            (change)="modifNota(nota)" readonly>
+                        </td> 
+                        <td class="text-center" *ngIf="curso == nota.curso">
+                            <input type="number" min="0" max="10" class="form-control calificacion" name="notaDic"
+                            id="notaDic" #notaDic="ngModel" [(ngModel)]="nota.diciembre" [disabled]="!editar"
+                            (change)="modifNota(nota)" [readOnly]="nota.cuatrimestre2==null || nota.febrero!=null">
+                        </td>
+                        <td class="text-center" *ngIf="curso == nota.curso">
+                            <input type="number" min="0" max="10" class="form-control calificacion" name="notaFeb"
+                            id="notaFeb" #notaFeb="ngModel" [(ngModel)]="nota.febrero" [disabled]="!editar"
+                            (change)="modifNota(nota)" [readOnly]="nota.diciembre>=6 || nota.cuatrimestre2==null">
+                        </td>
+                        <td class="text-center" *ngIf="curso == nota.curso">
+                            <input type="number" min="0" max="10" class="form-control calificacion" name="notaDefinitiva"
+                            id="notaFinal" #notaAnual="ngModel" [(ngModel)]="nota.definitiva" [disabled]="!editar"
+                            (change)="modifNota(nota)" [ngClass]="{'aprobado':nota.definitiva>=6,'desaprobado':nota.definitiva<6}" readonly>
+                        </td>
+                        <td *ngIf="curso == nota.curso">
+                            <span class="badge badge-secondary">{{nota.observaciones}}</span>
+                        </td>
+                        <td *ngIf="curso == nota.curso">
+                            {{nota.anio}}
+                        </td>
+                    </tr>  
+                </tbody> 
+            </table> 
+        </div>
 

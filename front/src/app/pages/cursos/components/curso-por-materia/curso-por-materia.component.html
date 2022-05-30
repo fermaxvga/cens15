@@ -6,8 +6,30 @@
             </h1>
         </div>
     </div>
+    <hr>
+    
+    <div class="row justify-content-center">
+        <div class="col-4">
+            Preceptor: {{preceptor_actual}}
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary" (click)="cambiar_preceptor()">Modificar</button>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" *ngIf="modificar">
+        <div class="col-md-4">
+            <select id="" class="form-control" name="precep" #precep="ngModel"  [(ngModel)]="preceptor">
+                <option></option>
+                <option value="{{item}}" *ngFor="let item of preceptores">{{item}}</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-warning" (click)="asignarPreceptor()">Definir</button>
+        </div>
+    </div>
 <div class="row justify-content-center mt-4">
-    <table class="col-8 table">
+    <table class="col-8 table table-hover">
         <thead>
             <tr>
               <th scope="col">Materia</th>

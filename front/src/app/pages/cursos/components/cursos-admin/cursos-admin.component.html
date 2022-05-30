@@ -26,13 +26,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let curso of cursos" [routerLink]="['/cursos/detalle/',curso.id]" class="renglon-curso">
-                <th>{{curso.curso}}</th>
-                <td>{{curso.division}}</td>
-                <td>{{curso.especialidad}}</td>
-                <td>{{curso.modalidad}}</td>
-                <td *ngIf="curso.semipresencial==1">Si</td>
-                <td *ngIf="curso.semipresencial==0">No</td>
+              <tr *ngFor="let curso of cursos" class="renglon-curso">
+                <th [routerLink]="['/cursos/detalle/',curso.id]">{{curso.curso}}</th>
+                <td [routerLink]="['/cursos/detalle/',curso.id]">{{curso.division}}</td>
+                <td [routerLink]="['/cursos/detalle/',curso.id]">{{curso.especialidad}}</td>
+                <td [routerLink]="['/cursos/detalle/',curso.id]">{{curso.modalidad}}</td>
+                <td [routerLink]="['/cursos/detalle/',curso.id]" *ngIf="curso.semipresencial==1">Si</td>
+                <td [routerLink]="['/cursos/detalle/',curso.id]" *ngIf="curso.semipresencial==0">No</td>
                 <td>
                     <button class="btn btn-warning" (click)="editarCurso(curso)">
                     <fa-icon [icon]="edit"></fa-icon>
@@ -122,7 +122,7 @@
 
 
 
-  <div class="modal fade" id="editarCurso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="cursoEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -175,8 +175,8 @@
                         </select>
                     </div>
                     <div class="col custom-control custom-checkbox semi">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="semipresencial">
-                        <label class="custom-control-label" for="customCheck1">SemiPres</label>
+                        <input type="checkbox" class="custom-control-input" id="customCheckEditSemi" formControlName="semipresencial">
+                        <label class="custom-control-label" for="customCheckEditSemi">SemiPres</label>
                     </div>
                     <div class="col align-self-end">
                         <button type="submit" class="btn btn-warning btn-sm" [disabled]="cursoToEditForm.invalid">Editar</button>

@@ -91,17 +91,15 @@ a {
 }
 
 @media screen and (max-width: 443px) {
-    .iaNexo {
-        width: 100%;
-        align-self: center;
-        margin-left: 10px;
-        float: left;
+    .home{
+        display: none;
     }
+
     .bar {
         float: right;
     }
     .login {
-        display: none;
+        display: block;
     }
     .login2 {
         display: block;
@@ -115,7 +113,7 @@ a {
         margin-right: 0;
     }
     .ingresar{
-        display: none;
+        display: block;
     }
 }
 

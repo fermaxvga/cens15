@@ -30,16 +30,24 @@ Route::group(['prefix'=>'usuarios'],function(){
     Route::get('/listar-precargados','UserSgaController@getPrecargados');
     Route::delete('/delete-precargados/{id}','UserSgaController@deletePrecargados');
     Route::put('/update/{id}','UserSgaController@updateUser');
-    Route::get('/{id}','UserSgaController@getUser');
+    Route::get('/usuario/{id}','UserSgaController@getUser');
+    Route::get('/roles','UserSgaController@getRoles');
+    Route::delete('/borrar/{id}','UserSgaController@deleteUser');
 });
 
 Route::group(['prefix'=>'alumnos'],function(){
     Route::get('/listado','AlumnosController@getAlumnos');
+    Route::get('/listado-por-curso/{id_curso}','AlumnosController@getAlumnosByCurso');
     Route::get('/{id}','AlumnosController@getAlumno');
     Route::get('/notas/{id}','AlumnosController@getNotas');
     Route::post('/inscribir','AlumnosController@inscribirAlumno');
     Route::get('/historico-inscripciones/{dni}','AlumnosController@getInscripciones');
     Route::put('/reinscribir/{id_alumno}/{id_curso}','AlumnosController@reinscribir');
+    Route::get('/inscripcion-orientacion/{id_alumno}','AlumnosController@getInscripcionActual');
+    Route::delete('/eliminar-alumno/{id_alumno}','AlumnosController@deleteAlumno');
+    Route::put('/editar-alumno/{id_alumno}','AlumnosController@editAlumno');
+
+
 });
 
 Route::group(['prefix'=>'cursos'],function(){
@@ -54,6 +62,8 @@ Route::group(['prefix'=>'cursos'],function(){
     Route::get('/consultar/{id}','CursosController@getCursoById');  
     Route::delete('/delete/{id}','CursosController@deleteCurso');  
     Route::get('/materias-curso/{id_curso}','CursosController@materiasPorCurso');
+    Route::post('/preceptor','CursosController@asignarPreceptor');
+    Route::get('/preceptor/{id}','CursosController@buscarPreceptor');
 });
 
 Route::group(['prefix'=>'materias'],function(){
@@ -65,8 +75,9 @@ Route::group(['prefix'=>'materias'],function(){
 });
 
 Route::group(['prefix'=>'notas'],function(){
-    Route::get('/{id}','NotasController@getNotas');
+    Route::get('/{id_alumno}','NotasController@getNotas');
     Route::put('/insertar-nota','NotasController@insertarNota');
+    Route::get('/eliminar-ciclo/{id_alumno}/{curso}','NotasController@eliminarCiclo');
 });
 
 

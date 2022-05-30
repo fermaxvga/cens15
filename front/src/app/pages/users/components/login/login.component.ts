@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 		public _templateService: TemplateService
   ) 
   { 
-    this.user=new User('','','','','');
+    this.user=new User('','','','','',0);
   }
 
 
@@ -48,12 +48,12 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit(form:any){
-    this.user=new User('','','','','');
+    this.user=new User('','','','','',0);
    // this._router.navigate(['home']);
 
     this.user.email=this.email;
     this.user.password=this.password;
-    console.log(this.user);
+   // console.log(this.user);
     //console.log(form.value); 
     //console.log(this.user);
     this.logueando=true;

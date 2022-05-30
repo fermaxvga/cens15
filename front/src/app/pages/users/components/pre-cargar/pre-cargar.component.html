@@ -21,18 +21,24 @@
                     formControlName="dni" 
                     [ngClass]="{
                       'is-invalid': isValidField('dni')
-                    }"
-                    >
+                    }">
                 </div>
+                 <div class="col">
+                    <label for="curso">Rol</label>
+                    <select name="rol" id="rol" class="form-control" formControlName="role">
+                        <option value=""></option>        
+                        <option *ngFor="let role of roles">{{role.role}} </option>
+                    </select>
+                </div> 
                 <div class="col-md-8">
-                    <button type="submit" class="btn btn-primary btn-block" [disabled]="preCargaForm.invalid">Ingresar</button>
+                    <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                 </div>
             </form>
     </div>
+
     <div class="row justify-content-center mt-4 mb-2">
         <div class="col-md-10">
             <p>Luego el usuario deberá registrase ingresando primero su DNI</p>
         </div>
     </div>
-
 </div>

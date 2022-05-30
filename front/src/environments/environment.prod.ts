@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  url: '/cens15/api/public/api/'
 };

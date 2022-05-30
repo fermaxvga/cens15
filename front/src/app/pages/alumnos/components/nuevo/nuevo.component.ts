@@ -163,8 +163,7 @@ export class NuevoComponent implements OnInit {
           if(this.cursos[i].semipresencial==0){
             this.cursos[i].semipresencial=' ';
         }
- 
-      }
+       }
     },
       error=>{
         console.log(<any>error);

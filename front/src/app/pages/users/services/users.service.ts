@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } 	from '@angular/common/http';
 import { Observable } 				from 'rxjs'
 import { GLOBAL } from 'src/app/shared/models/global';
 import { User } from '../Models/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,11 @@ export class UsersService {
   constructor(
     public _http: HttpClient 
   ) {
-    this.url = GLOBAL.url;
+    this.url = environment.url;
    }
    
     validarDni(dni:string):Observable<any>{
+      console.log(this.url);
       let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
       return this._http.get(this.url+'usuarios/validar-dni/'+dni, {headers: headers});
     }
@@ -37,7 +39,7 @@ export class UsersService {
       user.gettoken=gettoken; 
       let json = JSON.stringify(user);
       let params = 'json='+json;
-      console.log(params);
+    //  console.log(params);
       let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
       return this._http.post(this.url+'usuarios/login', params, {headers: headers});
     }
@@ -97,7 +99,17 @@ export class UsersService {
 
      getUser(id:number):Observable<any>{
       let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
-      return this._http.get(this.url+'usuarios/'+id,{headers: headers})
+      return this._http.get(this.url+'usuarios/usuario/'+id,{headers: headers})
+     }
+
+     getRoles():Observable<any>{
+      let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+      return this._http.get(this.url+'usuarios/roles',{headers: headers})
+     }
+
+     deleteUsuario(id:number):Observable<any>{
+      let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+      return this._http.delete(this.url+'usuarios/borrar/'+id,{headers: headers})
      }
 
 

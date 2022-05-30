@@ -3,6 +3,7 @@ import { faEdit, faTrashAlt, faUserPlus } from '@fortawesome/free-solid-svg-icon
 import { UsersService } from '../../services/users.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin',
@@ -17,6 +18,7 @@ export class AdminComponent implements OnInit,DoCheck {
   identity:any;
   token:any; 
   precargado:Subscription | undefined; 
+  
   constructor(
     private _userService:UsersService,
     private _router:Router
@@ -57,6 +59,47 @@ export class AdminComponent implements OnInit,DoCheck {
         console.log(<any>error);
       }
     );
+  }
+
+  deleteUsuario(usuario:any){
+
+    Swal.fire({
+      title: '¿Eliminar Usuario?',
+      text: `¿Está segur que desea eliminar el usuario ${usuario.name} ${usuario.surname} ?`,
+      showDenyButton: true,
+      confirmButtonText: 'Eliminar',
+      confirmButtonColor:'Red',
+      denyButtonText: `Cancelar`,
+      denyButtonColor:'blue',
+      reverseButtons:true
+    }).then((result) => {
+      if(result.isConfirmed){
+         this._userService.deleteUsuario(usuario.id).subscribe(
+
+         
+           (response:any)=>{
+             console.log(response);
+             if(response.status=='success'){
+               Swal.fire('Usuario Eliminado!', '', 'success');
+               this.getUsers(); 
+             }else{
+               Swal.fire('No se pudo eliminar el usuario!', '', 'error');
+                
+            }
+           },
+           error=>{
+             console.log(<any>error);
+             Swal.fire('No se pudo eliminar el usuario!',' ', 'error')
+
+           }
+           );
+         
+      }
+    })
+
+
+
+
   }
 
 }

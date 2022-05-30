@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { AlumnosService } from '../../services/alumnos.service';
-import { faAddressCard, faBook, faMarker, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAddressCard, faBook, faFileContract, faFileSignature, faMarker, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { CompartidosService } from '../../../../shared/services/compartidos.service';
 import * as $AB from 'jquery';
 import { TemplateService } from '../../../../template/services/template.service';
 import { CursosService } from '../../../cursos/services/cursos.service';
 import Swal from 'sweetalert2';
+import { UsersService } from '../../../users/services/users.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import Swal from 'sweetalert2';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit,DoCheck {
   
   alumno:any;
   id_alumno:number|undefined; 
@@ -28,6 +29,9 @@ export class DetailComponent implements OnInit {
   cursos: any;
   curso:any; 
   cursoSelected:any;
+  identity: any;
+  token: any;
+  constancia=faFileSignature; 
 
   
   
@@ -37,9 +41,13 @@ export class DetailComponent implements OnInit {
     private _alumnoService:AlumnosService,
     private _compartidos:CompartidosService,
     private _templateService: TemplateService,
-    private _cursoService:CursosService
+    private _cursoService:CursosService,
+    private _userService: UsersService
   ) { 
     this.editar=false; 
+    this.editar=false; 
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
 
   }
 
@@ -51,6 +59,11 @@ export class DetailComponent implements OnInit {
   this.getCursos(); 
 }
 
+ngDoCheck(){
+  this.identity = this._userService.getIdentity();
+  this.token = this._userService.getToken();
+}
+
 getAlumno(id:number){
   this._alumnoService.getAlumno(id)
   .subscribe(
@@ -58,13 +71,12 @@ getAlumno(id:number){
       console.log(response);
       console.log(response.alumno[0].dni);
       this.alumno=response.alumno[0]; 
-      this.alumno.fecha_de_nacimiento=this._compartidos.formatearFecha(this.alumno.fecha_de_nacimiento);
+   //   this.alumno.fecha_de_nacimiento=this._compartidos.formatearFecha(this.alumno.fecha_de_nacimiento);
       this.getInscripciones(parseInt(response.alumno[0].dni));
     },
     error=>{
       console.log(<any>error);
     }
-    
  );
 }
 
@@ -174,5 +186,47 @@ verNotas(){
   this._router.navigate(['alumnos/notas',this.id_alumno]); 
 }
 
+constancias(alumno:any){
+  this._router.navigate(['alumnos/constancias',alumno.id]); 
+}
+
+
+editarAlumno(alumno:any){
+  console.log(alumno); 
+  Swal.fire({
+    icon:'question',
+    title:'Modificar Datos',
+    text:'¿Esta seguro que desea modificar los datos para este alumno?',
+    showConfirmButton:true,
+    showCancelButton:true,
+  }).then(result=>{
+    if(result.isConfirmed){
+      this._alumnoService.editAlumno(alumno.id,alumno).subscribe(
+        (response:any)=>{
+          console.log(response); 
+          if(response.status=='success'){
+            Swal.fire({
+              icon:'success',
+              title:'Datos Modificados Correctamente',
+              text:'',
+              timer:1500
+            });
+            this._router.navigate(['alumnos/lista']);
+          }
+        },
+        error=>{
+          console.log(<any>error);
+            Swal.fire({
+              icon:'error',
+              title:'Error al modificar datos',
+              text:`${<any>error.message}`,
+              showConfirmButton:true
+            });
+          
+        }
+      );
+    }
+  });
+}
 
 }

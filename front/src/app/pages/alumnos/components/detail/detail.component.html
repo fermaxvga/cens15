@@ -1,30 +1,25 @@
 <div class="contanier main mt-4" *ngIf="alumno">
-    <!-- <pre>
-        {{alumno | json}}
-    </pre> -->
     <div class="row">
         <div class="col">
             <h1>
                 Datos del Alumno
             </h1>
         </div>
- 
-    </div>
+     </div>
     <hr>
 
     <div class="row">
-        <button class="btn btn-circle btn-lg btn-edit" (click)="editEnable()" data-toggle="tooltip" data-placement="Modificar Datos" title="Modificar Datos">
-            
+        <button class="btn btn-circle btn-lg btn-edit" (click)="editEnable()" data-toggle="tooltip" data-placement="Modificar Datos" title="Modificar Datos" [disabled]="identity.role==3">
             <fa-icon [icon]="edit"></fa-icon>
         </button>
     </div>
     <div class="row">
-        <button class="btn btn-circle btn-lg btn-historico" data-toggle="modal" data-target="#historialModal"  data-placement="Modificar Datos" title="Historial de Inscripciones">
+        <button class="btn btn-circle btn-lg btn-historico" data-toggle="modal" data-target="#historialModal"  data-placement="Historial de Inscripciones" title="Historial de Inscripciones">
             <fa-icon [icon]="book"></fa-icon>
         </button>
     </div>
     <div class="row">
-        <button class="btn btn-circle btn-lg btn-reinscripcion" data-toggle="modal" data-target="#reinscribirModal" (click)="editEnable()" title="Reinscribir">
+        <button class="btn btn-circle btn-lg btn-reinscripcion" data-toggle="modal" data-target="#reinscribirModal" (click)="editEnable()" title="Reinscribir" [disabled]="identity.role==3">
             <fa-icon [icon]="reInscribir"></fa-icon>
         </button>
     </div>
@@ -33,6 +28,12 @@
             <fa-icon [icon]="notas"></fa-icon>
         </button>
     </div>
+    <div class="row">
+        <button class="btn btn-circle btn-lg btn-constancia" (click)="constancias(alumno)" title="Constancias">
+            <fa-icon [icon]="constancia"></fa-icon>
+        </button>
+    </div>
+    
     
 
     <div class="row mt-4">
@@ -135,12 +136,28 @@
             </div>
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col" style="font-size: 22px;">
+          Sexo
+        </div>
+      </div>
+      <hr>
+      <div class="form-row justify-content-center">
+        <div class="col-md-4 custom-control custom-radio ml-4">
+          <input type="radio" id="customRadio1"  class="custom-control-input" name="genero" #genero="ngModel" [(ngModel)]="alumno.sexo"  value="varon" [checked]="alumno.sexo=='varon'">
+          <label class="custom-control-label" for="customRadio1">Varon</label>
+        </div>
+        <div class="col-md-4 custom-control custom-radio ml-4">
+          <input type="radio" id="customRadio2"  class="custom-control-input" name="genero" #genero="ngModel" [(ngModel)]="alumno.sexo"  value="mujer" [checked]="alumno.sexo=='mujer'">
+          <label class="custom-control-label" for="customRadio2">Mujer</label>
+        </div>
+      </div>
     <div class="row justify-content-center mt-4">
         <div class="col-md-6 mt-4">
-            <button class="btn btn-block btn-primary" [disabled]="!editar" >Guardar Cambios</button>
+            <button class="btn btn-block btn-primary" [disabled]="!editar" (click)="editarAlumno(alumno)">Guardar Cambios</button>
         </div>
     </div>
-
 </div>
 
 <div class="modal fade" id="historialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -217,8 +234,8 @@
                     <button type="button" class="btn btn-dark btn-block"  (click)="reinscribir(curso)" [disabled]="!curso">Reinscribir</button>
                 </div>
             </div>
-            
         </div>
+        
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
         </div>

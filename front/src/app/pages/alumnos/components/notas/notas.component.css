@@ -1,5 +1,5 @@
 .main{
-    margin-left: 100px;
+    margin-left: 180px;
 }
 
 .table-notas{
@@ -27,7 +27,22 @@ font-size: 14px;
 }
 
 .btn-edit:hover{
-    color: rgb(63, 61, 61);
+    color: rgb(212, 16, 16);
+}
+
+.aprobado{
+background: rgb(10, 134, 21);
+color: white;
+}
+
+.desaprobado{
+background: rgb(77, 1, 1);
+color: white;
+}
+
+.final_anual{
+    background: rgb(51, 50, 50);
+    color: white;
 }
 
 

@@ -1,5 +1,6 @@
 .main{
-    margin-top: 50px;
+    margin: 0;
+    padding: 0;
     width: 70%;
     margin-left: 15%;
     text-align: center;
@@ -44,6 +45,11 @@
     color:  #fff; 
 }
 
+.version{
+    font-style: italic;
+    font-weight: bold;
+}
+
 @keyframes welcome {
     0% {
         opacity: 0;
@@ -84,3 +90,12 @@
     }
 
 }
+
+@media screen and (max-width: 443px) {
+    .welcome {
+     font-size: 22px;
+     font-weight: bold;
+    }
+   
+}
+

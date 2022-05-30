@@ -1,6 +1,7 @@
 
 .barra-lateral {
-    background: rgba(202, 199, 199, 0.59);
+    
+    background: rgba(202, 199, 199);
     height: 100vh;
     position: absolute;
     transform: translateX(-55%); 

@@ -1,0 +1,309 @@
+<div class="contanier main">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h1 class="text-center">BIENVENIDO</h1>
+        </div>
+    </div>
+    <!-- <pre>
+      {{cursos_semi | json}}
+    </pre> -->
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col">
+            <h4 class="text-center">Sistema de autoinscripción CENS 15 2022</h4>
+        </div>
+    </div>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col">
+            <p class="text-center">A continuación te solicitaremos algunos datos a fin de validar tu inscripción en la institución</p>
+        </div>
+    </div>
+    <hr>
+    <form [formGroup]="alumnForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col"  style="font-size: 22px;">
+              Datos Principales
+            </div>
+        </div>
+        <hr>
+        <div class="form-row justify-content-between">
+            <div class="col-md-5">
+              <label for="name"><b>Nombre/s</b></label>
+              <input 
+              id="name"
+              type="text" 
+              class="form-control" 
+              placeholder="Ingrese Nombre Completo" 
+              formControlName="nombre" 
+              [ngClass]="{
+                'is-invalid': isValidField('nombre')
+              }"
+              >
+              <div class="invalid-feedback">
+                    <span *ngIf="alumnForm.get('nombre').errors?.required">
+                      Debe ingresar un nombre
+                    </span>
+                    <span *ngIf="alumnForm.get('nombre').errors?.minlength">
+                      Mínimo {{alumnForm.get('nombre').errors?.minlength?.requiredLength}} caracteres
+                    </span>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <label for="surname"><b>Apellido/s</b></label>
+              <input 
+              id="surname" 
+              type="text" 
+              class="form-control" 
+              placeholder="Ingrese Apellido" 
+              formControlName="apellido" 
+              [ngClass]="{
+                'is-invalid': isValidField('apellido')
+              }"
+              required
+              >
+              <div class="invalid-feedback">
+                  <span *ngIf="alumnForm.get('apellido').errors?.required">
+                    Debe ingresar apellido
+                  </span>
+                  <span *ngIf="alumnForm.get('apellido').errors?.minlength">
+                    Mínimo {{alumnForm.get('apellido').errors?.minlength?.requiredLength}} caracteres
+                  </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-row justify-content-between">
+            <div class="col-md-5">
+                <label for="doc"><b>DNI</b></label>
+                <input 
+                id="doc" 
+                type="text" 
+                class="form-control" 
+                placeholder="Sin puntos" 
+                formControlName="dni" 
+                required
+                [ngClass]="{
+                  'is-invalid': isValidField('dni')
+                }"
+                >
+            </div>
+            <br>
+            <div class="invalid-feedback">
+              <span *ngIf="alumnForm.get('dni').errors?.required">
+                Debe ingresar DNI
+              </span>
+              <span *ngIf="alumnForm.get('dni').errors?.minlength">
+                Mínimo {{alumnForm.get('dni').errors?.minlength?.requiredLength}} números
+              </span>
+              <span *ngIf="alumnForm.get('dni').errors?.required">
+                Debe ingresar DNI
+              </span>
+              <span *ngIf="alumnForm.get('dni').errors?.pattern">
+                Ingresar solo números
+              </span>
+            </div>
+            <div class="col-md-5">
+              <label for="nacimiento"><b>Fecha de Nacimiento</b></label>
+              <input 
+              id="nacimiento" 
+              type="date" 
+              class="form-control" 
+              formControlName="fecha_de_nacimiento" 
+              required
+              [ngClass]="{
+                'is-invalid': isValidField('nacimiento')
+              }"
+              >
+            </div>
+          </div>
+          <br>
+        <hr>
+        <div class="form-row justify-content-center">
+          <div class="col-md-8">
+            <label for="direccion"><b>Domicilio</b></label>
+            <input 
+            id="direccion" 
+            type="text" 
+            class="form-control" 
+            placeholder="Calle y nro, tira-depto, barrio nro de casa, etc. " 
+            formControlName="domicilio" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('domicilio')
+            }"
+            >
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col" style="font-size: 22px;">
+            Sexo
+          </div>
+        </div>
+        <hr>
+        <div class="form-row justify-content-center">
+          <div class="col-md-4 custom-control custom-radio ml-4">
+            <input type="radio" id="customRadio1"  class="custom-control-input" formControlName="sexo" value="hombre">
+            <label class="custom-control-label" for="customRadio1">Hombre</label>
+          </div>
+          <div class="col-md-4 custom-control custom-radio ml-4">
+            <input type="radio" id="customRadio2"  class="custom-control-input" formControlName="sexo" value="mujer">
+            <label class="custom-control-label" for="customRadio2">Mujer</label>
+          </div>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+          <div class="col"  style="font-size: 22px;">
+            Datos de Nacimiento
+          </div>
+        </div>  
+        <hr>
+        <div class="form-row justify-content-center">
+          <div class="col-md-4">
+            <label for="locNac"><b>Localidad</b></label>
+            <input 
+            id="locNac" 
+            type="text" 
+            class="form-control" 
+            placeholder="Localidad de Nacimiento" 
+            formControlName="loc_nac" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('loc_nac')
+            }"
+            >
+          </div>
+          <div class="col-md-4">
+            <label for="provNac"><b>Provincia</b></label>
+            <input 
+            id="provNac" 
+            type="text" 
+            class="form-control" 
+            placeholder="Provincia de Nacimiento" 
+            formControlName="prov_nac" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('prov_nac')
+            }"
+            >
+          </div>
+          <div class="col-md-4">
+            <label for="paisNac"><b>País de Nacimiento</b></label>
+            <input 
+            id="paisNac" 
+            type="text" 
+            class="form-control" 
+            placeholder="País de Nacimiento" 
+            formControlName="pais_nac" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('pais_nac')
+            }"
+            >
+          </div>
+        </div>
+        <hr>
+        <br>
+        <div class="row">
+            <div class="col" style="font-size: 22px;">
+              Datos de Contacto
+            </div> 
+        </div>
+        <hr>
+        <div class="form-row justify-content-between">
+          <div class="col-md-6">
+            <label for="telAlum"><b>Teléfono del Alumno</b></label>
+            <input 
+            id="telAlum" 
+            type="text" 
+            class="form-control" 
+            placeholder="Teléfono Fijo o Celular" 
+            formControlName="tel_alumno" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('tel_alumno')
+            }"
+            >
+          </div>
+  
+          <div class="col-md-6">
+            <label for="e-mail"><b>Correo electrónico</b></label>
+            <input 
+            id="e-mail" 
+            type="text" 
+            class="form-control"
+            placeholder="email de contacto" 
+            formControlName="email" 
+            required
+            [ngClass]="{
+              'is-invalid': isValidField('email')
+            }"
+            />
+          </div>
+          {{alumnForm.get('email').errors?.pattern?.match}}
+          <div class="invalid-feedback">
+            <span *ngIf="alumnForm.get('email').errors?.pattern">
+              Debe ingresar un email válido
+            </span>
+      </div>
+        </div>
+        <br>
+        <div class="form-row justify-content-between">
+          <div class="col-md-6">
+            <label for="tutor"><b>Padre/Madre/Tutor/Contacto</b></label>
+            <input 
+            id="tutor" 
+            type="text" 
+            class="form-control" 
+            placeholder="Persona que pueda responder por el alumno" 
+            formControlName="nombre_tutor" 
+            >
+          </div>
+          <div class="col-md-6">
+            <label for="telTutor"><b>Tel. Padre/Madre/Tutor/Contacto</b></label>
+            <input 
+            id="telTutor" 
+            type="email" 
+            class="form-control" 
+            placeholder="Teléfono Fijo o Celular" 
+            formControlName="tel_tutor" 
+            >
+          </div>
+          <div class="row">
+            <div class="col" style="font-size: 20px;">
+              ¿En que curso te inscribiste este año?
+            </div> 
+        </div>
+        <hr>
+          <!-- <div class="row justify-content-center mt-2 mb-2">
+            <div class="col-md-6">
+              <select id="curso"  name="curso" class="form-control"  formControlName="curso" >
+                <option></option>
+                <option value=0>No lo recuerdo</option>
+                <option *ngFor="let curso of cursos" value="{{curso.id}}">{{curso.curso}} - {{curso.division}} - {{curso.especialidad}} - {{curso.modalidad}} - {{curso.semipresencial}} </option>
+              </select>
+            </div>
+          </div> -->
+  
+          <div class="row justify-content-center mt-2 mb-2">
+            <div class="col-md-4 custom-control custom-radio ml-4 mt-2" *ngFor="let curso of cursos_semi">
+                <input type="radio" id="curso{{curso.id}}"  class="custom-control-input" formControlName="curso" value="{{curso.id}}">
+                <label class="custom-control-label" for="curso{{curso.id}}" *ngIf="curso.semipresencial=='Semipresencial'"><b>{{curso.curso}} - {{curso.division}}</b> - {{curso.especialidad}} - {{curso.modalidad}} - {{curso.semipresencial}} </label>
+            </div>
+            <div class="col-md-4 custom-control custom-radio ml-4 mt-4">
+              <input type="radio" id="curso-no-recuerdo"  class="custom-control-input" formControlName="curso" value="0">
+              <label class="custom-control-label" for="curso-no-recuerdo">No lo recuerdo</label>
+          </div>
+          </div> 
+          
+        </div>
+        <hr>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col">
+                <button class="btn btn-primary btn-block" type="submit" [disabled]="alumnForm.invalid">Finalizar</button>
+            </div>
+        </div>
+    </form>
+</div>

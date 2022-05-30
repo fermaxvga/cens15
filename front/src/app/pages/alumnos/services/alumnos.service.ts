@@ -2,6 +2,7 @@ import { EventEmitter , Injectable  } from '@angular/core';
 import { HttpClient, HttpHeaders } 	from '@angular/common/http'; 
 import { Observable } 				from 'rxjs'
 import { GLOBAL } from 'src/app/shared/models/global';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,10 @@ export class AlumnosService {
     public _http: HttpClient 
 
   ) {
-    this.url = GLOBAL.url;
+    this.url = environment.url;
    }
    getAlumnos():Observable<any>{
+     console.log('buscando alumnos..');
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.get(this.url+'alumnos/listado', {headers: headers});
   }
@@ -37,10 +39,15 @@ export class AlumnosService {
 
   getAlumno(id:number):Observable<any>{
     console.log('Inscripciones');
-    //dni=31409991; 
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.get(this.url+'alumnos/'+id,{headers: headers});
   }
+
+  getAlumnoByCurso(id_curso:number):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'alumnos/listado-por-curso/'+id_curso,{headers: headers});
+  }
+
 
   sendReinscripcion(id_alumno:number,id_curso:number):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
@@ -58,6 +65,28 @@ export class AlumnosService {
     console.log(params);
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.put(this.url+'notas/insertar-nota',params,{headers: headers});
+  }
+
+  elminarCiclo(alumno:any,curso:any):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'notas/eliminar-ciclo/'+alumno+'/'+curso,{headers: headers});
+  }
+
+  getInscrOrientacion(id_alumno:any):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'alumnos/inscripcion-orientacion/'+id_alumno,{headers: headers});
+  }
+
+  deleteAlumno(id:number){
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.delete(this.url+'alumnos/eliminar-alumno/'+id,{headers: headers});
+  }
+  editAlumno(id:number,alumno:any){
+    let json=JSON.stringify(alumno);
+    let params = "json="+json;
+    console.log(params);
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.put(this.url+'alumnos/editar-alumno/'+id,params,{headers: headers});
   }
 
 }

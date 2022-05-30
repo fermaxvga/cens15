@@ -4,6 +4,8 @@ import { FormGroup, FormControl,FormBuilder,Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import * as $AB from 'jquery';
+import { UsersService } from '../../../users/services/users.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,6 +23,8 @@ export class CursosAdminComponent implements OnInit {
   trash=faTrashAlt;
   edit=faPencilAlt;
   cursoActual:any;
+  identity:any;
+  token:any; 
   $:any; 
 
   cursoForm=this.fb.group({
@@ -44,13 +48,21 @@ export class CursosAdminComponent implements OnInit {
 
   constructor(
     private _cursoService: CursosService,
-    private fb:FormBuilder
-  
-  ) { }
+    private fb:FormBuilder,
+    private _userService: UsersService,
+    private _router:Router
+    ) { }
 
   ngOnInit(): void {
     this.traerDatos();
     this.traerCursos();
+  }
+  ngDoCheck(){
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+    if(!this.identity){
+      this._router.navigate(['/']);
+    }
   }
 
   isValidField(name:string):boolean{
@@ -205,7 +217,7 @@ export class CursosAdminComponent implements OnInit {
   editarCurso(curso:any):void{
     console.log(curso);
     this.cursoActual=curso;
-    ($('#editarCurso') as any).modal('toggle');
+    ($('#cursoEdit') as any).modal('toggle');
 
    const cursoToEdit={
       curso: curso.curso, 
@@ -222,6 +234,13 @@ export class CursosAdminComponent implements OnInit {
    this._cursoService.updateCurso(this.cursoToEditForm.value,this.cursoActual.id).subscribe(
      response=>{
       console.log(response);
+      Swal.fire({
+        title:'Editar Curso',
+        text: `El curso se editó correctamente`,
+        showConfirmButton:false,
+        icon:'success',
+        timer:2000
+      });
      },
      error=>{
       console.log(<any>error);
@@ -281,7 +300,7 @@ export class CursosAdminComponent implements OnInit {
   error(mensaje:any){
     Swal.fire({
       icon: 'error',
-      title: 'Agregar Curso',
+      title: 'Agregar o Editar Curso',
       text: mensaje,
       showConfirmButton:true,
     });

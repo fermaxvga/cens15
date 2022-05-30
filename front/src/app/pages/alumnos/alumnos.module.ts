@@ -9,19 +9,33 @@ import { DetailComponent } from './components/detail/detail.component';
 import { ListadoComponent } from './components/listado/listado.component';
 import { HomeComponent } from './components/home/home.component';
 import { BotoneraAlumnosComponent } from './components/botonera-alumnos/botonera-alumnos.component';
-import { NuevoComponent } from './components/nuevo/nuevo.component';
+
 import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
 import { NotasComponent } from './components/notas/notas.component';
+import { FiltroPipe } from './pipe/filtro.pipe';
+import { ListadoPorCursoComponent } from './components/listado-por-curso/listado-por-curso.component';
+import { ConstanciasComponent } from './components/constancias/constancias.component';
+import { AutoinscripcionComponent } from './components/autoinscripcion/autoinscripcion.component';
+import { NuevoComponent } from './components/nuevo/nuevo.component';
+import { FinalAutoInscripcionComponent } from './components/final-auto-inscripcion/final-auto-inscripcion.component';
 
 
 
 @NgModule({
-  declarations: [AbmComponent,
+  declarations: [
+    AbmComponent,
     DetailComponent,
     ListadoComponent, 
     HomeComponent, 
     BotoneraAlumnosComponent, 
-    NuevoComponent, InscripcionesComponent, NotasComponent],
+    NuevoComponent, 
+    InscripcionesComponent, 
+    NotasComponent, 
+    FiltroPipe, 
+    ListadoPorCursoComponent, 
+    ConstanciasComponent, 
+    AutoinscripcionComponent, FinalAutoInscripcionComponent
+  ],
   imports: [
     CommonModule,
     AlumnosRoutingModule,
@@ -35,7 +49,7 @@ import { NotasComponent } from './components/notas/notas.component';
     DetailComponent,
     ListadoComponent,
     HomeComponent,
-    BotoneraAlumnosComponent
+    BotoneraAlumnosComponent,
   ]
 })
 export class AlumnosModule { }

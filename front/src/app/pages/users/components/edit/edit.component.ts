@@ -6,18 +6,20 @@ import { UsersService } from '../../services/users.service';
 import { CompartidosService } from '../../../../shared/services/compartidos.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  styleUrls: ['./edit.component.css'],
 })
 export class EditComponent implements OnInit {
   id:any; 
   editarNombre:boolean=false;
   editarApellido:boolean=false;
   editarCorreo:boolean=false;
+  editarRol:boolean=false;
   passValido:boolean=true; 
   mailValido: boolean=true;
   isValid: boolean=false;
@@ -33,7 +35,10 @@ export class EditComponent implements OnInit {
   editarDoc:boolean|undefined;
   cambiarPass: boolean | undefined;
   password:any;
-
+  roles:any; 
+  rol:any; 
+  identity:any;
+  token:any; 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -41,12 +46,20 @@ export class EditComponent implements OnInit {
     private _compartidosService:CompartidosService
   ) { 
     this.password="";
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
   }
 
   ngOnInit(): void {
     this.getUser();
+    this.getRoles();
+    console.log(this.identity);
   }
 
+  ngDoCheck() {
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+  }
   getUser(){
     this._route.params.subscribe(
       params=>{
@@ -66,9 +79,21 @@ export class EditComponent implements OnInit {
       }
     );
   }
+
+  getRoles(){
+    this._userService.getRoles().subscribe(
+      response=>{
+        console.log(response);
+        this.roles=response.roles; 
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    );
+  }
   onSubmit(form:any){
-   console.log(form.value);
-   this.actualizarUsuario(); 
+  // console.log(form.value.permiso);
+   this.actualizarUsuario(form.value.permiso); 
   }
 
   editarName(){
@@ -95,6 +120,11 @@ export class EditComponent implements OnInit {
     this.editando=true;
     console.log(this.editando);
   }
+  editarRole(){
+    this.editarRol=!this.editarRol; 
+    this.editando=true;
+    console.log(this.editando);
+  }
 
   cambiarClave(){
     this.cambiarPass=!this.cambiarPass;
@@ -102,7 +132,7 @@ export class EditComponent implements OnInit {
     console.log(this.editando);
   }
 
-
+  
   descartarCambios(){
     // this.nombre=this.identity.name;
     // this.apellido=this.identity.surname;  
@@ -125,7 +155,7 @@ export class EditComponent implements OnInit {
           this.nameValido=false;
           this.errorName="No puede quedar vacío"
         }else{
-          var PASS_REGEX=/^[A-Za-z ]+$/;
+          var PASS_REGEX=/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
           if(name.match(PASS_REGEX)){
                 this.nameValido=true;
               }else{
@@ -143,7 +173,8 @@ export class EditComponent implements OnInit {
         this.surnameValido=false;
         this.errorSurname="No puede quedar vacío"
       }else{
-        var PASS_REGEX=/^[A-Za-z ]+$/;
+        
+        var PASS_REGEX=/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
         if(surname.match(PASS_REGEX)){
               this.surnameValido=true;
             }else{
@@ -186,14 +217,15 @@ export class EditComponent implements OnInit {
     }
 
 
-    actualizarUsuario(){
-      this.user=new User('','','','','');
+    actualizarUsuario(role_id:any){
+      this.user=new User('','','','','',0);
       console.log('Actualizar');
       this.user.name=this._compartidosService.capitalizar(this.usuario.name); 
       this.user.surname=this._compartidosService.capitalizar(this.usuario.surname);
       this.user.email=this._compartidosService.todoMinuscula(this.usuario.email);
       this.user.dni=this.usuario.email; 
       this.user.password=this.password;
+      this.user.role_id=parseInt(role_id); 
       console.log(this.user);
       this._userService.updateUser(this.user,this.id).subscribe(
         response=>{

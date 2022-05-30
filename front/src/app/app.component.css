@@ -1,9 +1,9 @@
 .main {
-    min-height: 120vh; 
+    min-height: 100vh; 
+
     background-color: rgb(223, 219, 199);
 }
 
 .footer {
-    
-    margin-bottom: 30vh;
+    margin-bottom: 7vh;
 }

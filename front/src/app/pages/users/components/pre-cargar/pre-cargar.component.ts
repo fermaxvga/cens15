@@ -10,10 +10,12 @@ import { UsersService } from '../../services/users.service';
 })
 export class PreCargarComponent implements OnInit {
  
+  roles:any; 
   private isDni:string='[0-9]+';
 
   preCargaForm=this.fb.group({
-    dni: ['',[Validators.required,Validators.minLength(7),Validators.pattern(this.isDni)]]
+    dni: ['',[Validators.required,Validators.minLength(7),Validators.pattern(this.isDni)]],
+    role:['',[Validators.required]]
     });
  
   constructor(
@@ -22,11 +24,27 @@ export class PreCargarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getRoles();
+    console.log('PRE CARGAR');
   }
   isValidField(name:string):boolean{
     const fieldName:any=this.preCargaForm.get(name);
     return fieldName?.invalid && fieldName?.touched;
   }
+
+  getRoles(){
+    console.log('roles ');
+    this._userService.getRoles().subscribe(
+      (response:any)=>{
+        this.roles=response.roles; 
+        console.log(response);
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    );
+  }
+
   onSubmit(){ 
     console.log(this.preCargaForm.value);
     Swal.fire({

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } 	from '@angular/common/http'; 
 import { Observable } 				from 'rxjs'
 import { GLOBAL } from 'src/app/shared/models/global';
+import { environment } from '../../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class CursosService {
   constructor(
     public _http: HttpClient 
   ) { 
-    this.url=GLOBAL.url;
+    this.url=environment.url;
   }
   getCursos():Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
@@ -52,7 +54,7 @@ export class CursosService {
     let params = "json="+json;
     console.log(params);
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
-    return this._http.put(this.url+'cursos/update'+'/'+id,params,{headers: headers});
+    return this._http.put(this.url+'cursos/update/'+id,params,{headers: headers});
   }
 
   getCurso(curso:any,division:any):Observable<any>{
@@ -73,6 +75,18 @@ export class CursosService {
   getCursoPorMateria(id_curso:number|undefined):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.get(this.url+'cursos/materias-curso/'+id_curso, {headers: headers});
+  }
+
+  asignarPreceptor(asignacion:any):Observable<any>{
+    let json=JSON.stringify(asignacion);
+    let params = "json="+json;
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.post(this.url+'cursos/preceptor',params,{headers: headers});
+  }
+
+  buscarPreceptores(id_curso:any):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'cursos/preceptor/'+id_curso,{headers: headers});
   }
 
 
