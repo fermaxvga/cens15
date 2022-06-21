@@ -18,6 +18,8 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
   identity: any;
   delete=faTrashAlt;
   edit=faPencilAlt; 
+  varones:number=0;
+  mujeres:number=0;
 
 
 
@@ -99,6 +101,18 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
       (response:any)=>{
         console.log(response);
         this.alumnos=response.alumnos; 
+        
+        for (const alumno of this.alumnos) {
+          if(alumno.sexo=='varon'){
+            this.varones++;
+          }
+          if(alumno.sexo=='mujer'){
+            this.mujeres++;
+          }
+        }
+        console.log(this.varones);
+        console.log(this.mujeres);
+
       },
       (error:any)=>{
         console.log(<any>error); 

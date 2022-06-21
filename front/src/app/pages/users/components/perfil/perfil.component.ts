@@ -92,7 +92,7 @@ export class PerfilComponent implements OnInit {
   }
 
   actualizarUsuario(){
-    this.user=new User('','','','','',0);
+    this.user=new User('','','','','','',0);
     console.log('Actualizar');
     this.user.name=this._compartidosService.capitalizar(this.nombre); 
     this.user.surname=this._compartidosService.capitalizar(this.apellido);

@@ -54,11 +54,17 @@ export class EditComponent implements OnInit {
     this.getUser();
     this.getRoles();
     console.log(this.identity);
+    if(!this.identity){
+        this._router.navigate(['home']);
+    }
   }
 
   ngDoCheck() {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    if(!this.identity){
+      this._router.navigate(['home']);
+    }
   }
   getUser(){
     this._route.params.subscribe(
@@ -218,7 +224,7 @@ export class EditComponent implements OnInit {
 
 
     actualizarUsuario(role_id:any){
-      this.user=new User('','','','','',0);
+      this.user=new User('','','','','','',0);
       console.log('Actualizar');
       this.user.name=this._compartidosService.capitalizar(this.usuario.name); 
       this.user.surname=this._compartidosService.capitalizar(this.usuario.surname);

@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
-use App\ValidarDni;
+use App\Models\ValidarDni;
+use App\Models\UserPrecarga; 
+use App\Models\Role; 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\JwtAuth;
-use App\UserPrecarga; 
-use App\Role; 
 
 class UserSgaController extends Controller
 {
@@ -23,7 +23,8 @@ class UserSgaController extends Controller
         $name =(!is_null($json))&&isset($params->name)?$params->name:null;
         $surname=(!is_null($json))&&isset($params->surname)?$params->surname:null;
         $dni=(!is_null($json))&&isset($params->dni)?$params->dni:null;
-
+        $role=(!is_null($json))&&isset($params->role)?$params->role:null;
+        //dd($role);
         $password=(!is_null($json))&&isset($params->password)?$params->password:null;
         if(!is_null($email)&&!is_null($password)&&!is_null($name)){
         
@@ -35,8 +36,10 @@ class UserSgaController extends Controller
             $pwd=hash('sha256',$password);
             $user->password=$pwd;
             //Por defecto se asigna el role, usuario. Luego el SuperAdmin podrá modificarlo.
-            $user->role_id=3;
-           // dd($user);
+            $role_id=Role::select('id')->where('role',$role)->get();
+           //  dd($role_id);
+            $role_id=$role_id[0]->id;
+            $user->role_id=$role_id;
             //comprobar duplicado
             $isset_user=User::where('email','=',$email)->first();
 
@@ -90,6 +93,7 @@ class UserSgaController extends Controller
         }else{
             $data=array(
                 'dni'=>$dni[0]['dni'],
+                'role'=>$dni[0]['role'],
                 'message'=>'El Dni se encuentra precargado, puede realizar el registro',
                 'status'=>'success',
                 'code'=>200,
@@ -203,12 +207,14 @@ class UserSgaController extends Controller
             $user=new UserPrecarga();
             
             $user->dni = $params->dni;
+          //  dd($params->role);
+           // dd($role[0]->id);
+            $user->role = $params->role;
             
-            $user->status =0;
-
+            $user->status = 0;
 
             $user->save();
-
+         //   dd($user[0]);
             $data=array(
                 'status'=>'success'
             );

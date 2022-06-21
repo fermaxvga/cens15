@@ -27,6 +27,7 @@ export class PreCargarComponent implements OnInit {
     this.getRoles();
     console.log('PRE CARGAR');
   }
+  
   isValidField(name:string):boolean{
     const fieldName:any=this.preCargaForm.get(name);
     return fieldName?.invalid && fieldName?.touched;

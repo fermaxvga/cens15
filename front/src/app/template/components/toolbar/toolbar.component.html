@@ -20,10 +20,19 @@
                     </a>
                 </li>
                 <li class="nav-item" *ngIf="identity">
-                    <a class="nav-link nombre" (click)="logout()" data-toggle="tooltip" data-placement="top" title="{{role}}">
-                        {{identity.name + ' ' + identity.surname}} 
-                        <fa-icon class="icon" [icon]="sigOut"></fa-icon>
-                    </a>
+                    <div class="row">
+                        <div class="col">
+                            <a class="nav-link nombre" (click)="logout()" data-toggle="tooltip" data-placement="top" title="{{role}}">
+                                {{identity.name + ' ' + identity.surname}} 
+                                <fa-icon class="icon" [icon]="sigOut"></fa-icon>
+                            </a>
+                        </div>
+                        <div class="col-2">
+                            <a class="nav-link casa" data-toggle="tooltip" data-placement="top" title="Inicio" href="home">
+                                <fa-icon class="icon" [icon]="home"></fa-icon>
+                            </a>
+                        </div>
+                    </div>
                 </li>
             </ul> 
         </div>

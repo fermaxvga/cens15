@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     if(this.identity){
-      this._templateService.menu_obs.emit(true);
+      this._templateService.menu_obs.emit(false);
     }
   }
   ngDoCheck() {

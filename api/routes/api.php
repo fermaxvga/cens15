@@ -80,4 +80,8 @@ Route::group(['prefix'=>'notas'],function(){
     Route::get('/eliminar-ciclo/{id_alumno}/{curso}','NotasController@eliminarCiclo');
 });
 
+Route::group(['prefix'=>'docentes'],function(){
+    Route::get('/validar/{id}','DocentesController@validarDocente');
+});
+
 

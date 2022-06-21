@@ -1,5 +1,5 @@
 import { Component, OnInit,DoCheck } from '@angular/core';
-import { faUsers,faUserGraduate,faListAlt, faClipboard,faSitemap,faHandPaper,faInfoCircle,faUsersCog, faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import { faUsers,faUserGraduate,faListAlt, faClipboard,faSitemap,faHandPaper,faInfoCircle,faUsersCog, faUserCircle, faGlassCheers, faGlasses} from '@fortawesome/free-solid-svg-icons';
 import { TemplateService } from '../../services/template.service';
 import { Subscription } from 'rxjs';
 import { UsersService } from '../../../pages/users/services/users.service';
@@ -21,6 +21,7 @@ export class SideBarComponent implements OnInit,DoCheck {
   info=faInfoCircle;
   userIcon=faUsersCog; 
   profile=faUserCircle;
+  docente=faGlasses; 
   identity:any;
   token:any;
   role: any;

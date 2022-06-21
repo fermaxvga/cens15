@@ -1,12 +1,13 @@
 .main{
-    margin: 0;
-    padding: 0;
     width: 70%;
     margin-left: 15%;
     text-align: center;
+    height: 100vh;
 }
 
-
+.portada{
+    margin-top: 15vh;
+}
 
 
 .title{
@@ -27,6 +28,7 @@
     animation-duration: 5s;
     animation-timing-function: linear;
     animation-iteration-count: initial;
+    font-size: 20px;
 }
 
 .btn-iniciarSesion{
@@ -95,6 +97,10 @@
     .welcome {
      font-size: 22px;
      font-weight: bold;
+    }
+
+    .texto-bienvenida{
+        font-size: 14px;
     }
    
 }

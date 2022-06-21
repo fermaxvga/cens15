@@ -3,9 +3,8 @@
 </div>
 
 <div class="container mt-4 main">
-
     <div class="row renglon" style="margin-bottom: 80px">
-        <div class="col">
+        <div class="col-md">
             <h1>
                 Editar Usuario
             </h1>
@@ -14,101 +13,101 @@
     <hr>
     <form #editarUsuario="ngForm" (ngSubmit)="onSubmit(editarUsuario)" *ngIf="usuario">
         <div class="row renglon">
-                    <div class="col">
+                    <div class="col-md">
                         <h4>
                             Nombres 
                         </h4>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col renglon2">
+                    <div class="col-md-2 renglon2">
                         <input type="text" class="input" [ngClass]="{'editable':editarNombre}" id="name" name="name" #name="ngModel" [(ngModel)]="usuario.name" [disabled]="!editarNombre" autocomplete="off" (keyup)="esNameValido(usuario.name)" required>
                         <p *ngIf="editarNombre && !nameValido" class="noValido" style="font-size: 10px;">{{errorName}}</p>
 
                     </div>
-                    <div class="col-2 text-right">
+                    <div class="col-md-2 text-right">
                         <fa-icon [icon]="edit" style="cursor:pointer" [ngClass]="{'btn-editando':editarNombre}" (click)="editarName()"></fa-icon>
                     </div>
                 </div>
                 <div class="row renglon">
-                    <div class="col">
+                    <div class="col-md">
                         <h4>
                             Apellido 
                         </h4>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col renglon2">
+                    <div class="col-md renglon2">
                         <input type="text" class="input" [ngClass]="{'editable':editarApellido}" id="apellido" name="surname" #surname="ngModel" [(ngModel)]="usuario.surname" [disabled]="!editarApellido" autocomplete="off" (keyup)="esSurnameValido(usuario.surname)" required>
                         <p *ngIf="editarApellido && !surnameValido" class="noValido" style="font-size: 10px;">{{errorSurname}}</p>
                     </div>
-                    <div class="col-2 text-right">
+                    <div class="col-md-2 text-right">
                         <fa-icon [icon]="edit" style="cursor:pointer" [ngClass]="{'btn-editando':editarApellido}"  (click)="editarSurname()"></fa-icon>
                     </div>
                 </div>
                 
                 <div class="row renglon">
-                    <div class="col">
+                    <div class="col-md">
                         <h4>
                             Correo Electrónico 
                         </h4>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col renglon2">
+                    <div class="col-md renglon2">
                     <input type="text" class="input" autocomplete="off" [ngClass]="{'editable':editarCorreo}"  [disabled]="!editarCorreo" id="correo" name="mail" #mail="ngModel" [(ngModel)]="usuario.email" (keyup)="esEmailValido(usuario.email)">
                     <p *ngIf="editarCorreo && !mailValido" class="noValido" style="font-size: 10px;">{{errorEmail}}</p>
    
                 </div>
-                <div class="col-2 text-right">
+                <div class="col-md-2 text-right">
                         <fa-icon [icon]="edit" style="cursor:pointer" [ngClass]="{'btn-editando':editarCorreo}" (click)="editarEmail()" ></fa-icon>
                     </div>
                 </div>
                 
                 
                 <div class="row renglon">
-                    <div class="col">
+                    <div class="col-md">
                         <h4>
                             DNI
                         </h4>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col renglon2">
+                    <div class="col-md renglon2">
                         <input type="text" class="input" autocomplete="off" [ngClass]="{'editable':editarDoc}"  id="doc" name="doc" #doc="ngModel" [(ngModel)]="usuario.dni" [disabled]="!editarDoc">
                     </div>
-                    <div class="col-2 text-right">
+                    <div class="col-md-2 text-right">
                         <fa-icon [icon]="edit" style="cursor:pointer" [ngClass]="{'btn-editando':editarDoc}"  (click)="editarDni()"></fa-icon>
                     </div>
                 </div>
                 
                 
                 <div class="row renglon">
-                    <div class="col">
+                    <div class="col-md">
                         <h4>
                             Contraseña 
                         </h4>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6 renglon2">
+                    <div class="col-md-6 renglon2">
                         <a class="link" role="button" (click)="cambiarClave()">Restablecer Contraseña</a>
                         <input type="password" class="form-control" *ngIf="cambiarPass" name="pass" #pass="ngModel" [(ngModel)]="password"  (keyup)="esPassValida(password)">
                         <p *ngIf="cambiarPass && !passValido" class="noValido" style="font-size: 10px;">Mínimo ocho caracteres, al menos una letra y un número</p>
                     </div>
                 </div>
                 <div class="row renglon">
-                    <div class="col">
+                    <div class="col-md">
                         <h4>
                             Rol 
                         </h4>
                     </div>
                 </div> 
                 <div class="row">
-                    <div class="col renglon2" *ngIf="!editarRol">
+                    <div class="col-md renglon2" *ngIf="!editarRol">
                        {{usuario.role.role}}
                     </div>
-                    <div class="col renglon2" *ngIf="editarRol">
+                    <div class="col-md renglon2" *ngIf="editarRol">
                         <label for="roles">Rol</label>
                         <select name="permiso" #permiso="ngModel" id="roles"  class="form-control select-roles" [(ngModel)]="rol">
                             <option></option>
@@ -117,18 +116,30 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-2 text-right">
+                    <div class="col-md-2 text-right">
                         <fa-icon [icon]="edit" style="cursor:pointer" [ngClass]="{'btn-editando':editarRol}"  (click)="editarRole()"></fa-icon>
                     </div>
                 </div>
-
+                <hr>
+                <div class="row justify-content-center" *ngIf="usuario.docente==1">
+                    <div class="col-md-auto">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Definir Docente</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="row justify-content-center" *ngIf="usuario.preceptor==1">
+                    <div class="col-md-auto">
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Definir Preceptor</button>
+                    </div>
+                </div>
+                <hr>
                 <div class="row justify-content-end">
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <button class="btn btn-dark" type="button" [routerLink]="['/users/admin']" >
                             Cancelar 
                         </button>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <!-- <button 
                         class="btn btn-guardar" 
                         (click)="actualizarUsuario()" 
@@ -138,12 +149,34 @@
                         <button 
                         type="submit" 
                         class="btn btn-guardar" 
-                 
                         >
-                 
                         Guardar
                         </button>
                     </div>
                 </div>
     </form>
 </div>
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-asignacion></app-asignacion>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

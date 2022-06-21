@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 		public _templateService: TemplateService
   ) 
   { 
-    this.user=new User('','','','','',0);
+    this.user=new User('','','','','','',0);
   }
 
 
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit(form:any){
-    this.user=new User('','','','','',0);
+    this.user=new User('','','','','','',0);
    // this._router.navigate(['home']);
 
     this.user.email=this.email;
@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
                         this.identity=response;
                         localStorage.setItem('identity',JSON.stringify(this.identity));
                         this.notIdentity=false; 
-                        this._templateService.menu_obs.emit(true);
+                        this._templateService.menu_obs.emit(false);
                         this._router.navigate(['home']);
                         //obtener objeto de usuario identificado
                       },

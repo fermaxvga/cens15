@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren:()=>import('./pages/materias/materias.module').then(m=>m.MateriasModule)
   },
   {
+    path:'docentes',
+    loadChildren:()=>import('./pages/docentes/docentes.module').then(m=>m.DocentesModule)
+  },
+  {
    path:'**',
    redirectTo:'home'
  },

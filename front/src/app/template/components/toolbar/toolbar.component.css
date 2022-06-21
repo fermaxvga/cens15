@@ -36,7 +36,9 @@
 .home{
     font-weight: bold;
 }
-
+.casa{
+    display: none;
+}
 
 nav-link {
     align-items: center;
@@ -85,7 +87,7 @@ a {
         display: block;
     }
     .sigIn{
-        display: none;
+        display: block;
     }
 
 }
@@ -93,6 +95,9 @@ a {
 @media screen and (max-width: 443px) {
     .home{
         display: none;
+    }
+    .casa{
+        display: block;
     }
 
     .bar {

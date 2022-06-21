@@ -1,13 +1,22 @@
+.jumbotron{
+    margin-top: 40px;
+}
+
 .main{
-    margin-top: 50px;
     width: 70%;
     margin-left: 15%;
     text-align: center;
+    height: 100vh;
+}
+
+.portada{
+    margin-top: 15vh;
 }
 
 
-.titulo{
-    font-size: 60px;
+.title{
+    font-style: italic;
+    letter-spacing: 10px;
 }
 
 .welcome {
@@ -23,22 +32,35 @@
     animation-duration: 5s;
     animation-timing-function: linear;
     animation-iteration-count: initial;
+    font-size: 20px;
 }
 
-.btn-iniciarSesion{
+.btn-1{
     background: rgb(11, 24, 139);
     color: #fff;
     border-radius: 0%;
 }
+.btn-1:hover{
+    background: rgb(1, 7, 79);
+}
 
-.btn-inscripcion{
-    background: rgba(204, 32, 9, 0.911);
+.btn-2{
+    background: rgb(189, 31, 4);
     color: #fff;
     border-radius: 0%;
+}
+
+.btn-2:hover{
+    background: rgb(128, 23, 5);
 }
 .logueado{
     background: rgb(222, 53, 3);
     color:  #fff; 
+}
+
+.version{
+    font-style: italic;
+    font-weight: bold;
 }
 
 @keyframes welcome {
@@ -83,8 +105,8 @@
 }
 
 @media screen and (max-width: 443px) {
-    .titulo {
-     font-size: 30px;
+    .welcome {
+     font-size: 22px;
      font-weight: bold;
     }
 

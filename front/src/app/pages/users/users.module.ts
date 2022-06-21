@@ -11,6 +11,7 @@ import { EditComponent } from './components/edit/edit.component';
 import { PreCargarComponent } from './components/pre-cargar/pre-cargar.component';
 import { ListarPreCargadosComponent } from './components/listar-pre-cargados/listar-pre-cargados.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { DocentesModule } from '../docentes/docentes.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     FormsModule,
     SharedModule,
     FontAwesomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DocentesModule
   ],
   exports:[
      LoginComponent,

@@ -31,6 +31,7 @@ export class RegisterComponent implements OnInit {
   email:any;
   password:any;
   errorRegistro:boolean; 
+  role: any;
 
   constructor(
     private _userService: UsersService,
@@ -45,7 +46,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.validar);
-    this.usuario=new User('','','','','',0);
+    this.usuario=new User('','','','','','',0);
   }
 
   getDni(){
@@ -58,6 +59,8 @@ export class RegisterComponent implements OnInit {
             this.validar=true; 
             this.buscando=false;
             this.dni_dni=response;
+            this.role=response.role; 
+            console.log(this.role); 
         }else{
           console.log('Error al buscar DNI');
           this.validar=false; 
@@ -127,7 +130,7 @@ export class RegisterComponent implements OnInit {
 
     this.usuario.surname=this._compartidosService.capitalizar(this.usuario.surname);
  //  this.usuario.surname=this.capitalizar(this.usuario.surname);
-
+    this.usuario.role=this.role; 
    // this.usuario.email=this.todoMinuscula(this.usuario.email);
     this.usuario.email=this._compartidosService.todoMinuscula(this.usuario.email);
     this.registrarUsuario();

@@ -5,9 +5,8 @@ footer {
     color: white;
     padding-top: 12px;
     margin-bottom: 0px;
-    
+    z-index: 1;
     position:fixed;
-    
     bottom: 0%;
 }
 

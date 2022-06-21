@@ -75,6 +75,7 @@ export class UsersService {
      precargar(dni:any):Observable<any>{
       let json = JSON.stringify(dni);
       let params = 'json='+json;
+      console.log(params);
       let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
       return this._http.post(this.url+'usuarios/precargar',params,{headers: headers});
      }

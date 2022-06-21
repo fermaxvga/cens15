@@ -1,5 +1,5 @@
 import { Component, OnInit,DoCheck } from '@angular/core';
-import { faBars, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHome, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TemplateService } from '../../services/template.service';
@@ -21,6 +21,7 @@ export class ToolbarComponent implements OnInit, DoCheck {
   token:any;
   role: any;
   menuSubscription: Subscription | undefined;
+  home=faHome; 
 
 
 
