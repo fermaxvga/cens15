@@ -72,6 +72,7 @@ Route::group(['prefix'=>'materias'],function(){
     Route::get('/get/{id}','MateriaController@getMateriaById');
     Route::put('/update/{id}','MateriaController@updateMateria');
     Route::delete('/delete/{id}','MateriaController@deleteMateria');
+    Route::get('/por-curso/{id_curso}','MateriaController@getMateriasByIdCurso');
 });
 
 Route::group(['prefix'=>'notas'],function(){

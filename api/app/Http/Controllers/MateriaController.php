@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Materia;
-use App\Models\Curso;
+use App\Materia;
+use App\Curso;
 
 class MateriaController extends Controller
 {
@@ -122,6 +122,26 @@ class MateriaController extends Controller
             'message'=>'Materia eliminada',
             'status'=>'success'
         );
+        return response()->json($data,200);
+    }
+
+
+    public function getMateriasByIdCurso($id_curso){
+        header('Access-Control-Allow-Origin','*');
+        header('Access-Control-Allow-Methods','*');
+        $materias=Materia::select('*')->where('id_curso',$id_curso)->get();
+        if(count($materias)>0){
+            $data=array(
+                'materias'=>$materias,
+                'status'=>'success'
+            );
+        }else{
+            $data=array(
+                'message'=>'no se encontraron materias',
+                'status'=>'empty'
+            );
+        }
+
         return response()->json($data,200);
     }
 

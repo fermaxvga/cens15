@@ -9,14 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AlumnosModule } from './pages/alumnos/alumnos.module';
 import { CursosModule } from './pages/cursos/cursos.module';
 import { MateriasModule } from './pages/materias/materias.module';
-import { HomeComponent } from './pages/docentes/components/home/home.component';
+import { DocentesModule } from './pages/docentes/docentes.module';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
      ],
   imports: [
     BrowserModule,
@@ -28,7 +27,7 @@ import { HomeComponent } from './pages/docentes/components/home/home.component';
     AlumnosModule,
     CursosModule,
     MateriasModule,
-    
+    DocentesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

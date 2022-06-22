@@ -6,7 +6,6 @@ import { UsersService } from '../../services/users.service';
 import { CompartidosService } from '../../../../shared/services/compartidos.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { animate, style, transition, trigger } from '@angular/animations';
 
 
 @Component({

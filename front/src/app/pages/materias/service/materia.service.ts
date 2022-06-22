@@ -53,5 +53,11 @@ export class MateriaService {
     return this._http.delete(this.url+'materias/delete/'+id, {headers: headers});
   }
 
+  getMateriasByIdCurso(id_curso:number):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+      return this._http.get(this.url+'materias/por-curso/'+id_curso, {headers: headers});
+    }
+
+
 
 }
