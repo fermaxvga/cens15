@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
-use App\Models\ValidarDni;
-use App\Models\UserPrecarga; 
-use App\Models\Role; 
+use App\ValidarDni;
+use App\UserPrecarga; 
+use App\Role; 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\JwtAuth;
 

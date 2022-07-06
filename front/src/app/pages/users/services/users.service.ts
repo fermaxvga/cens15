@@ -12,6 +12,8 @@ export class UsersService {
    url: string | undefined;
 	 identity: any;
 	 token: any;
+   
+   user_id_obs = new EventEmitter<number>();
 
    preCargado  =  new  EventEmitter<boolean>();
 
@@ -20,7 +22,8 @@ export class UsersService {
   ) {
     this.url = environment.url;
    }
-   
+
+
     validarDni(dni:string):Observable<any>{
       console.log(this.url);
       let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');

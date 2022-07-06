@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User; 
+use App\Docente; 
+use Illuminate\Support\Facades\DB; 
 
 class DocentesController extends Controller
 {
@@ -26,5 +28,32 @@ class DocentesController extends Controller
 
     return response()->json($data,200);
 
+    }
+    //Método para asignar un docente a una materia, recibe, id de usuario, id de materia y sit. de revista (titular, interino,suplente, etc.)
+    public function asignarDocenteMateria($id_user,$id_materia,$revista){
+        header('Access-Control-Allow-Origin','*');
+        header('Access-Control-Allow-Methods','*'); 
+        $docente = new Docente(); 
+        $docente->user_id=$id_user;
+        $docente->materia_id=$id_materia;
+        $docente->revista=$revista;
+        $docente->save();
+        $data=array(
+            'docente'=>$docente,
+            'status'=>'success'
+        );
+        return response()->json($data,200);
+    }
+
+    public function getMateriasByUserId($id_user){
+        header('Access-Control-Allow-Origin','*');
+        header('Access-Control-Allow-Methods','*'); 
+        //$materias = Docente::select('*')->where('user_id',$id_user)->get()->load('user','materia');
+        $materias=DB::connection('cens15Local')->select("call sp_getMateriasByIdUser('$id_user')");
+        $data=array(
+            'materias'=>$materias,
+            'status'=>'success'
+        );
+        return response()->json($data,200);
     }
 }

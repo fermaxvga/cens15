@@ -70,6 +70,8 @@ export class EditComponent implements OnInit {
       params=>{
         this.id=+params['id'];
         console.log(this.id);
+     //   this._templateService.menu_obs.emit(true);
+        this._userService.user_id_obs.emit(this.id);
       }
     );
     this._userService.getUser(this.id).subscribe(

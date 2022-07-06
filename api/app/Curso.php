@@ -10,7 +10,7 @@ class Curso extends Model
 
     public function materias()
     {
-        return $this->hasMany('App\QuizRespuestas','id_curso');
+        return $this->hasMany('App\Curso','id_curso');
     }
    
 }

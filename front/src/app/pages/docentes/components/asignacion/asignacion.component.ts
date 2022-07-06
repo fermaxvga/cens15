@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CursosService } from 'src/app/pages/cursos/services/cursos.service';
 import { MateriaService } from '../../../materias/service/materia.service';
 import Swal from 'sweetalert2';
+import { DocentesService } from '../../services/docentes.service';
+import { Subscription } from 'rxjs';
+import { UsersService } from '../../../users/services/users.service';
 
 @Component({
   selector: 'app-asignacion',
@@ -12,14 +15,24 @@ export class AsignacionComponent implements OnInit {
   cursos:any; 
   materias: any;
   curso_selected:any;
-
+  userSubscription: Subscription | undefined; 
+  user_id:any; 
   constructor(
     public _cursosService:CursosService,
-    public _materiasService:MateriaService
+    public _materiasService:MateriaService,
+    public _docenteService:DocentesService,
+    public _usersService:UsersService,
+    
   ) { }
 
   ngOnInit(): void {
     this.getCursos(); 
+    this.userSubscription=this._usersService.user_id_obs.subscribe(
+      response=>{
+        console.log(response);
+        this.user_id=response; 
+      }
+    );
   }
 
   getCursos(){
@@ -64,6 +77,14 @@ export class AsignacionComponent implements OnInit {
       icon:'question',
       showCancelButton:true
     }).then(result=>{
+      this._docenteService.asignarDocente(1,2,'Suplente').subscribe(
+        response=>{
+          console.log(response);
+        },
+        error=>{
+          console.log(<any>error); 
+        }
+      );
       if(result.isConfirmed){
         Swal.fire({
           icon:'success',

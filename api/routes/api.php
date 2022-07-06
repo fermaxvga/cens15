@@ -83,6 +83,8 @@ Route::group(['prefix'=>'notas'],function(){
 
 Route::group(['prefix'=>'docentes'],function(){
     Route::get('/validar/{id}','DocentesController@validarDocente');
+    Route::get('/asignar-materia/{id_user}/{id_materia}/{revista}','DocentesController@asignarDocenteMateria');
+    Route::get('/mis-materias/{id_user}','DocentesController@getMateriasByUserId');
 });
 
 

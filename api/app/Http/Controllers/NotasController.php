@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Alumno;
-use App\Models\Curso;
-use App\Models\HistoricoInscripciones; 
-use App\Models\Materia;
-use App\Models\Nota; 
+use App\Alumno;
+use App\Curso;
+use App\HistoricoInscripciones; 
+use App\Materia;
+use App\Nota; 
 
 class NotasController extends Controller
 {
