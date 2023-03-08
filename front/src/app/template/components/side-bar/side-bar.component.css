@@ -2,6 +2,7 @@
 .barra-lateral {
     
     background: rgba(202, 199, 199);
+    /* background:white; */
     height: 100vh;
     position: absolute;
     transform: translateX(-55%); 
@@ -34,4 +35,18 @@
 
 .barra-lateral.active {
     transform: translateX(0%);
+}
+
+@media screen and (max-width: 576px) {
+    .barra-lateral {
+    
+        background: rgba(202, 199, 199);
+        height: 100vh;
+        position: absolute;
+        transform: translateX(-100%); 
+        transition: all .3s ease;
+        /* overflow: scroll; */
+        width: 190px;
+        z-index: 1;
+    }
 }

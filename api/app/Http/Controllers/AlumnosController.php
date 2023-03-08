@@ -196,6 +196,39 @@ class AlumnosController extends Controller
          return response()->json($data,200);
     }
 
+    public function cargarMaterias($id_curso){
+        $cursos=Curso::select('id','curso','division','especialidad','modalidad')->where('modalidad','Adultos')->get();
+       // dd(($cursos[20]));
+        foreach($cursos as $curso){
+            $_curso=$curso->curso.' '.$curso->division.' '.$curso->especialidad.' '.$curso->modalidad;
+        //    dd($_curso);
+            $alumnos=Alumno::select('*')->where('curso_id',$curso->id)->get(); 
+           // dd(count($alumnos));
+         //  echo '--'.$alumnos[0]->nombre.'--';
+           //dd(); 
+            $materias=Materia::select('materia')->where('id_curso',$curso->id)->get();
+          //  dd($materias);
+            foreach ($alumnos as $alumno) {
+                for ($i=0; $i < count($materias) ; $i++) { 
+                    $nota=new Nota();
+                    $nota->id_alumno=$alumno->id;
+                    $nota->id_curso=$curso->id;
+                    $nota->curso=$_curso;
+                    $nota->anio=2022;
+                    $nota->modalidad=$curso->modalidad;
+                    $nota->materia=$materias[$i]->materia;
+                    $nota->save(); 
+                }
+            }
+          //  dd(count($materias));
+        }
+   
+
+        return 'Finalizado';
+
+        
+    }
+
     public function getInscripciones($dni){
         header('Access-Control-Allow-Origin','*');
         header('Access-Control-Allow-Methods','*');
@@ -210,44 +243,63 @@ class AlumnosController extends Controller
         return response()->json($data,200);
     }
 
-    public function reinscribir($id_alumno, $id_curso){
+    public function reinscribir($id_alumno, $id_curso,$anio){
         header('Access-Control-Allow-Origin','*');
         header('Access-Control-Allow-Methods','*');
 
-      //  $curso=Curso::select('*')->where('id',$id_curso)->get();
-
+        $curso=Curso::select('*')->where('id',$id_curso)->get();
+     //   dd($curso);
         $alumno=Alumno::select('*')->where('id',$id_alumno)->update(['curso_id'=>$id_curso]);
         $alumno=Alumno::select('*')->where('id',$id_alumno)->get();
-
-      // dd($alumno[0]->id);
+       // dd($alumno[0]->id);
         $inscripcion=new HistoricoInscripciones();
 
         $inscripcion->nombre=$alumno[0]->nombre;
         $inscripcion->apellido=$alumno[0]->apellido;
         $inscripcion->dni=$alumno[0]->dni;
-        $inscripcion->anio=$alumno[0]->inscripcion;
-            $curso=Curso::select('curso','division','especialidad','modalidad')->where('id',$id_curso)->get();
-            $curso=$curso[0]['curso'].' '.$curso[0]['division'].' '.$curso[0]['especialidad'].' '.$curso[0]['modalidad'];
-            //dd($curso);
+        $inscripcion->anio=$anio;
+      //  dd($inscripcion);
+        $curso=Curso::select('curso','division','especialidad','modalidad')->where('id',$id_curso)->get();
+        //dd($curso);
+        $modalidad=$curso[0]->modalidad; 
+            //dd($modalidad);
+        $curso=$curso[0]['curso'].' '.$curso[0]['division'].' '.$curso[0]['especialidad'].' '.$curso[0]['modalidad'];
+          //  dd($curso);
         $inscripcion->curso=$curso; 
-
+        
+        
         $inscripcion->save(); 
-
+        
         //dd($inscripcion);
+      
         $materias=Materia::select('materia')->where('id_curso',$id_curso)->get();
-
+        //dd($materias);
         //Se cargan notas correspondientes al curso seleccionado
-
-      for ($i=0; $i < count($materias) ; $i++) { 
-        $nota=new Nota();
-        $nota->id_alumno=$alumno->id;
-        $nota->id_curso=$params->curso;
-        $nota->curso=$curso;
-        $nota->anio=$params->inscripcion;
-        $nota->modalidad=$modalidad;
-        $nota->materia=$materias[$i]->materia;
-        $nota->save(); 
-    }
+        //$i=0;
+    //  dd($materias);
+        foreach ($materias as $materia) {
+            $nota=new Nota();
+            $nota->id_alumno=$alumno[0]->id;
+    //    dd($nota);
+            $nota->id_curso=$id_curso;
+            $nota->curso=$curso;
+            $nota->anio=$anio;
+            $nota->modalidad=$modalidad;
+            $nota->materia=$materia->materia;
+          //  echo $nota; 
+          //   $i++;
+             $nota->save(); 
+      }  
+    //   for ($i=0; $i < count($materias) ; $i++) { 
+    //     $nota=new Nota();
+    //     $nota->id_alumno=$alumno->id;
+    //     $nota->id_curso=$params->curso;
+    //     $nota->curso=$curso;
+    //     $nota->anio=$params->inscripcion;
+    //     $nota->modalidad=$modalidad;
+    //     $nota->materia=$materias[$i]->materia;
+    //   //  dd($nota); 
+    // }
         $data=array(
             'alumno'=>$alumno,
             'reinscripcion'=>$inscripcion, 
@@ -340,5 +392,80 @@ class AlumnosController extends Controller
              'status'=>'success'
          );
          return response()->json($data,200); 
+    }
+
+    public function inscripcionMasiva(Request $request){
+        header('Access-Control-Allow-Origin','*');
+        header('Access-Control-Allow-Methods','*');
+        $json=$request->input('json',null);
+        $params=json_decode($json);
+      //  dd($params);
+   //     return response()->json($params,200); 
+       // $params=(array)$params; 
+      
+      if(is_array($params)||is_object($params)){
+            foreach ($params as $alumno) {
+ 
+                if(isset($alumno->dni)){
+                    $doc=$alumno->dni;
+                }else{
+                    $doc=null; 
+            }
+            if(!is_null($doc)){
+                $doc_repetido=Alumno::select('*')->where('dni',$doc)->count();
+            }
+            if($doc_repetido==0 || is_null($doc)){
+                $newAlumno=new Alumno();
+            $nombre=(!is_null($json)&&isset($alumno->nombre))?$alumno->nombre:null;
+            $apellido=(!is_null($json)&&isset($alumno->apellido))?$alumno->apellido:null;
+            $dni=(!is_null($json)&&isset($alumno->dni))?$alumno->dni:null;
+            $fecha_de_nacimiento=(!is_null($json)&&isset($alumno->fecha_de_nacimiento))?$alumno->fecha_de_nacimiento:null;
+            $domicilio=(!is_null($json)&&isset($alumno->domicilio))?$alumno->domicilio:null;
+            $loc_nac=(!is_null($json)&&isset($alumno->loc_nac))?$alumno->loc_nac:null;
+            $prov_nac=(!is_null($json)&&isset($alumno->prov_nac))?$alumno->prov_nac:null;
+            $pais_nac=(!is_null($json)&&isset($alumno->pais_nac))?$alumno->pais_nac:null;
+            $tel_alumno=(!is_null($json)&&isset($alumno->tel_alumno))?$alumno->tel_alumno:null;
+            $email=(!is_null($json)&&isset($alumno->email))?$alumno->email:null;
+            $nombre_tutor=(!is_null($json)&&isset($alumno->nombre_tutor))?$alumno->nombre_tutor:null;
+            $tel_tutor=(!is_null($json)&&isset($alumno->tel_tutor))?$alumno->tel_tutor:null;
+            $curso_id=(!is_null($json)&&isset($alumno->curso))?$alumno->curso:null;
+            $inscripcion=(!is_null($json)&&isset($alumno->inscripcion))?$alumno->inscripcion:null;
+            $sexo=(!is_null($json)&&isset($alumno->sexo))?$alumno->sexo:null;
+            
+            
+          
+            $newAlumno->nombre=$nombre;
+            $newAlumno->apellido=$apellido;
+            $newAlumno->dni=$dni;
+            $newAlumno->fecha_de_nacimiento=$fecha_de_nacimiento;
+            $newAlumno->domicilio=$domicilio;
+            $newAlumno->loc_nac=$loc_nac;
+            $newAlumno->prov_nac=$prov_nac;
+            $newAlumno->pais_nac=$pais_nac;
+            $newAlumno->tel_alumno=$tel_alumno;
+            $newAlumno->email=$email;
+            $newAlumno->nombre_tutor=$nombre_tutor;
+            $newAlumno->tel_tutor=$tel_tutor;
+            $newAlumno->curso_id=$curso_id;
+            $newAlumno->inscripcion=$inscripcion;
+            $newAlumno->sexo=$sexo;
+            //   dd($newAlumno);
+            $newAlumno->save();
+            
+            }
+        }
+        $data=array(
+            'message'=>'Listado guardado correctamente',
+            'status'=>'success'
+        );
+    }else{
+        $data=array(
+            'message'=>'No se pudo guardar',
+            'status'=>'error'
+        );
+    }
+
+        return response()->json($data,200); 
+
     }
 }

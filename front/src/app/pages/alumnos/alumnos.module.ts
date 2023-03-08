@@ -18,6 +18,7 @@ import { ConstanciasComponent } from './components/constancias/constancias.compo
 import { AutoinscripcionComponent } from './components/autoinscripcion/autoinscripcion.component';
 import { NuevoComponent } from './components/nuevo/nuevo.component';
 import { FinalAutoInscripcionComponent } from './components/final-auto-inscripcion/final-auto-inscripcion.component';
+import { BoletinComponent } from './components/boletin/boletin.component';
 
 
 
@@ -34,7 +35,7 @@ import { FinalAutoInscripcionComponent } from './components/final-auto-inscripci
     FiltroPipe, 
     ListadoPorCursoComponent, 
     ConstanciasComponent, 
-    AutoinscripcionComponent, FinalAutoInscripcionComponent
+    AutoinscripcionComponent, FinalAutoInscripcionComponent, BoletinComponent
   ],
   imports: [
     CommonModule,

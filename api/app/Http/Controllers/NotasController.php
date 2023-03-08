@@ -45,10 +45,8 @@ class NotasController extends Controller
         $modalidad=$params->modalidad;
       //  dd($params);
      if($modalidad=='Adolescentes'){
-        // dd('ADOLESCENTE');
         if(!is_null($cuatrimestre1) && !is_null($cuatrimestre2)){
             $prom=($cuatrimestre1+$cuatrimestre2)/2;
-            //CASO - DEBE RENDIR EN DICIEMBRE
              if($prom<6){
                  if($cuatrimestre1<6 && $cuatrimestre2>=6){
                      $final_anual=$prom;  
@@ -65,11 +63,15 @@ class NotasController extends Controller
              }
 
              if($prom>=6 && $cuatrimestre2>=6){
-                $final_anual=$prom;
-       //         $diciembre=null;
-       //         $febrero=null;
-                $definitiva=$prom; 
-                $observaciones='Aprobado'; 
+                 if($cuatrimestre1<4){
+                    $observaciones='Recup. 1ro';
+                    $final_anual=$prom;
+                    $definitiva=null;
+                 }else{
+                    $observaciones='Aprobado'; 
+                    $final_anual=$prom;
+                    $definitiva=$prom; 
+                 }
              }
             if($prom>=6 && $cuatrimestre2<6){
                $final_anual=$prom;
@@ -77,6 +79,7 @@ class NotasController extends Controller
               // $definitiva=null; 
                $observaciones='Recup. 2do'; 
            }
+
        }
        if(!is_null($diciembre)){
                     if($diciembre>=6){
@@ -121,14 +124,18 @@ class NotasController extends Controller
                 }
              }
 
-             if($prom>=6){
-            //     dd($prom);
-                $final_anual=$prom;
-       //         $diciembre=null;
-       //         $febrero=null;
-                $definitiva=$prom; 
-                $observaciones='Aprobado'; 
-             }
+
+             if($prom>=6 && $cuatrimestre2>=6){
+                if($cuatrimestre1<4){
+                   $observaciones='Recup. 1ro';
+                   $final_anual=$prom;
+                   $definitiva=null;
+                }else{
+                   $observaciones='Aprobado'; 
+                   $final_anual=$prom;
+                   $definitiva=$prom; 
+                }
+            }
         //     if($prom>=6 && $cuatrimestre2<6){
         //        $final_anual=$prom;
         //       // $febrero=null;
@@ -197,13 +204,15 @@ class NotasController extends Controller
      public function eliminarCiclo($id_alumno,$curso){
         header('Access-Control-Allow-Origin','*');
         header('Access-Control-Allow-Methods','*');
+       // dd($id_alumno,$curso);
         $ciclo=Nota::select('*')
                         ->where('curso',$curso)
                         ->where('id_alumno',$id_alumno)
                         ->delete();
+       // dd($ciclo);
         
         $data=array(
-            'ciclo' =>$ciclo,
+          //  'ciclo' =>$ciclo,
             'status' =>'success', 
         );
 

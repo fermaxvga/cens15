@@ -1,8 +1,9 @@
 import { Component, OnInit,DoCheck } from '@angular/core';
-import { faUsers,faUserGraduate,faListAlt, faClipboard,faSitemap,faHandPaper,faInfoCircle,faUsersCog, faUserCircle, faGlassCheers, faGlasses} from '@fortawesome/free-solid-svg-icons';
+import { faUsers,faUserGraduate,faListAlt, faClipboard,faSitemap,faHandPaper,faInfoCircle,faUsersCog, faUserCircle, faGlassCheers, faGlasses, faNewspaper} from '@fortawesome/free-solid-svg-icons';
 import { TemplateService } from '../../services/template.service';
 import { Subscription } from 'rxjs';
 import { UsersService } from '../../../pages/users/services/users.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -22,6 +23,7 @@ export class SideBarComponent implements OnInit,DoCheck {
   userIcon=faUsersCog; 
   profile=faUserCircle;
   docente=faGlasses; 
+  new=faNewspaper; 
   identity:any;
   token:any;
   role: any;
@@ -34,6 +36,7 @@ export class SideBarComponent implements OnInit,DoCheck {
   constructor(
     public _templateService:TemplateService,
     private _userService: UsersService,
+    public _router: Router
   ) {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
@@ -64,6 +67,9 @@ export class SideBarComponent implements OnInit,DoCheck {
   ngDoCheck(){
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+  }
+  rutear(ruta:string){
+    this._router.navigate(['/'+ruta]); 
   }
 
 }

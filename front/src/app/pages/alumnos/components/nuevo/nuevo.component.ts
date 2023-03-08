@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Alumno } from '../../models/Alumno';
 import { AlumnosService } from '../../services/alumnos.service';
 import { FormGroup, FormControl,FormBuilder,Validators } from '@angular/forms';
 import { CursosService } from '../../../cursos/services/cursos.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { UsersService } from 'src/app/pages/users/services/users.service';
 
 
 @Component({
@@ -12,10 +13,11 @@ import { Router } from '@angular/router';
   templateUrl: './nuevo.component.html',
   styleUrls: ['./nuevo.component.css']
 })
-export class NuevoComponent implements OnInit {
+export class NuevoComponent implements OnInit,DoCheck {
   cursos:any; 
   id_curso:any;
   years:any; 
+  identity:any;
 
   private isEmail:string='^[a-zA-Z0-9.%+-]+@[a-z0-9•-]+.[a-z]{2,4}$';
 
@@ -45,12 +47,20 @@ export class NuevoComponent implements OnInit {
     private _alumnoService: AlumnosService,
     private _cursoService: CursosService,
     private fb:FormBuilder,
-    private _router:Router
-  ) { }
+    private _router:Router,
+    private _usersService: UsersService
+  ) { 
+    this.identity=this._usersService.getIdentity();
+  }
 
   ngOnInit(): void {
     this.getCursos();
     this.yearGenerations(); 
+    this.identity=this._usersService.getIdentity();
+    if((this.identity?.role!=1 && this.identity?.role!=2) || !this.identity){
+      this._router.navigate(['alumnos/home']);
+    }
+
   }
   yearGenerations(){
     this.years=[];
@@ -58,7 +68,7 @@ export class NuevoComponent implements OnInit {
     let yearLimit=2100;
     let i=0;
     while(year<2100){
-      console.log(year);
+   //   console.log(year);
       this.years[i]=year; 
       i++;
       year++; 
@@ -68,6 +78,13 @@ export class NuevoComponent implements OnInit {
     //   this.years[i]=i;
       
     // }
+  }
+
+  ngDoCheck(): void {
+    this.identity=this._usersService.getIdentity();
+    if((this.identity?.role!=1 && this.identity?.role!=2) || !this.identity){
+      this._router.navigate(['alumnos/home']);
+    }
   }
 
 

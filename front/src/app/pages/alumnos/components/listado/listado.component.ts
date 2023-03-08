@@ -2,7 +2,7 @@ import { Component, OnInit,DoCheck } from '@angular/core';
 import { AlumnosService } from '../../services/alumnos.service';
 import { CursosService } from '../../../cursos/services/cursos.service';
 import { Router } from '@angular/router';
-import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faPencilAlt, faEye } from '@fortawesome/free-solid-svg-icons';
 import { UsersService } from '../../../users/services/users.service';
 import Swal from 'sweetalert2';
 
@@ -22,6 +22,7 @@ export class ListadoComponent implements OnInit,DoCheck {
   delete=faTrashAlt;
   edit=faPencilAlt; 
   identity: any;
+  ver=faEye; 
 
 
   constructor(
@@ -45,8 +46,11 @@ export class ListadoComponent implements OnInit,DoCheck {
 
 
   todosLosAlumnos(){
+    Swal.fire('Cargando alumnos...');
+    Swal.showLoading();
     this._alumnosService.getAlumnos().subscribe(
       (response:any)=>{
+        Swal.close();
         this.listado=true;
         if(response.status=='success'){
           console.log(response);
@@ -58,6 +62,7 @@ export class ListadoComponent implements OnInit,DoCheck {
       },
       error=>{
         console.log(<any>error);
+        this.errorMessage(<any>error);
       }
     );
 
@@ -128,5 +133,14 @@ export class ListadoComponent implements OnInit,DoCheck {
       }
     });
   }
+  errorMessage(error:any){
+    Swal.fire({
+      title: `Error ${error.status}`,
+      text: `Error en la petición. Código: ${error.message}` ,
+      icon: "error",
+      showConfirmButton:true,
+    });
+    }
+  
 
 }

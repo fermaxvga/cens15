@@ -294,6 +294,12 @@ class CursosController extends Controller
         return response()->json($data,200);
     }
 
+    // public function idCursoByCurso($curso){
+    //     header('Access-Control-Allow-Origin','*');
+    //     header('Access-Control-Allow-Methods','*');
+    //     $id_curso=Curso::select('id')->where('
+    // }
+
 
 
     

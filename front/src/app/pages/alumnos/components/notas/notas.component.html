@@ -1,9 +1,17 @@
-<div class="contanier main mt-4">
+<div class="contanier main mt-4" id="boletin">
     <div class="row justify-content-center" *ngIf="alumno">
         <div class="col">
             <h3>
                 Notas del Alumno: {{alumno[0]?.apellido}}, {{alumno[0]?.nombre}}
             </h3>
+        </div>
+        <div class="col-3">
+            <button class="btn btn-secondary" [routerLink]="['/alumnos/boletin/',alumno[0]?.id]">Ir a boletín <fa-icon [icon]="download"></fa-icon>
+            </button>
+        </div>
+        <div class="col-3">
+            <button class="btn btn-primary" [routerLink]="['/alumnos/lista']"><fa-icon></fa-icon>Volver al listado
+            </button>
         </div>
     </div>
     <hr>
@@ -23,13 +31,13 @@
                     <th class="header-curso">Definitiva</th>
                     <th class="header-curso">
                         <button class="btn btn-circle btn-lg btn-edit" (click)="editEnable()" data-toggle="tooltip"
-                            data-placement="Modificar Datos" title="Modificar Datos" [disabled]="identity.role===3">
+                            data-placement="Modificar Datos" title="Modificar Datos" [disabled]="!identity || (identity?.role!=1 && identity?.role!=2)">
                             <fa-icon [icon]="edit"></fa-icon>
                         </button>
                     </th>
                     <th>
                         <button class="btn btn-circle btn-lg btn-edit" data-toggle="tooltip"
-                        data-placement="Eliminar Ciclo" title="Eliminar Ciclo" (click)="borrarCiclo(curso)">
+                        data-placement="Eliminar Ciclo" title="Eliminar Ciclo" (click)="borrarCiclo(curso)"  [disabled]="!identity || (identity?.role!=1 && identity?.role!=2)">
                         <fa-icon [icon]="borrar"></fa-icon>
                     </button>
                     </th>
@@ -40,35 +48,124 @@
                 <tr *ngFor="let nota of notas">
                     <td *ngIf="curso == nota.curso">{{nota.materia}}</td>
                         <td class="text-center" *ngIf="curso == nota.curso">
-                            <input type="number" min="0" max="10" class="form-control calificacion" name="nota1" id="nota1"
+                            <div *ngIf="!editar">
+                                {{nota.cuatrimestre1}}
+                            </div>
+                            <select class="form-control" name="nota1" id="nota1" #nota1="ngModel" [(ngModel)]="nota.cuatrimestre1" (change)="modifNota(nota,1)" *ngIf="editar">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="0">A</option>
+                                <option value=""></option>
+                            </select>
+                            <!-- <input type="number" min="0" max="10" class="form-control calificacion" name="nota1" id="nota1"
                             #nota1="ngModel" [(ngModel)]="nota.cuatrimestre1" [disabled]="!editar"
-                            (change)="modifNota(nota)">
+                            (change)="modifNota(nota,1)" *ngIf="nota.cuatrimestre1!=0">
+                            <input  class="form-control calificacion" name="nota1" id="nota1"
+                            #nota1="ngModel" [ngModel]="ausente" [disabled]="!editar"
+                            (change)="modificarAusente1(nota)" *ngIf="nota.cuatrimestre1==0"> -->
+                            <button class="btn btn-warning btn-sm" *ngIf="editarNota && nota_to_edit==nota && cuatrimestre_to_edit==1" (click)="editNota(nota)">Guardar</button>
                         </td>
                         <td class="text-center" *ngIf="curso == nota.curso">
-                            <input type="number" min="0" max="10" class="form-control calificacion" name="nota2" id="nota2"
+                            <div *ngIf="!editar">
+                                {{nota.cuatrimestre2}}
+                            </div>
+                            <select class="form-control" name="nota2" id="nota2" #nota1="ngModel" [(ngModel)]="nota.cuatrimestre2" (change)="modifNota(nota,2)" *ngIf="editar" [disabled]="nota.cuatrimestre1==null">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="0">A</option>
+                                <option value="null"></option>
+                            </select>
+                            <!-- <input type="number" min="0" max="10" class="form-control calificacion" name="nota2" id="nota2"
                             #nota2="ngModel" [(ngModel)]="nota.cuatrimestre2" [disabled]="!editar"
-                            (change)="modifNota(nota)"
-                            [readOnly]="nota.cuatrimestre1==null">
+                            (change)="modifNota(nota,2)"
+                            [readOnly]="nota.cuatrimestre1==null" *ngIf="nota.cuatrimestre2!=0">
+                            <input  class="form-control calificacion" name="nota1" id="nota1"
+                            #nota1="ngModel" [ngModel]="ausente" [disabled]="!editar"
+                            (change)="modificarAusente1(nota)" *ngIf="nota.cuatrimestre2==0"> -->
+                            <button class="btn btn-warning btn-sm" *ngIf="editarNota && nota_to_edit==nota && cuatrimestre_to_edit==2" (click)="editNota(nota)">Guardar</button>
                         </td>
                         <td class="text-center" *ngIf="curso == nota.curso">
                             <input type="number" class="form-control calificacion final_anual" name="notaFinal"
                             id="notaFinal" #notaAnual="ngModel" [(ngModel)]="nota.final_anual" [disabled]="!editar"
-                            (change)="modifNota(nota)" readonly>
+                            (change)="modifNota(nota,3)" readonly *ngIf="(nota.cuatrimestre1!=null)&&(nota.cuatrimestre2!=null)">
                         </td> 
                         <td class="text-center" *ngIf="curso == nota.curso">
-                            <input type="number" min="0" max="10" class="form-control calificacion" name="notaDic"
+                            <div *ngIf="!editar">
+                                {{nota.diciembre}}
+                            </div>
+                            <select class="form-control" name="notaDic" id="notaDic" #notaDic="ngModel" 
+                            [(ngModel)]="nota.diciembre" (change)="modifNota(nota,4)" *ngIf="editar" 
+                            [disabled]="nota.cuatrimestre2==null">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="0">A</option>
+                                <option value=""></option>
+                            </select>
+                            <!-- <input type="number" min="0" max="10" class="form-control calificacion" name="notaDic"
                             id="notaDic" #notaDic="ngModel" [(ngModel)]="nota.diciembre" [disabled]="!editar"
-                            (change)="modifNota(nota)" [readOnly]="nota.cuatrimestre2==null || nota.febrero!=null">
+                            (change)="modifNota(nota,4)" [readOnly]="nota.cuatrimestre2==null || nota.febrero!=null" *ngIf="nota.diciembre!=0">
+                            <input class="form-control calificacion" name="notaDic"
+                            id="notaDic" #notaDic="ngModel" [(ngModel)]="ausente" [disabled]="!editar"
+                            (change)="modifNota(nota,5)" [readOnly]="nota.cuatrimestre2==null || nota.febrero!=null" *ngIf="nota.diciembre==0"> -->
+                            <button class="btn btn-warning btn-sm" *ngIf="editarNota && nota_to_edit==nota && cuatrimestre_to_edit==4" (click)="editNota(nota)">Guardar</button>
+   
                         </td>
                         <td class="text-center" *ngIf="curso == nota.curso">
-                            <input type="number" min="0" max="10" class="form-control calificacion" name="notaFeb"
+                            <div *ngIf="!editar">
+                                {{nota.febrero}}
+                            </div>
+                            <select class="form-control" name="notaFeb" id="notaFeb" #notaFeb="ngModel" 
+                            [(ngModel)]="nota.febrero" (change)="modifNota(nota,5)" *ngIf="editar" 
+                            [disabled]="nota.cuatrimestre2==null">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="0">A</option>
+                                <option value=""></option>
+                            </select>
+                            <!-- <input type="number" min="0" max="10" class="form-control calificacion" name="notaFeb"
                             id="notaFeb" #notaFeb="ngModel" [(ngModel)]="nota.febrero" [disabled]="!editar"
-                            (change)="modifNota(nota)" [readOnly]="nota.diciembre>=6 || nota.cuatrimestre2==null">
+                            (change)="modifNota(nota,6)" [readOnly]="nota.diciembre>=6 || nota.cuatrimestre2==null" *ngIf="nota.febrero!=0">
+                            <input class="form-control calificacion" name="notaFeb"
+                            id="notaFeb" #notaFeb="ngModel" [(ngModel)]="ausente" [disabled]="!editar"
+                            (change)="modifNota(nota,7)" [readOnly]="nota.diciembre>=6 || nota.cuatrimestre2==null" *ngIf="nota.febrero==0"> -->
+                            <button class="btn btn-warning btn-sm" *ngIf="editarNota && nota_to_edit==nota && cuatrimestre_to_edit==5" (click)="editNota(nota)">Guardar</button>
                         </td>
                         <td class="text-center" *ngIf="curso == nota.curso">
                             <input type="number" min="0" max="10" class="form-control calificacion" name="notaDefinitiva"
                             id="notaFinal" #notaAnual="ngModel" [(ngModel)]="nota.definitiva" [disabled]="!editar"
-                            (change)="modifNota(nota)" [ngClass]="{'aprobado':nota.definitiva>=6,'desaprobado':nota.definitiva<6}" readonly>
+                            (change)="modifNota(nota,8)" [ngClass]="{'aprobado':nota.definitiva>=6,'desaprobado':nota.definitiva<6}" readonly>
                         </td>
                         <td *ngIf="curso == nota.curso">
                             <span class="badge badge-secondary">{{nota.observaciones}}</span>

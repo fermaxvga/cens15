@@ -1,7 +1,7 @@
 import { Injectable,EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } 	from '@angular/common/http'; 
 import { Observable } 				from 'rxjs'
-import { GLOBAL } from 'src/app/shared/models/global';
+// import { GLOBAL } from 'src/app/shared/models/global';
 import { User } from '../Models/user';
 import { environment } from 'src/environments/environment';
 
@@ -21,6 +21,7 @@ export class UsersService {
     public _http: HttpClient 
   ) {
     this.url = environment.url;
+   // this.url = GLOBAL.url; 
    }
 
 
@@ -33,7 +34,7 @@ export class UsersService {
     userRegister(usuario:any):Observable<any>{
       let json=JSON.stringify(usuario);
       let params = "json="+json;
-      console.log(params);
+    //  console.log(params);
       let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
       return this._http.post(this.url+'usuarios/register',params,{headers: headers});
     }
@@ -42,7 +43,7 @@ export class UsersService {
       user.gettoken=gettoken; 
       let json = JSON.stringify(user);
       let params = 'json='+json;
-    //  console.log(params);
+      console.log(params);
       let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
       return this._http.post(this.url+'usuarios/login', params, {headers: headers});
     }

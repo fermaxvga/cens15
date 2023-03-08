@@ -1,13 +1,12 @@
 <div class="containter main justify-content-center">
-    
     <div class="jumbotron w-100">
         <h1 class="titulo">Alumnos</h1>
         <hr class="my-4">
         <p>En esta sección podrá realizar gestiones asociadas a los alumnos</p>
         <div  class="row justify-content-center">
            <div class="col">
-                <a href="alumnos/lista" role="button" class="btn btn-iniciarSesion">Listado</a>
-                <a href="alumnos/nuevo" class="btn btn-inscripcion" role="button">Inscripción</a>
+                <button class="btn btn-iniciarSesion" [routerLink]="['/alumnos/lista']">Listado</button>
+                <button class="btn btn-inscripcion"   [disabled]="!identity && identity?.role!=1 && identity?.role!=2" [routerLink]="['/alumnos/nuevo']">Inscripción</button>
            </div>
         </div>
         <hr>

@@ -41,11 +41,16 @@ Route::group(['prefix'=>'alumnos'],function(){
     Route::get('/{id}','AlumnosController@getAlumno');
     Route::get('/notas/{id}','AlumnosController@getNotas');
     Route::post('/inscribir','AlumnosController@inscribirAlumno');
+    Route::post('/inscripcion-masiva','AlumnosController@inscripcionMasiva');
     Route::get('/historico-inscripciones/{dni}','AlumnosController@getInscripciones');
-    Route::put('/reinscribir/{id_alumno}/{id_curso}','AlumnosController@reinscribir');
+    Route::get('/reinscribir/{id_alumno}/{id_curso}/{anio}','AlumnosController@reinscribir');
     Route::get('/inscripcion-orientacion/{id_alumno}','AlumnosController@getInscripcionActual');
     Route::delete('/eliminar-alumno/{id_alumno}','AlumnosController@deleteAlumno');
     Route::put('/editar-alumno/{id_alumno}','AlumnosController@editAlumno');
+
+        /**De emergencia */
+    Route::get('/cargar-materias-alumno/{id_curso}','AlumnosController@cargarMaterias');
+        /**/
 
 
 });
@@ -64,6 +69,7 @@ Route::group(['prefix'=>'cursos'],function(){
     Route::get('/materias-curso/{id_curso}','CursosController@materiasPorCurso');
     Route::post('/preceptor','CursosController@asignarPreceptor');
     Route::get('/preceptor/{id}','CursosController@buscarPreceptor');
+    Route::get('/id-curso/{curso}','CursosController@idCursoByCurso');
 });
 
 Route::group(['prefix'=>'materias'],function(){
@@ -73,18 +79,22 @@ Route::group(['prefix'=>'materias'],function(){
     Route::put('/update/{id}','MateriaController@updateMateria');
     Route::delete('/delete/{id}','MateriaController@deleteMateria');
     Route::get('/por-curso/{id_curso}','MateriaController@getMateriasByIdCurso');
+   
 });
 
 Route::group(['prefix'=>'notas'],function(){
     Route::get('/{id_alumno}','NotasController@getNotas');
     Route::put('/insertar-nota','NotasController@insertarNota');
-    Route::get('/eliminar-ciclo/{id_alumno}/{curso}','NotasController@eliminarCiclo');
+    Route::delete('/eliminar-ciclo/{id_alumno}/{curso}','NotasController@eliminarCiclo');
 });
 
 Route::group(['prefix'=>'docentes'],function(){
     Route::get('/validar/{id}','DocentesController@validarDocente');
     Route::get('/asignar-materia/{id_user}/{id_materia}/{revista}','DocentesController@asignarDocenteMateria');
     Route::get('/mis-materias/{id_user}','DocentesController@getMateriasByUserId');
+    Route::post('/ausencias','DocentesController@cargarAusencia');
+    Route::get('/ausencias/{fecha1}/{fecha2}','DocentesController@getAusencias');
+    Route::delete('/delete-ausencia/{id}','DocentesController@deleteAusencia');
 });
 
 

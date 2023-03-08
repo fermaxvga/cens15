@@ -1,0 +1,58 @@
+
+.A4{
+    border: 1px solid black;
+    width: 210mm;
+    height: 297mm;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 10px;
+
+}
+
+.titulo-principal{
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 40px;
+}
+
+.titulo-secundario{
+    font-size: 16px;
+}
+
+.divider{
+    border: 0.75px solid black;
+    width: 75%;
+}
+
+.datos-alumno{
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.tabla-notas{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.table{
+    font-size: 12px;
+}
+
+.notas-renglon{
+    line-height: 0%;
+    border-top:1px solid black ;
+    font-size: 11px;
+}
+
+footer{
+    position: relative;
+    margin-left: 60px;
+    margin-top: 100px;
+}
+
+
+
+
+
+

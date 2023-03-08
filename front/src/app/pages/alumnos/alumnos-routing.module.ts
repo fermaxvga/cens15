@@ -10,6 +10,8 @@ import { ConstanciasComponent } from './components/constancias/constancias.compo
 import { AutoinscripcionComponent } from './components/autoinscripcion/autoinscripcion.component';
 import { NuevoComponent } from './components/nuevo/nuevo.component';
 import { FinalAutoInscripcionComponent } from './components/final-auto-inscripcion/final-auto-inscripcion.component';
+import { BoletinComponent } from './components/boletin/boletin.component';
+import { InscripcionesComponent } from './components/inscripciones/inscripciones.component';
 
 const routes: Routes = [
     {
@@ -25,6 +27,9 @@ const routes: Routes = [
       {path:'constancias/:id',component:ConstanciasComponent},
       {path:'autoinscripcion',component:AutoinscripcionComponent}, 
       {path:'final-auto-inscripcion',component:FinalAutoInscripcionComponent},
+      {path:'boletin/:id_alumno',component:BoletinComponent},
+      {path:'inscripcion-masiva',component:InscripcionesComponent},
+
       {path:'**',redirectTo :'home'},
     ]
   }

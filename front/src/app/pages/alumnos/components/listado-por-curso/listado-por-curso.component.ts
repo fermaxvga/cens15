@@ -1,6 +1,6 @@
 import { Component, OnInit,DoCheck } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { UsersService } from 'src/app/pages/users/services/users.service';
 import Swal from 'sweetalert2';
 import { AlumnosService } from '../../services/alumnos.service';
@@ -20,6 +20,8 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
   edit=faPencilAlt; 
   varones:number=0;
   mujeres:number=0;
+  ver=faEye; 
+
 
 
 

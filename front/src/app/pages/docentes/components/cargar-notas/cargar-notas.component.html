@@ -6,13 +6,16 @@
             </h3>
         </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-4">
         <div class="col">
             <div class="row" *ngFor="let materia of materias">
                 <div class="col-md-auto mt-2">
-                    <button class="btn btn-primary" (click)="listadoAlumnos(materia.id_materia,materia.id_curso)"> <b>{{materia.materia}}</b> / {{materia.curso}} </button>
+                    <button class="btn btn-outline-dark" (click)="listadoAlumnos(materia.id_materia,materia.id_curso)"> <b>{{materia.materia}}</b> / {{materia.curso}} </button>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row justify-content-center" *ngIf="!materias"> 
+        <app-spinner-master></app-spinner-master>
     </div>
 </div>

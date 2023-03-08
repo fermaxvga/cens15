@@ -13,7 +13,7 @@ export class CargarNotasComponent implements OnInit {
   constructor(
   private _router:Router,
   private _route:ActivatedRoute, 
-  private _docentesServicio:DocentesService
+  private _docentesService:DocentesService,
   ) { }
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class CargarNotasComponent implements OnInit {
       params=>{
        // console.log(params['id']);
         this.id=params['id']; 
-        this._docentesServicio.getMateriasByUserId(this.id).subscribe(
+        this._docentesService.getMateriasByUserId(this.id).subscribe(
           response=>{
             console.log(response);
             this.materias=response.materias; 
@@ -36,6 +36,8 @@ export class CargarNotasComponent implements OnInit {
 
   listadoAlumnos(materia_id:number, curso_id:number){
     console.log(materia_id,curso_id);
+    this._router.navigate(['docentes/cargar-nota-curso',materia_id,curso_id]);  
+    
   }
 
 }

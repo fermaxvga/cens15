@@ -130,7 +130,7 @@ getCursos(){
   );
 }
 
-async reinscribir(curso:any){
+async reinscribir(curso:any,anio:any){
 
 
   try{
@@ -148,7 +148,7 @@ async reinscribir(curso:any){
     reverseButtons:true
   }).then((result)=>{
     if(result.isConfirmed){
-      this._alumnoService.sendReinscripcion(this.alumno.id,curso).subscribe(
+      this._alumnoService.sendReinscripcion(this.alumno.id,curso,anio).subscribe(
         response=>{
           if(response.status=='success')
           Swal.fire('Reinscripción Exitosa','','success');
@@ -223,6 +223,49 @@ editarAlumno(alumno:any){
               showConfirmButton:true
             });
           
+        }
+      );
+    }
+  });
+}
+
+
+eliminarAlumno(alumno:any){
+  console.log(alumno); 
+  Swal.fire({
+    icon:'question',
+    title:'Eliminar Alumno',
+    text:`¿Esta seguro que desea eliminar al alumno ${alumno.nombre} ${alumno.apellido}?`,
+    showConfirmButton:true,
+    showCancelButton:true
+  }).then(result=>{
+    if(result.isConfirmed){
+      this._alumnoService.deleteAlumno(alumno.id).subscribe(
+        (response:any)=>{
+          if(response.status=='success'){
+            Swal.fire({
+            icon:'success',
+            title:`${response.message}`,
+            showConfirmButton:false, 
+            timer:2000
+            });
+            this._router.navigate(['/alumnos/lista']);
+           // this.todosLosAlumnos(); 
+          }else{
+            Swal.fire({
+              icon:'error',
+              title:`No se pudo eliminar el alumno`,
+              timer:1500
+              })
+          }
+        },
+        error=>{
+          console.log(<any>error);
+          Swal.fire({
+            icon:'error',
+            title:`${<any>error}`,
+            timer:1500
+            });
         }
       );
     }

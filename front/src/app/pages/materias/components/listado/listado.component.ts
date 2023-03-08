@@ -109,6 +109,7 @@ export class ListadoComponent implements OnInit {
                         showConfirmButton:false,
                         timer:1500
                         });
+                this.getMaterias();
                 }
               }else{
                 console.log('No se pudo elimnar la materia');

@@ -1,0 +1,125 @@
+<div class="container">
+    <h1 class="text-center mt-4">Boletín para el Alumno: {{alumno?.apellido}} {{alumno?.nombre}}</h1>
+    <div class="row justify-content-end">
+        <button class="btn btn-secondary" (click)="pdf()">Descargar Boletín<fa-icon [icon]="download"></fa-icon>
+        </button>
+    </div>    
+    <div class="row justify-content-end mt-4">
+        <button class="btn btn-primary" [routerLink]="['/alumnos/notas/',alumno?.id]"><fa-icon [icon]="left"></fa-icon>Volver a Notas
+        </button>
+    </div>
+    <div class="A4" id="boletin">
+        <div class="row justify-content-center">
+            <div class="col">
+                <h1 class="text-center titulo-principal">
+                    CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 15
+                </h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <p class="text-center titulo-secundario">
+                    CUE 9400086/01
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <p class="text-center titulo-secundario">
+                    ANEXO ESC. N°1
+                </p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="divider">
+
+            </div>
+        </div>
+        <div class="row justify-content-center mt-2">
+            <div class="col">
+                <p class="text-center titulo-secundario">
+                    INFORME DE CALIFICACIONES {{mes}} de {{anio}}
+                </p>
+            </div>
+        </div>
+        <div class="datos-alumno">
+            <div class="row">
+                <div class="col">
+                    Alumno:<b>{{alumno?.apellido}} {{alumno?.nombre}}</b>
+                </div>
+            </div>
+        </div>
+        <div class="datos-alumno" *ngIf="notas">
+            <b>Curso:</b> {{notas[0].curso}}
+        </div>
+        <div class="row justify-content-center tabla-notas">
+            <div class="col">
+                <table class="table table-borderless">
+                    <thead class="text-center">
+                        <tr>
+                            <th [width]="200">Asignatura</th>
+                            <th>1er Cuat.</th>
+                            <th>2do Cuat.</th>
+                            <th>Pro. Anual</th>
+                            <th>Ex.Dic</th>
+                            <th>Ex.Marzo</th>
+                            <th>Nota Final</th>
+                            <th>Situación</th>
+                        </tr>
+                    </thead>  
+           
+                    <tbody class="notas-renglon">
+                        <tr *ngFor="let nota of notas">
+                            <td class="col-auto">{{nota.materia}}</td>
+                            <td *ngIf="nota.cuatrimestre1!=0">{{nota.cuatrimestre1}}</td>
+                            <td *ngIf="nota.cuatrimestre1==0">A</td>
+                            <td *ngIf="nota.cuatrimestre2!=0">{{nota.cuatrimestre2}}</td>
+                            <td *ngIf="nota.cuatrimestre2==0">A</td>
+                            <td *ngIf="nota.cuatrimestre2!=null && nota.cuatrimestre1!=null">{{nota.final_anual}}</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td *ngIf="nota.definitiva">{{nota.definitiva}}</td><td *ngIf="!nota.definitiva">-</td>
+                            <td *ngIf="nota.observaciones=='Aprobado'">APROB<td><td *ngIf="nota.observaciones!='Aprobado'">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="divider">
+            </div>
+        </div>
+        <div class="row justify-content-end mr-4" *ngIf="promedio_general">
+            <div class="col-auto">
+                Promedio: {{promedio_general}}
+            </div>
+        </div>
+        <footer>
+            <b> Referencias - Columna SITUACIÓN </b>
+            <table class="table table-borderless tabla-notas">
+                <tbody>
+                    <tr>
+                        <td>APROB:</td>
+                        <td>Aprobada</td>
+                    </tr>
+                    <tr>
+                        <td>A/E:</td>
+                        <td>Aprobada por Equivalencia</td>
+                    </tr>
+                    <tr>
+                        <td>Disp. xx/yy</td>
+                        <td>Aprobada por Equivalencia</td>
+                    </tr>
+                    <tr>
+                        <td>Res. 133/05:</td>
+                        <td>Aprobada por Res. Ministerial 133/05</td>
+                    </tr>
+                    <tr>
+                        <td>Res. 2638/08:</td>
+                        <td>Aprobada por Res. Ministerial 2638/08</td>
+                    </tr>
+                </tbody>
+            </table>
+        </footer>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col">
+          <h1 class="text-center">
+              Novedades
+          </h1>
+        </div>
+    </div>
+    <hr>
+    <div class="row justify-content-end mt-4">
+        <div class="col-auto">
+            Consultar Ausencias
+            <button class="btn btn-info" (click)="opcionAmostrar('consultar')" >
+                <fa-icon [icon]="listado">
+                </fa-icon>
+            </button>
+        </div>
+        
+        <div class="col-auto" >
+            Cargar Ausencia
+            <button class="btn btn-success" (click)="opcionAmostrar('cargar')" [disabled]="!identity || (identity.role!=1 && identity.role!=4)">
+                <fa-icon [icon]="plus">
+                </fa-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+    </div>
+</div>

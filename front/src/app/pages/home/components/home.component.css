@@ -102,6 +102,13 @@
     .texto-bienvenida{
         font-size: 14px;
     }
+    .logueado{
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: italic;
+        background: rgb(17, 107, 171);
+    }
    
 }
 

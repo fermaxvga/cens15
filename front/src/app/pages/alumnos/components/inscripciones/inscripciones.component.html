@@ -1,1 +1,71 @@
-<p>inscripciones works!</p>
+<app-botonera-alumnos></app-botonera-alumnos>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Inscripción Masiva</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-2">
+        <div class="col-4">
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input input-file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="cargarArchivo($event)">
+                  <label class="custom-file-label" for="inputGroupFile01">Importar Archivo</label>
+                </div>
+            </div>        
+        </div>
+    </div>
+    <div class="row justify-content-center" *ngIf="selectedFile">
+        <div class="col-6" *ngIf="formato">
+            <div class="row">
+            Archivo Seleccionado: <p class="text-center text-primary">{{selectedFile.name}}</p>
+            </div>
+        </div>
+        <div class="col-6" *ngIf="!formato">
+            <p class="text-danger text-center">Formato Inválido</p>
+        </div>
+    </div>
+    <div class="row justify-content-center" *ngIf="selectedFile" >
+        <div class="col-auto">
+
+            <label for="curso">Seleccione el curso</label>
+            <select id="curso" class="form-control" name="curso_target" #curso_target="ngModel" [(ngModel)]="curso_destino">
+                <option *ngFor="let curso of cursos" value="{{curso.id}}">{{curso.curso}} {{curso.division}} {{curso.especialidad}} {{curso.modalidad}} </option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label for="anio">Año de Inscripción</label>
+            <input  id="anio" class="form-control" type="number" name="year" #year="ngModel" [(ngModel)]="anio_inscripcion">
+        </div>
+    </div>
+    <div class="row justify-content-center mt-2" *ngIf="ExcelData">
+        <div class="col-6">
+            <button class="btn btn-primary btn-block" [disabled]="!curso_destino" (click)="inscribirListado()">Ingresar Listado</button>
+        </div>
+    </div>
+</div>
+<div class="container" *ngIf="ExcelData">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Celular</th>
+                <th scope="col">Sexo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of ExcelData; let i=index">
+                <th>{{i+1}}</th>
+                <td>{{data.apellido}}</td>
+                <td>{{data.nombre}}</td>
+                <td>{{data.dni}}</td>
+                <td>{{data.celular}}</td>
+                <td>{{data.sexo}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

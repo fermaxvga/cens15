@@ -1,0 +1,95 @@
+.main{
+    margin-top: 50px;
+    width: 70%;
+    margin-left: 15%;
+    text-align: center;
+}
+
+
+.titulo{
+    font-size: 60px;
+}
+
+.welcome {
+    font-size: 60px;
+    animation-name: welcome;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: initial;
+}
+
+.texto-bienvenida{
+    animation-name:texto;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-iteration-count: initial;
+}
+
+.btn-1{
+    background: rgb(11, 24, 139);
+    color: #fff;
+    border-radius: 0%;
+}
+
+.btn-2{
+    background: rgba(204, 32, 9, 0.911);
+    color: #fff;
+    border-radius: 0%;
+}
+.logueado{
+    background: rgb(222, 53, 3);
+    color:  #fff; 
+}
+
+@keyframes welcome {
+    0% {
+        opacity: 0;
+        /* transform: scale(1.5) translateY(-0.75em); */
+    }
+    20% {
+        opacity: 0.5;
+    }
+    89% {
+        opacity: 0.75;
+        /* transform: scale(1.5); */
+        transition: 5s;
+        letter-spacing: 2px;
+    }
+    100% {
+        opacity: 0;
+        /* transform: translateZ(-1000em); */
+    }
+}
+
+@keyframes texto{
+  0%  {
+    opacity: 0;
+
+    }
+    25%{
+        opacity: 0.5;
+    }
+    89% {
+        opacity: 0.75;
+        /* transform: scale(1.5); */
+        transition: 5s;
+        letter-spacing: 1px;
+    }
+    100% {
+        opacity: 0;
+        /* transform: translateZ(-1000em); */
+    }
+
+}
+
+@media screen and (max-width: 443px) {
+    .titulo {
+     font-size: 30px;
+     font-weight: bold;
+    }
+
+    .texto-bienvenida{
+        font-size: 14px;
+    }
+   
+}

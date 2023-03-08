@@ -1,0 +1,49 @@
+<hr>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <label for="hoy">Hoy</label>
+            <div class="ros">
+                <button class="btn btn-hoy" id="hoy" (click)="verAusentesHoy()">
+                    {{today}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+            <div class="col-auto float-left">
+                <label for="fecha1">Desde</label>
+                <input type="date" id="fecha1" name="fecha1" #fecha1="ngModel" [(ngModel)]="date1" class="form-control" (change)="date2=null">
+            </div>
+            <div class="col-auto">
+                <label for="fecha2">Hasta</label>
+                <input type="date" id="fecha2" name="fecha2" #fecha2="ngModel" [(ngModel)]="date2" class="form-control"
+                    (change)="mostrarListado()" [disabled]="!date1">
+            </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center" *ngIf="verHoy">
+        <div class="col-auto container-ausencias float-left" *ngFor="let date of dates">
+            <p class="text-center">
+               {{date?.dia}} {{date?.format}}
+            </p>
+            <table class="table justify-content-center">
+                <thead>
+                            <tr>
+                                <th scope="col">Docente</th>
+                                <th *ngIf="identity?.role==1 || identity?.role==4"></th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ausencia of ausencias">
+                                <td *ngIf="ausencia?.fecha==date?.fecha">{{ausencia.docente}}</td>
+                                <td *ngIf="ausencia?.fecha==date?.fecha && (identity?.role==1 || identity?.role==4)"><button class="btn btn-danger btn-sm" (click)="quitarAusencia(ausencia)"><fa-icon [icon]="borrar"></fa-icon></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+

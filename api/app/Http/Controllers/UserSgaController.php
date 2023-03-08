@@ -14,20 +14,22 @@ use App\Helpers\JwtAuth;
 class UserSgaController extends Controller
 {
     public function register(Request $request){
-        header('Access-Control-Allow-Origin','*');
-        header('Access-Control-Allow-Methods','*');
-//dd($request);
-        $json=$request->input('json',null);
-        $params=json_decode($json);
-        $email=(!is_null($json))&&isset($params->email)?$params->email:null;
-        $name =(!is_null($json))&&isset($params->name)?$params->name:null;
+         header('Access-Control-Allow-Origin','*');
+         header('Access-Control-Allow-Methods','*');
+         //dd($request);
+         $json=$request->input('json',null);
+         $params=json_decode($json);
+         $email=(!is_null($json))&&isset($params->email)?$params->email:null;
+         $name =(!is_null($json))&&isset($params->name)?$params->name:null;
+    //     dd($params);
         $surname=(!is_null($json))&&isset($params->surname)?$params->surname:null;
         $dni=(!is_null($json))&&isset($params->dni)?$params->dni:null;
         $role=(!is_null($json))&&isset($params->role)?$params->role:null;
         //dd($role);
         $password=(!is_null($json))&&isset($params->password)?$params->password:null;
+      //  dd($email,$password,$name);
         if(!is_null($email)&&!is_null($password)&&!is_null($name)){
-        
+     //   dd($password);
             $user=new User();
             $user->email=$email;
             $user->name=$name;
@@ -37,13 +39,13 @@ class UserSgaController extends Controller
             $user->password=$pwd;
             //Por defecto se asigna el role, usuario. Luego el SuperAdmin podrá modificarlo.
             $role_id=Role::select('id')->where('role',$role)->get();
-           //  dd($role_id);
+     //        dd($role_id);
             $role_id=$role_id[0]->id;
             $user->role_id=$role_id;
             //comprobar duplicado
             $isset_user=User::where('email','=',$email)->first();
 
-            //dd($isset_user);
+           // dd($isset_user);
             if(!$isset_user){
                     $user->save(); 
                     $dni=ValidarDni::select('dni')->where('dni',$dni)->update(['status'=>1]);
@@ -148,7 +150,7 @@ class UserSgaController extends Controller
         //Recibir Post
         $json=$request->input('json',null);
         $params=json_decode($json);
-//dd($params);
+//dd($request);
         $email=(!is_null($json)&&isset($params->email))?$params->email:null;
         $password=(!is_null($json)&&isset($params->password)) ? $params->password:null;
         $getToken=(!is_null($json)&&isset($params->gettoken)) ? $params->gettoken:null;

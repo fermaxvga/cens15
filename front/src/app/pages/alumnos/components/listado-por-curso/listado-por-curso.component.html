@@ -40,10 +40,10 @@
                         {{alumno?.inscripcion}}
                     </td>
                     <td>
-                        <button class="btn btn-warning" *ngIf="identity.role==1 || identity.role==2" [routerLink]="['/alumnos/detail/',alumno.id]"> <fa-icon [icon]="edit"></fa-icon></button>
+                        <button class="btn btn-primary"  [routerLink]="['/alumnos/detail/',alumno.id]"> <fa-icon [icon]="ver"></fa-icon></button>
                     </td>
                     <td>
-                        <button class="btn btn-danger" *ngIf="identity.role==1 || identity.role==2" (click)="eliminarAlumno(alumno)"> <fa-icon [icon]="delete"></fa-icon></button>
+                        <button class="btn btn-danger" *ngIf="identity?.role==1 && identity?.role==2" (click)="eliminarAlumno(alumno)"> <fa-icon [icon]="delete"></fa-icon></button>
                     </td>
 
                 </tr>

@@ -1,0 +1,9 @@
+<app-novedades-toolbar></app-novedades-toolbar>
+
+<div class="contanier" *ngIf="opcion=='consultar'">
+    <app-listado-ausentes></app-listado-ausentes>
+</div>
+
+<div class="contanier" *ngIf="opcion=='cargar'">
+    <app-cargar-ausencias></app-cargar-ausencias>
+</div>

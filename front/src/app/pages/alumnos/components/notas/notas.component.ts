@@ -1,10 +1,13 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AlumnosService } from '../../services/alumnos.service';
-import { faEdit, faEraser } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faEdit, faEraser } from '@fortawesome/free-solid-svg-icons';
 import { Curso } from '../../models/Cursos';
 import Swal from 'sweetalert2';
 import { UsersService } from '../../../users/services/users.service';
+import jsPDF from 'jspdf';
+import domtoimage from 'dom-to-image';
+
 
 
 
@@ -24,6 +27,11 @@ export class NotasComponent implements OnInit,DoCheck {
   id_alumno:number=0; 
   identity: any;
   token: any;
+  ausente='A'; 
+  download=faDownload; 
+  editarNota: boolean=false;
+  nota_to_edit: any;
+  cuatrimestre_to_edit: any;
   constructor(
     private _route:ActivatedRoute,
     private _alumnosService:AlumnosService,
@@ -71,7 +79,7 @@ export class NotasComponent implements OnInit,DoCheck {
         console.log(<any>error); 
       }
     );
-    }
+  }
 
   getAlumno(id:number){
     this._alumnosService.getAlumno(id).subscribe(
@@ -89,21 +97,51 @@ export class NotasComponent implements OnInit,DoCheck {
   this.editar=!this.editar;     
   }
 
-  modifNota(nota:any){
-   console.log(nota);  
-   this._alumnosService.inserNota(nota).subscribe(
-     response=>{
-      console.log(response);
-      this.getNotas(this.id_alumno); 
-     },
-     error=>{
-      console.log(error);
-     }
-  );
+  modifNota(nota:any,cuatrimestre:number){
+    this.editarNota=true; 
+    this.cuatrimestre_to_edit=cuatrimestre;
+    console.log(cuatrimestre);
+    this.nota_to_edit=nota;
+    console.log(this.editarNota);
+    console.log(nota);  
+  //  this._alumnosService.inserNota(nota).subscribe(
+  //    response=>{
+  //     console.log(response);
+  //     this.getNotas(this.id_alumno); 
+  //    },
+  //    error=>{
+  //     console.log(error);
+  //    }
+  // );
+  }
+
+  editNota(nota:any){
+    Swal.showLoading();
+    this._alumnosService.inserNota(nota).subscribe(
+      response=>{
+        console.log(response);
+        this.getNotas(this.id_alumno); 
+        Swal.close();
+      },
+      error=>{
+        console.log(error);
+        Swal.close();
+      }
+    );
+
   }
 
   borrarCiclo(curso:any){
-    console.log('Borrar Ciclo',curso,this.alumno.id);
+    //console.log('Borrar Ciclo',curso,this.id_alumno);
+    console.log(this.notas,this.cursos);
+    this._alumnosService.getIdCursoByCurso(curso).subscribe(
+      response=>{
+        console.log(response);
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    );
     Swal.fire({
       title: '¿Eliminar Ciclo?',
       text: `Antes de eliminar, apunte las notas obtenidas, las mismas se pederán ¿continuar?`,
@@ -131,4 +169,30 @@ export class NotasComponent implements OnInit,DoCheck {
           }
             }); 
   }
+  modificarAusente1(nota:any){
+    nota.cuatrimestre1=1; 
+  }
+  modificarAusente2(nota:any){
+    nota.cuatrimestre2=1; 
+  }
+  modificarAusenteDiciembre(nota:any){
+    nota.diciembre=1; 
+  }
+  modificarAusenteFebrero(nota:any){
+    nota.febrero=1; 
+  }
+
+  pdf() {
+    var canvas = document.getElementById('boletin');
+    domtoimage.toPng(canvas).then((dataUrl: string) => {
+      let imagen = new Image();
+      imagen.src = dataUrl;
+      let pdf = new jsPDF('p', 'mm', 'A4');
+        pdf.addImage(imagen, 10, 25, 280, 155);
+        pdf.save('boletin.pdf');
+    }
+    );
+  }
+
+
 }

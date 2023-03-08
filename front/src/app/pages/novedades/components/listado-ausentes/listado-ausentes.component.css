@@ -1,0 +1,22 @@
+.btn-hoy{
+    background: rgb(236, 14, 14);
+    color: white;
+}
+
+.container-ausencias{
+    margin: 20px;
+    padding: 5px;
+    background: rgb(207, 225, 231);
+    border-radius: 5%;
+  
+}
+
+
+@media screen and (max-width: 443px) {
+    .container-ausencias {
+        min-width: 80%;
+    }
+   
+}
+
+

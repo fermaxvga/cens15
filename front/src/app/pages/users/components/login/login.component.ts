@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit(form:any){
+    Swal.showLoading();
     this.user=new User('','','','','','',0);
    // this._router.navigate(['home']);
 
@@ -62,15 +63,17 @@ export class LoginComponent implements OnInit {
           //  obtener el Toke
           if(!response?.original?.status){
             this.token=response;
-              console.log('gettoken');
+             // console.log('gettoken');
   
-              console.log('respuesta token',response);
+            //  console.log('respuesta token',response);
               localStorage.setItem('token',this.token); 
               this._userService.signup(this.user,true).subscribe(
                 response=>{
                     
                 //  console.log('respuesta user->',response);
                         this.identity=response;
+                        Swal.close();
+
                         localStorage.setItem('identity',JSON.stringify(this.identity));
                         this.notIdentity=false; 
                         this._templateService.menu_obs.emit(false);
@@ -85,6 +88,7 @@ export class LoginComponent implements OnInit {
                     );
           }else{
             console.log('Login Error');
+            Swal.close();
             this.error('Email y/o contraseña erroneos');
             this.logueando=!this.logueando; 
           }

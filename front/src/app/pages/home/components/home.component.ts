@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { UsersService } from '../../users/services/users.service';
 import { TemplateService } from 'src/app/template/services/template.service';
-
+import { environment } from 'src/environments/environment';
 
 
 
@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit {
     private _templateService:TemplateService
   ) {
     this.identity = this._userService.getIdentity();
-    this.token = this._userService.getToken()
+    this.token = this._userService.getToken();
+
    }
 
   ngOnInit(): void {

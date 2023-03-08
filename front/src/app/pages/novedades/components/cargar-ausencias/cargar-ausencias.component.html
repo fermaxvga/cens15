@@ -1,0 +1,35 @@
+<hr>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h3 class="text-center">Cargar Ausencias</h3>
+        </div>
+    </div>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <form  #ausencia="ngForm" (ngSubmit)="onSubmit(ausencia)">
+                <div class="form-row mt-2">
+                    <label for="docente">Docente</label>
+                    <input type="text" class="form-control" id="docente" name="docente" #docente="ngModel" [(ngModel)]="datos_docente" placeholder="Apellido y Nombre">
+                </div>
+                <div class="form-row mt-2">
+                    <div class="form-col">
+                        <label for="date1">Desde</label>
+                        <input type="date" id="date1" min="{{today}}" name="date1" #date1="ngModel" [(ngModel)]="fecha1" class="form-control">
+                    </div>
+                    <div class="form-col">
+                        <label for="date2">Hasta</label>
+                        <input type="date" id="date2" min="{{fecha1}}" name="date2" #date2="ngModel" [(ngModel)]="fecha2" class="form-control">
+                    </div>
+
+                </div>
+                <div class="form-row mt-4">
+                    <button class="btn btn-primary btn-block" type="submit" [disabled]="!datos_docente || !fecha1 || !fecha2">
+                        Cargar Ausencia
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
