@@ -170,20 +170,28 @@ class AlumnosController extends Controller
 
             $materias=Materia::select('materia')->where('id_curso',$alumno->curso_id)->get();
 
-            $curso=Curso::select('curso','division','especialidad','modalidad')->where('id',$params->curso)->get();
+            $curso=Curso::select('curso','division','especialidad','modalidad','semipresencial')->where('id',$params->curso)->get();
             $modalidad=$curso[0]->modalidad; 
-            $curso=$curso[0]->curso.' '.$curso[0]->division.' '.$curso[0]->especialidad.' '.$curso[0]->modalidad;
+            $curso_string=$curso[0]->curso.' '.$curso[0]->division.' '.$curso[0]->especialidad.' '.$curso[0]->modalidad;
+          
+          //  dd($curso[0]->semipresencial);
 
-            //Se cargan notas correspondientes al curso seleccionado
-            for ($i=0; $i < count($materias) ; $i++) { 
-                $nota=new Nota();
-                $nota->id_alumno=$alumno->id;
-                $nota->id_curso=$params->curso;
-                $nota->curso=$curso;
-                $nota->anio=$params->inscripcion;
-                $nota->modalidad=$modalidad;
-                $nota->materia=$materias[$i]->materia;
-                $nota->save(); 
+            if(($curso[0]->semipresencial)!=1){
+                //dd("Semipresencial"); 
+                
+                //Se cargan notas correspondientes al curso seleccionado
+                for ($i=0; $i < count($materias) ; $i++) { 
+                    $nota=new Nota();
+                    $nota->id_alumno=$alumno->id;
+                    $nota->id_curso=$params->curso;
+                    $nota->curso=$curso_string;
+                    $nota->anio=$params->inscripcion;
+                    $nota->modalidad=$modalidad;
+                    $nota->materia=$materias[$i]->materia;
+                    $nota->save(); 
+                }
+            }else{
+                dd("Cargar planilla de notas, según semi presencial");
             }
         }else{
             $data=array(
@@ -249,8 +257,13 @@ class AlumnosController extends Controller
 
         $curso=Curso::select('*')->where('id',$id_curso)->get();
      //   dd($curso);
-        $alumno=Alumno::select('*')->where('id',$id_alumno)->update(['curso_id'=>$id_curso]);
+        $alumno=Alumno::select('*')->where('id',$id_alumno)->update(
+            [
+            'curso_id'=>$id_curso,
+            'inscripcion'=>$anio
+        ]);
         $alumno=Alumno::select('*')->where('id',$id_alumno)->get();
+        //dd($alumno);
        // dd($alumno[0]->id);
         $inscripcion=new HistoricoInscripciones();
 

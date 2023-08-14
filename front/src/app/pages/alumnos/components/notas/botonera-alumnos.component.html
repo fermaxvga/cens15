@@ -1,0 +1,7 @@
+<div class="container main">
+<div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-alumnos" [routerLink]="['/alumnos/lista']">Listado</button>
+        <button type="button" class="btn btn-alumnos" [routerLink]="['/alumnos/nuevo']" [disabled]="!identity || (identity?.role!=1 && identity?.role!=2)">Inscripción</button>
+        <button type="button" class="btn btn-alumnos" [routerLink]="['/alumnos/home']" >Home</button>
+    </div>
+</div>

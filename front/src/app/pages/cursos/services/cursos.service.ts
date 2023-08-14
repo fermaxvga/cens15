@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } 	from '@angular/common/http';
 import { Observable } 				from 'rxjs'
 import { GLOBAL } from 'src/app/shared/models/global';
 import { environment } from '../../../../environments/environment';
+import { Ruta } from '../models/Ruta';
 
 
 @Injectable({
@@ -87,6 +88,24 @@ export class CursosService {
   buscarPreceptores(id_curso:any):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.get(this.url+'cursos/preceptor/'+id_curso,{headers: headers});
+  }
+
+  getAnios(id_curso:any):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'cursos/anios/'+id_curso,{headers: headers});
+  }
+
+  getRutas():Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'cursos/rutas',{headers: headers});
+  }
+
+  postRutas(rutaCompleta:Ruta | undefined):Observable<any>{
+    let json=JSON.stringify(rutaCompleta);
+    console.log(json);
+    let params = "json="+json;
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.post(this.url+'cursos/rutas',params,{headers: headers});
   }
 
 

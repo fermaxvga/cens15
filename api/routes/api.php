@@ -70,6 +70,9 @@ Route::group(['prefix'=>'cursos'],function(){
     Route::post('/preceptor','CursosController@asignarPreceptor');
     Route::get('/preceptor/{id}','CursosController@buscarPreceptor');
     Route::get('/id-curso/{curso}','CursosController@idCursoByCurso');
+    Route::get('/anios/{curso}','CursosController@getAniosCursos');
+    Route::get('/rutas','CursosController@getRutas');
+    Route::post('/rutas','CursosController@crearRuta');
 });
 
 Route::group(['prefix'=>'materias'],function(){
@@ -85,7 +88,8 @@ Route::group(['prefix'=>'materias'],function(){
 Route::group(['prefix'=>'notas'],function(){
     Route::get('/{id_alumno}','NotasController@getNotas');
     Route::put('/insertar-nota','NotasController@insertarNota');
-    Route::delete('/eliminar-ciclo/{id_alumno}/{curso}','NotasController@eliminarCiclo');
+    Route::get('/ciclos-alumno/{id_alumno}','NotasController@getCiclosByIdAlumno');
+    Route::delete('/eliminar-ciclo/{id_alumno}/{id_curso}','NotasController@eliminarCiclo');
 });
 
 Route::group(['prefix'=>'docentes'],function(){

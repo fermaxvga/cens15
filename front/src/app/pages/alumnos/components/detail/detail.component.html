@@ -10,7 +10,7 @@
     <hr>
 
     <div class="row">
-        <button class="btn btn-circle btn-lg btn-edit" (click)="editEnable()" data-toggle="tooltip" data-placement="Modificar Datos" title="Modificar Datos" [disabled]="identity.role==3">
+        <button class="btn btn-circle btn-lg btn-edit" (click)="editEnable()" data-toggle="tooltip" data-placement="Modificar Datos" title="Modificar Datos" [disabled]="(identity && identity.role==3)||!identity">
             <fa-icon [icon]="edit"></fa-icon>
         </button>
     </div>
@@ -20,7 +20,7 @@
         </button>
     </div>
     <div class="row">
-        <button class="btn btn-circle btn-lg btn-reinscripcion" data-toggle="modal" data-target="#reinscribirModal" (click)="editEnable()" title="Reinscribir" [disabled]="identity.role==3">
+        <button class="btn btn-circle btn-lg btn-reinscripcion" data-toggle="modal" data-target="#reinscribirModal" (click)="editEnable()" title="Reinscribir" [disabled]="(identity && identity.role==3)||!identity">
             <fa-icon [icon]="reInscribir"></fa-icon>
         </button>
     </div>
@@ -159,7 +159,7 @@
             <button class="btn btn-block btn-primary" [disabled]="!editar" (click)="editarAlumno(alumno)">Guardar Cambios</button>
         </div>
         <div class="col-md-6 mt-4">
-            <button class="btn btn-block btn-danger" [disabled]="identity.role!=1 && identity.role!=2" (click)="eliminarAlumno(alumno)">Eliminar Alumno</button>
+            <button class="btn btn-block btn-danger" [disabled]="(identity && identity.role==3)||!identity" (click)="eliminarAlumno(alumno)">Eliminar Alumno</button>
         </div>
     </div>
 </div>
@@ -239,8 +239,8 @@
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <select name="anio_ins" id="anio" class="form-control">
-                                <option value="2022">2022</option>
                                 <option value="2023">2023</option>
+                                <option value="2022">2022</option>
                             </select>
                         </div>
                     </div>

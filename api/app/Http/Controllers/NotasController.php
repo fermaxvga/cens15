@@ -18,10 +18,12 @@ class NotasController extends Controller
 
         $notas=Nota::select('*')->where('id_alumno',$id_alumno)->get();
         $cursos=Nota::select('curso')->where('id_alumno',$id_alumno)->get()->groupBy('curso');
-        
+        $cursos_id=Nota::select('curso','id_curso')->where('id_alumno',$id_alumno)->get();
+
         $data=array(
             'notas' =>$notas,
-            'cursos'=>$cursos, 
+            'cursos'=>$cursos,
+            'cursos_id'=>$cursos_id, 
             'status' =>'success', 
         );
 
@@ -201,22 +203,37 @@ class NotasController extends Controller
     }
 
 
-     public function eliminarCiclo($id_alumno,$curso){
+     public function eliminarCiclo($id_alumno,$id_curso){
         header('Access-Control-Allow-Origin','*');
         header('Access-Control-Allow-Methods','*');
        // dd($id_alumno,$curso);
         $ciclo=Nota::select('*')
-                        ->where('curso',$curso)
+                        ->where('id_curso',$id_curso)
                         ->where('id_alumno',$id_alumno)
                         ->delete();
        // dd($ciclo);
         
         $data=array(
-          //  'ciclo' =>$ciclo,
+            'ciclo' =>$ciclo,
             'status' =>'success', 
         );
 
         return response()->json($data,200);
+     }
+
+
+     public function getCiclosByIdAlumno($id_alumno){
+        header('Access-Control-Allow-Origin','*');
+        header('Access-Control-Allow-Methods','*');
+        $ciclos=Nota::select('id_curso','curso','anio')->where('id_alumno',$id_alumno)->distinct('id_curso')->get();
+        $data=array(
+            'status' =>'success',
+            'ciclos' =>$ciclos
+        );
+
+        return response()->json($data,200);
+
+
      }
 
 }

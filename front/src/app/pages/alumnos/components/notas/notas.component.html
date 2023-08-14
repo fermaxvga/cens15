@@ -1,19 +1,30 @@
 <div class="contanier main mt-4" id="boletin">
-    <div class="row justify-content-center" *ngIf="alumno">
-        <div class="col">
+    <div class="row justify-content-center mt-3 mb-3" *ngIf="alumno">
+        <div class="col-auto">
+            <button class="btn btn-secondary" [routerLink]="['/alumnos/boletin/',alumno[0]?.id]">Ir a boletín <fa-icon [icon]="download"></fa-icon>
+            </button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" [routerLink]="['/alumnos/lista']"><fa-icon [icon]="listado"></fa-icon> Volver al listado
+            </button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-dark" [routerLink]="['/alumnos/detail/',alumno[0]?.id]"><fa-icon [icon]="datos"></fa-icon> Volver a datos del alumno
+            </button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-danger" (click)="deleteCiclo(alumno[0].id)" [disabled]="(identity && identity.role==3)||!identity"><fa-icon [icon]="borrar"></fa-icon> Eliminar un ciclo
+            </button>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
             <h3>
                 Notas del Alumno: {{alumno[0]?.apellido}}, {{alumno[0]?.nombre}}
             </h3>
         </div>
-        <div class="col-3">
-            <button class="btn btn-secondary" [routerLink]="['/alumnos/boletin/',alumno[0]?.id]">Ir a boletín <fa-icon [icon]="download"></fa-icon>
-            </button>
-        </div>
-        <div class="col-3">
-            <button class="btn btn-primary" [routerLink]="['/alumnos/lista']"><fa-icon></fa-icon>Volver al listado
-            </button>
-        </div>
     </div>
+  
     <hr>
    <!-- <pre>
        {{notas | json}}
@@ -35,11 +46,8 @@
                             <fa-icon [icon]="edit"></fa-icon>
                         </button>
                     </th>
-                    <th>
-                        <button class="btn btn-circle btn-lg btn-edit" data-toggle="tooltip"
-                        data-placement="Eliminar Ciclo" title="Eliminar Ciclo" (click)="borrarCiclo(curso)"  [disabled]="!identity || (identity?.role!=1 && identity?.role!=2)">
-                        <fa-icon [icon]="borrar"></fa-icon>
-                    </button>
+                    <th class="header-curso">
+                        Inscripción
                     </th>
                 </tr>
             </thead>
@@ -177,4 +185,39 @@
                 </tbody> 
             </table> 
         </div>
+
+
+        <div class="modal fade" id="eliminarCiclo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Eliminar Ciclo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <h3>Cursos para el alumno</h3>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <table class="table">
+                            <tbody>
+                              <tr *ngFor="let ciclo of ciclos">
+                                  <td>{{ciclo.curso}}</td>
+
+                                  <td><button class="btn btn-danger" (click)="borrarCiclo(alumno[0]?.id,ciclo.id_curso)">Eliminar este ciclo</button></td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
 

@@ -19,7 +19,8 @@ import { CursoPorMateriaComponent } from './components/curso-por-materia/curso-p
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    SharedModule,
+    SharedModule
+
   ]
 
 })

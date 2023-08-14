@@ -21,8 +21,10 @@ export class BoletinComponent implements OnInit {
   download=faDownload; 
   left=faArrowLeft; 
   promedio_general: number| undefined;
+  dia:any; 
   mes:any;
   anio:any; 
+  courses: any[]| undefined;
 
   constructor(
     private _route:ActivatedRoute,
@@ -32,6 +34,8 @@ export class BoletinComponent implements OnInit {
     moment.locale('es');
     this.mes=moment().format('MMMM');
     this.anio=moment().format('YYYY');
+    this.dia=moment().format('DD');
+
   }
 
   async ngOnInit(): Promise<void> {
@@ -64,13 +68,23 @@ export class BoletinComponent implements OnInit {
             this.id_cursos[j]=curso; 
             j++;
           }
+          this.courses=[];
+          for (let i = 0; i < this.notas.length; i++) {
+            this.courses[i]=this.notas[i].curso; 
+            
+          }
+          this.courses=this.courses.filter((item, index)=>{
+            return this.courses?.indexOf(item)==index; 
+          });
+          
           console.log(this.id_cursos);
-          console.log(this.cursos);
+          console.log(this.courses);
         },
         error=>{
           console.log(<any>error); 
         }
         );
+        
       })
     }
   

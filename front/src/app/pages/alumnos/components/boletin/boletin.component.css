@@ -6,8 +6,7 @@
     font-family: 'Courier New', Courier, monospace;
     margin-top: 0px;
     margin-bottom: 0px;
-    padding: 10px;
-
+    padding: 5px;
 }
 
 .titulo-principal{
@@ -31,18 +30,22 @@
 }
 
 .tabla-notas{
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .table{
-    font-size: 12px;
+    font-size: 11px;
+
+}
+td{
+    width: 0px;
 }
 
 .notas-renglon{
     line-height: 0%;
     border-top:1px solid black ;
-    font-size: 11px;
+    font-size: 10px;
 }
 
 footer{

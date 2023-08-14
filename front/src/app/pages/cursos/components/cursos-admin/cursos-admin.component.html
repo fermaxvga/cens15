@@ -11,189 +11,289 @@
         </div>
         <table class="table" *ngIf="cursos">
             <thead>
-              <tr>
-                <th scope="col">Curso</th>
-                <th scope="col">Division</th>
-                <th scope="col">Especialidad</th>
-                <th scope="col">Modalidad</th>
-                <th scope="col">Semipresencial</th>
-                <th colspan="2">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarCurso">
-                        Agregar Curso                  
-                    </button>
-                </th>
-               
-              </tr>
+                <tr>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Division</th>
+                    <th scope="col">Especialidad</th>
+                    <th scope="col">Modalidad</th>
+                    <th scope="col">Semipresencial</th>
+                    <th colspan="2">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarCurso">
+                            Agregar Curso
+                        </button>
+                    </th>
+
+                </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let curso of cursos" class="renglon-curso">
-                <th [routerLink]="['/cursos/detalle/',curso.id]">{{curso.curso}}</th>
-                <td [routerLink]="['/cursos/detalle/',curso.id]">{{curso.division}}</td>
-                <td [routerLink]="['/cursos/detalle/',curso.id]">{{curso.especialidad}}</td>
-                <td [routerLink]="['/cursos/detalle/',curso.id]">{{curso.modalidad}}</td>
-                <td [routerLink]="['/cursos/detalle/',curso.id]" *ngIf="curso.semipresencial==1">Si</td>
-                <td [routerLink]="['/cursos/detalle/',curso.id]" *ngIf="curso.semipresencial==0">No</td>
-                <td>
-                    <button class="btn btn-warning" (click)="editarCurso(curso)">
-                    <fa-icon [icon]="edit"></fa-icon>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-danger" (click)="eliminarCurso(curso)">
-                    <fa-icon [icon]="trash"></fa-icon>
-                    </button>
-                </td>
-              </tr>
+                <tr *ngFor="let curso of cursos" class="renglon-curso">
+                    <th [routerLink]="['/cursos/detalle/',curso?.id]">{{curso?.curso}}</th>
+                    <td [routerLink]="['/cursos/detalle/',curso?.id]">{{curso?.division}}</td>
+                    <td [routerLink]="['/cursos/detalle/',curso?.id]">{{curso?.especialidad}}</td>
+                    <td [routerLink]="['/cursos/detalle/',curso?.id]">{{curso?.modalidad}}</td>
+                    <td [routerLink]="['/cursos/detalle/',curso?.id]" *ngIf="curso?.semipresencial==1">Si</td>
+                    <td [routerLink]="['/cursos/detalle/',curso?.id]" *ngIf="curso?.semipresencial==0">No</td>
+                    <td>
+                        <button class="btn btn-warning" (click)="editarCurso(curso)">
+                            <fa-icon [icon]="edit"></fa-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" (click)="eliminarCurso(curso)">
+                            <fa-icon [icon]="trash"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
 
             </tbody>
-          </table>
+        </table>
+    </div>
+</div>
+<div class="container main justify-content-center">
+
+    <div class="main2 jumbotron m-4 p-10">
+        <h1 class="display-4 ">Rutas</h1>
+        <hr class="my-4">
+        <div class="row justify-content-end mb-4">
+            <div class="col-auto">
+                <button class="btn btn-secondary" data-toggle="modal" data-target="#agregarRuta">Agregar Ruta</button>
+            </div>
+        </div>
+        <div class="container" *ngFor="let ruta of rutas">
+            <div class="row justify-content-center titulo-ruta">
+                <div class="col">
+                    <h3>{{ruta.ruta}}</h3>
+                </div>
+                <div class="col">
+                        <button class="btn btn-warning"><fa-icon [icon]="edit"></fa-icon> </button>
+                        &nbsp;
+                        <button class="btn btn-danger" (click)="eliminarRuta(ruta.id)"> <fa-icon [icon]="trash"></fa-icon> </button>
+                </div>
+        </div>
+        <div class="row justify-content-center">
+            <table class="table" style="text-align: start;">
+                <thead>
+                    <tr>
+                        <th>Curso</th>
+                        <th>Controles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let detail of ruta.detail">
+                        <td> <span class="badge badge-primary"> {{detail.curso.curso}} {{detail.curso.division}}
+                            {{detail.curso.especialidad}}</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-dark"><fa-icon [icon]="up"></fa-icon></button>&nbsp;
+                            <button class="btn btn-dark"><fa-icon [icon]="down"></fa-icon></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            <!-- <div *ngIf="rutas">
+            <div class="row" *ngFor="let ruta of rutas">
+                {{ruta.ruta}}
+            </div>
+        </div> -->
+        <!-- <table class="table">
+                    <tbody>
+                        
+                    </tbody> 
+        </table> -->
+        <hr>
+    </div>
+</div>
+
+
+
 
 
 
 
 <div class="modal fade" id="agregarCurso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Agregar Curso</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Curso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="cursoForm" (ngSubmit)="onSubmit()">
+                    <div class="row justify-content-start align-items-center w-100 p-0">
+                        <div class="col">
+                            <label for="curso">Curso</label>
+                            <select name="nro_curso" id="curso" class="form-control" formControlName="curso"
+                                [ngClass]="{'is-invalid': isValidField('curso')}" style="font-size: 12px;">
+                                <option> </option>
+                                <option *ngFor="let option of nro_cursos">{{option.numero}}°</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="div">Division</label>
+                            <select name="div" id="division" class="form-control" formControlName="division"
+                                [ngClass]="{'is-invalid': isValidField('division')}" style="font-size: 12px;">
+                                <option> </option>
+                                <option *ngFor="let option of divisiones">{{option.division}} </option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label for="especialidad">Especialidad</label>
+
+                            <select name="esp" id="especialidad" class="form-control" formControlName="especialidad"
+                                [ngClass]="{'is-invalid': isValidField('especialidad')}" style="font-size: 12px;">
+                                <option></option>
+                                <option *ngFor="let option of especialidades">{{option.especialidad}}</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label for="modalidad">Modalidad</label>
+
+                            <select name="mod" id="modalidad" class="form-control" formControlName="modalidad"
+                                [ngClass]="{'is-invalid': isValidField('modalidad')}" style="font-size: 12px;">
+                                <option></option>
+                                <option *ngFor="let option of modalidades">{{option.modalidad}}</option>
+                            </select>
+                        </div>
+                        <div class="col custom-control custom-checkbox semi">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                formControlName="semipresencial">
+                            <label class="custom-control-label" for="customCheck1">SemiPres</label>
+                        </div>
+                        <div class="col align-self-end">
+                            <button type="submit" class="btn btn-primary btn-sm"
+                                [disabled]="cursoForm.invalid">Crear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-        <div class="modal-body">
-            <form [formGroup]="cursoForm" (ngSubmit)="onSubmit()">
-                <div class="row justify-content-start align-items-center w-100 p-0">
-                    <div class="col">
-                        <label for="curso">Curso</label>
-                        <select name="nro_curso" id="curso" class="form-control"  
-                        formControlName="curso" 
-                        [ngClass]="{'is-invalid': isValidField('curso')}" style="font-size: 12px;">
-                            <option> </option>
-                            <option *ngFor="let option of nro_cursos">{{option.numero}}°</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="div">Division</label>
-                        <select name="div" id="division" class="form-control" 
-                        formControlName="division" 
-                        [ngClass]="{'is-invalid': isValidField('division')}" style="font-size: 12px;">
-                            <option> </option>
-                            <option *ngFor="let option of divisiones">{{option.division}} </option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <label for="especialidad">Especialidad</label>
-            
-                        <select name="esp" id="especialidad" class="form-control" 
-                        formControlName="especialidad" 
-                        [ngClass]="{'is-invalid': isValidField('especialidad')}"
-                        style="font-size: 12px;">
-                            <option></option>
-                            <option *ngFor="let option of especialidades">{{option.especialidad}}</option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <label for="modalidad">Modalidad</label>
-            
-                        <select name="mod" id="modalidad" class="form-control"
-                        formControlName="modalidad" 
-                        [ngClass]="{'is-invalid': isValidField('modalidad')}"
-                        style="font-size: 12px;">
-                            <option></option>
-                            <option *ngFor="let option of modalidades">{{option.modalidad}}</option>
-                        </select>
-                    </div>
-                    <div class="col custom-control custom-checkbox semi">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="semipresencial">
-                        <label class="custom-control-label" for="customCheck1">SemiPres</label>
-                    </div>
-                    <div class="col align-self-end">
-                        <button type="submit" class="btn btn-primary btn-sm" [disabled]="cursoForm.invalid">Crear</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 
 
-  <div class="modal fade" id="cursoEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="cursoEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar Curso</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Curso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="cursoToEditForm" (ngSubmit)="onSubmitUpdate()">
+                    <div class="row justify-content-start align-items-center w-100 p-0">
+                        <div class="col">
+                            <label for="curso">Curso</label>
+                            <select name="nro_curso" id="curso" class="form-control" formControlName="curso"
+                                [ngClass]="{'is-invalid': isValidField('curso')}" style="font-size: 12px;">
+                                <option> </option>
+                                <option *ngFor="let option of nro_cursos">{{option.numero}}°</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="div">Division</label>
+                            <select name="div" id="division" class="form-control" formControlName="division"
+                                [ngClass]="{'is-invalid': isValidField('division')}" style="font-size: 12px;">
+                                <option> </option>
+                                <option *ngFor="let option of divisiones">{{option.division}} </option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label for="especialidad">Especialidad</label>
+
+                            <select name="esp" id="especialidad" class="form-control" formControlName="especialidad"
+                                [ngClass]="{'is-invalid': isValidField('especialidad')}" style="font-size: 12px;">
+                                <option></option>
+                                <option *ngFor="let option of especialidades">{{option.especialidad}}</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label for="modalidad">Modalidad</label>
+
+                            <select name="mod" id="modalidad" class="form-control" formControlName="modalidad"
+                                [ngClass]="{'is-invalid': isValidField('modalidad')}" style="font-size: 12px;">
+                                <option></option>
+                                <option *ngFor="let option of modalidades">{{option.modalidad}}</option>
+                            </select>
+                        </div>
+                        <div class="col custom-control custom-checkbox semi">
+                            <input type="checkbox" class="custom-control-input" id="customCheckEditSemi"
+                                formControlName="semipresencial">
+                            <label class="custom-control-label" for="customCheckEditSemi">SemiPres</label>
+                        </div>
+                        <div class="col align-self-end">
+                            <button type="submit" class="btn btn-warning btn-sm"
+                                [disabled]="cursoToEditForm.invalid">Editar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-        <div class="modal-body">
-            <form [formGroup]="cursoToEditForm" (ngSubmit)="onSubmitUpdate()">
-                <div class="row justify-content-start align-items-center w-100 p-0">
-                    <div class="col">
-                        <label for="curso">Curso</label>
-                        <select name="nro_curso" id="curso" class="form-control"  
-                        formControlName="curso" 
-                        [ngClass]="{'is-invalid': isValidField('curso')}" style="font-size: 12px;">
-                            <option> </option>
-                            <option *ngFor="let option of nro_cursos">{{option.numero}}°</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="div">Division</label>
-                        <select name="div" id="division" class="form-control" 
-                        formControlName="division" 
-                        [ngClass]="{'is-invalid': isValidField('division')}" style="font-size: 12px;">
-                            <option> </option>
-                            <option *ngFor="let option of divisiones">{{option.division}} </option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <label for="especialidad">Especialidad</label>
-            
-                        <select name="esp" id="especialidad" class="form-control" 
-                        formControlName="especialidad" 
-                        [ngClass]="{'is-invalid': isValidField('especialidad')}"
-                        style="font-size: 12px;">
-                            <option></option>
-                            <option *ngFor="let option of especialidades">{{option.especialidad}}</option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <label for="modalidad">Modalidad</label>
-            
-                        <select name="mod" id="modalidad" class="form-control"
-                        formControlName="modalidad" 
-                        [ngClass]="{'is-invalid': isValidField('modalidad')}"
-                        style="font-size: 12px;">
-                            <option></option>
-                            <option *ngFor="let option of modalidades">{{option.modalidad}}</option>
-                        </select>
-                    </div>
-                    <div class="col custom-control custom-checkbox semi">
-                        <input type="checkbox" class="custom-control-input" id="customCheckEditSemi" formControlName="semipresencial">
-                        <label class="custom-control-label" for="customCheckEditSemi">SemiPres</label>
-                    </div>
-                    <div class="col align-self-end">
-                        <button type="submit" class="btn btn-warning btn-sm" [disabled]="cursoToEditForm.invalid">Editar</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 
-
-
+<div class="modal fade" id="agregarRuta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Ruta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row justify-content-center mt-2 mb-2">
+                        <div class="col-6">
+                            <label for="nombreRuta">Nombre de la Ruta</label>
+                            <input type="text" class="form-control" id="nombreRuta" name="rutaName" #rutaName="ngModel" [(ngModel)]="nombreRuta" >
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <div class="row" *ngFor="let curso of cursos_izquierda">
+                                <div class="col-auto mt-2">
+                                    <button class="btn btn-dark" (click)="pasarIzquierdaAderecha(curso)">
+                                        {{curso?.curso}} {{curso?.division}} {{curso?.modalidad}}
+                                        {{curso?.especialidad}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="background: #0ffff0;">
+                            <div class="row" *ngFor="let curso of cursos_derecha">
+                                <div class="col-auto mt-2">
+                                    <button class="btn btn-primary" (click)="pasarDerechaAizquierda(curso)">
+                                        {{curso?.curso}} {{curso?.division}} {{curso?.modalidad}}
+                                        {{curso?.especialidad}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="guardarRuta(nombreRuta,cursos_derecha)">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
