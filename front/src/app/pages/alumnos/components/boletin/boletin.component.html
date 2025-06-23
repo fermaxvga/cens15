@@ -56,6 +56,8 @@
             <b>Curso:</b>  {{curso}}
          <div class="row justify-content-center tabla-notas">
             <div class="col p-0">
+<<<<<<< HEAD
+=======
                 <table class="table table-borderless">
                     <thead class="text-center">
                         <tr>
@@ -72,6 +74,42 @@
            
                     <tbody class="notas-renglon">
                         <tr *ngFor="let nota of notas">
+                                <td class="text-start" style="width: min-content;"  *ngIf="nota.curso==curso">{{nota.materia}}</td>
+                                <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.cuatrimestre1==0)">A</td>
+                                <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.cuatrimestre1!=0)">{{nota.cuatrimestre1}}</td>
+                                <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.cuatrimestre2!=0)">{{nota.cuatrimestre2}}</td>
+                                <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.cuatrimestre2==0)">A</td>
+                                <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.cuatrimestre2!=null) && (nota.cuatrimestre1!=null)">{{nota.final_anual}}</td>
+                                <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.diciembre==null)">-</td><td class="text-center" *ngIf="(nota.curso==curso) && (nota.diciembre!=null)">{{nota.diciembre}}</td> 
+                                <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.marzo==null)">-</td><td class="text-center" *ngIf="(nota.curso==curso) && (nota.marzo!=null)">{{nota.marzo}}</td>
+                                <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.definitiva)">{{nota.definitiva}}</td><td class="text-center" *ngIf="(nota.curso==curso) && (!nota.definitiva)">-</td>
+                                <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso)">{{nota.observaciones}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+        </div>
+        <!-- <div class="row justify-content-center tabla-notas">
+            <div class="col">
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
+                <table class="table table-borderless">
+                    <thead class="text-center">
+                        <tr>
+                            <th>Asignatura</th>
+                            <th>1er Cuat.</th>
+                             <th>2do Cuat.</th>
+                            <th>Pro. Anual</th>
+                            <th>Ex.Dic</th> 
+                            <th>Ex.Marzo</th> 
+                            <th>Nota Final</th>
+                            <th>Situación</th>   
+                        </tr>
+                    </thead>  
+           
+                    <tbody class="notas-renglon">
+                        <tr *ngFor="let nota of notas">
+<<<<<<< HEAD
                                 <td class="text-start text-materia"  *ngIf="nota.curso==curso"> <div class="row"><div class="col-auto"> {{nota.materia}}</div></div></td>
                                 <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.cuatrimestre1==0)">A</td>
                                 <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.cuatrimestre1==-1)">S/C</td>
@@ -84,10 +122,23 @@
                                 <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.marzo==null)">-</td><td class="text-center" *ngIf="(nota.curso==curso) && (nota.marzo!=null)">{{nota.marzo}}</td>
                                 <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.definitiva)">{{nota.definitiva}}</td><td class="text-center" *ngIf="(nota.curso==curso) && (!nota.definitiva)">-</td>
                                 <td class="text-center" style="width: min-content;" *ngIf="(nota.curso==curso) && (nota.cuatrimestre1&&nota.cuatrimestre2)">{{nota.observaciones}} </td>
+=======
+                            <td class="col-auto">{{nota.materia}}</td>
+                            <td *ngIf="nota.cuatrimestre1!=0">{{nota.cuatrimestre1}}</td>
+                            <td *ngIf="nota.cuatrimestre1==0">A</td>
+                            <td *ngIf="nota.cuatrimestre2!=0">{{nota.cuatrimestre2}}</td>
+                            <td *ngIf="nota.cuatrimestre2==0">A</td>
+                            <td *ngIf="nota.cuatrimestre2!=null && nota.cuatrimestre1!=null">{{nota.final_anual}}</td>
+                            <td *ngIf="nota.diciembre==null">-</td><td *ngIf="nota.diciembre!=null">{{nota.diciembre}}</td>
+                            <td *ngIf="nota.marzo==null">-</td><td *ngIf="nota.marzo!=null">{{nota.marzo}}</td>
+                            <td *ngIf="nota.definitiva">{{nota.definitiva}}</td><td *ngIf="!nota.definitiva">-</td>
+                            <td *ngIf="nota.observaciones=='Aprobado'">APROB<td><td *ngIf="nota.observaciones!='Aprobado'">-</td>
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
                         </tr>
                     </tbody>
                 </table>
             </div>
+<<<<<<< HEAD
         </div> 
         </div>
         <div class="container" style="margin-top: 80px;">
@@ -119,6 +170,11 @@
                 <div class="col m-2 text-center">
                     Firma y Sello Rector/a
                 </div>
+=======
+        </div> -->
+        <div class="row justify-content-center">
+            <div class="divider">
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
             </div>
         </div>
         <!-- <div class="row justify-content-end mr-4" *ngIf="promedio_general">

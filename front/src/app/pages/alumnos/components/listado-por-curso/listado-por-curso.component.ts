@@ -31,9 +31,12 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
   meses:any;
   month: Month |undefined;
   fileName: string|undefined;
+<<<<<<< HEAD
   verDatos=true; 
   lastYear: any;
   curentYear: any | undefined;
+=======
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
 
 
 
@@ -50,10 +53,14 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
 
   ngOnInit(): void {
     this.calendario(); 
+<<<<<<< HEAD
     //**Por url obtenemos el id del curso */
+=======
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
     this._route.params.subscribe(
       async params=>{
         this.id=+params['id_curso'];
+<<<<<<< HEAD
         this.alumnos = await this.getAlumnosByCurso(this.id);
         //**Traer los años de inscripción disponibles.  */
         this.anios=await this.getAnios(this.id); 
@@ -62,9 +69,19 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
         this.lastYear=this.anios[this.anios.length-1]; 
        //**Filtrar el listado de alumnos por año de inscripción.  */
         this.filtrarAnio(this.lastYear);
+=======
+        console.log(this.id);
+        this.getAnios(this.id);
+        this.getAlumnosByCurso(this.id);
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
         }
     );
 
+  }
+
+  mesSelect(){
+    console.log(this.mes_selected);
+    (this.mes_selected);
   }
 
   mesSelect(){
@@ -119,6 +136,7 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
   }
 
   getAnios(id_curso:any){
+<<<<<<< HEAD
     return new Promise((resolve, reject) =>{
       this._cursosService.getAnios(id_curso).subscribe(
         r=>{
@@ -132,6 +150,18 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
   }
 
 
+=======
+    this._cursosService.getAnios(id_curso).subscribe(
+      r=>{
+        this.anios=r.anios; 
+      },
+      e=>{
+        console.log(<any>e);
+      }
+  );
+  }
+
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
   eliminarAlumno(alumno:any){
     console.log(alumno); 
     Swal.fire({
@@ -214,6 +244,28 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
   exportarExcel(id:any){
     let f=new Date();
     this.fileName=id+'_'+f.getDate()+f.getMonth()+f.getFullYear()+f.getHours()+f.getMinutes()+f.getSeconds()+'.xlsx';
+    /* pasar tabla*/
+    console.log(id);
+    let element =document.getElementById(id);
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    // Generar WorkBOOK
+    const wb:XLSX.WorkBook=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws,"Hoja1");
+    var dateTime=new Date();
+    // GuardarArchivo
+    XLSX.writeFile(wb,this.fileName);
+  }
+
+  filtrarAnio(anio:any){  
+    //this.alumnos=this.alumnos.filter((alumno: { inscripcion: any; })=>alumno.inscripcion==anio);
+
+    console.log(anio);
+    this.alumnos_filtrados=this.alumnos.filter((alumno: { inscripcion: any; })=>alumno.inscripcion==anio);
+  }
+
+  exportarExcel(id:any){
+    let f=new Date();
+    this.fileName='Asistencia_'+f.getDate()+f.getMonth()+f.getFullYear()+f.getHours()+f.getMinutes()+f.getSeconds()+'.xlsx';
     /* pasar tabla*/
     console.log(id);
     let element =document.getElementById(id);

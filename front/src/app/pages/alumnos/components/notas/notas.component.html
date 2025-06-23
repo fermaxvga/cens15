@@ -5,6 +5,7 @@
             </button>
         </div>
         <div class="col-auto">
+<<<<<<< HEAD
             <button class="btn btn-warning" [routerLink]="['/alumnos/listado-por-curso/',alumno[0]?.curso_id]"><fa-icon [icon]="listado"></fa-icon> Volver al curso
             </button>
         </div>
@@ -13,6 +14,17 @@
             </button>
         </div>
         
+        <div class="col-auto">
+            <button class="btn btn-dark" [routerLink]="['/alumnos/detail/',alumno[0]?.id]"><fa-icon [icon]="datos"></fa-icon> Volver a datos del alumno
+            </button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-danger" (click)="deleteCiclo(alumno[0].id)" [disabled]="(identity && identity.role==3)||!identity"><fa-icon [icon]="borrar"></fa-icon> Eliminar un ciclo
+=======
+            <button class="btn btn-primary" [routerLink]="['/alumnos/lista']"><fa-icon [icon]="listado"></fa-icon> Volver al listado
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
+            </button>
+        </div>
         <div class="col-auto">
             <button class="btn btn-dark" [routerLink]="['/alumnos/detail/',alumno[0]?.id]"><fa-icon [icon]="datos"></fa-icon> Volver a datos del alumno
             </button>
@@ -29,6 +41,16 @@
             </h3>
         </div>
     </div>
+<<<<<<< HEAD
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h3>
+                Notas del Alumno: {{alumno[0]?.apellido}}, {{alumno[0]?.nombre}}
+            </h3>
+        </div>
+    </div>
+=======
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
   
     <hr>
    <!-- <pre>

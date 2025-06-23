@@ -94,6 +94,23 @@ export class CursosService {
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.get(this.url+'cursos/anios/'+id_curso,{headers: headers});
   }
+<<<<<<< HEAD
+=======
+
+  getRutas():Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.get(this.url+'cursos/rutas',{headers: headers});
+  }
+
+  postRutas(rutaCompleta:Ruta | undefined):Observable<any>{
+    let json=JSON.stringify(rutaCompleta);
+    console.log(json);
+    let params = "json="+json;
+    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+    return this._http.post(this.url+'cursos/rutas',params,{headers: headers});
+  }
+
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
 
   getRutas():Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');

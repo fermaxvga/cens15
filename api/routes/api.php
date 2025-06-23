@@ -73,8 +73,11 @@ Route::group(['prefix'=>'cursos'],function(){
     Route::get('/anios/{curso}','CursosController@getAniosCursos');
     Route::get('/rutas','CursosController@getRutas');
     Route::post('/rutas','CursosController@crearRuta');
+<<<<<<< HEAD
     Route::put('/rutas/{id}','CursosController@editRuta');
     Route::get('/cursos-rutas/{id_ruta}','CursosController@getCursosByIdRutas');
+=======
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
 });
 
 Route::group(['prefix'=>'materias'],function(){
@@ -92,7 +95,10 @@ Route::group(['prefix'=>'notas'],function(){
     Route::put('/insertar-nota','NotasController@insertarNota');
     Route::get('/ciclos-alumno/{id_alumno}','NotasController@getCiclosByIdAlumno');
     Route::delete('/eliminar-ciclo/{id_alumno}/{id_curso}','NotasController@eliminarCiclo');
+<<<<<<< HEAD
     Route::get('/calificacion-anual/{nota1}/{nota2}','NotasController@calificacionAnual');
+=======
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
 });
 
 Route::group(['prefix'=>'docentes'],function(){

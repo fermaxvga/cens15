@@ -6,9 +6,13 @@
     font-family: 'Courier New', Courier, monospace;
     margin-top: 0px;
     margin-bottom: 0px;
+<<<<<<< HEAD
     padding: 2px;
     font-weight: bold;
 
+=======
+    padding: 5px;
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
 }
 
 .titulo-principal{
@@ -47,8 +51,12 @@ td{
 .notas-renglon{
     line-height: 0%;
     border-top:1px solid black ;
+<<<<<<< HEAD
     font-size: 12px;
     
+=======
+    font-size: 10px;
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
 }
 
 footer{

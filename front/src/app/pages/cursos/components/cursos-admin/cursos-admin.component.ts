@@ -460,6 +460,7 @@ export class CursosAdminComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   editarRuta(ruta:any){
       this.rutaAeditar=ruta; 
   }
@@ -480,6 +481,8 @@ export class CursosAdminComponent implements OnInit {
   }
 
 
+=======
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
   
 
 

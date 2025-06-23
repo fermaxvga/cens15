@@ -18,6 +18,7 @@
     <hr>
 
     <div class="row">
+<<<<<<< HEAD
         <div class="col">
             <button class="btn btn-circle btn-lg btn-edit" (click)="editEnable()" data-toggle="tooltip" data-placement="Modificar Datos" title="Modificar Datos" [disabled]="(identity && identity.role==3)||!identity">
                 <fa-icon [icon]="edit"></fa-icon>
@@ -45,6 +46,31 @@
                 <fa-icon [icon]="constancia"></fa-icon>
             </button>
         </div>
+=======
+        <button class="btn btn-circle btn-lg btn-edit" (click)="editEnable()" data-toggle="tooltip" data-placement="Modificar Datos" title="Modificar Datos" [disabled]="(identity && identity.role==3)||!identity">
+            <fa-icon [icon]="edit"></fa-icon>
+        </button>
+    </div>
+    <div class="row">
+        <button class="btn btn-circle btn-lg btn-historico" data-toggle="modal" data-target="#historialModal"  data-placement="Historial de Inscripciones" title="Historial de Inscripciones">
+            <fa-icon [icon]="book"></fa-icon>
+        </button>
+    </div>
+    <div class="row">
+        <button class="btn btn-circle btn-lg btn-reinscripcion" data-toggle="modal" data-target="#reinscribirModal" (click)="editEnable()" title="Reinscribir" [disabled]="(identity && identity.role==3)||!identity">
+            <fa-icon [icon]="reInscribir"></fa-icon>
+        </button>
+    </div>
+    <div class="row">
+        <button class="btn btn-circle btn-lg btn-notas" (click)="verNotas()" title="Notas">
+            <fa-icon [icon]="notas"></fa-icon>
+        </button>
+    </div>
+    <div class="row">
+        <button class="btn btn-circle btn-lg btn-constancia" (click)="constancias(alumno)" title="Constancias">
+            <fa-icon [icon]="constancia"></fa-icon>
+        </button>
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
     </div>
     
     
@@ -250,8 +276,14 @@
                     <h5>Año de inscripción</h5>
                     <div class="row justify-content-center">
                         <div class="col-md-8">
+<<<<<<< HEAD
                             <select name="anio_reins" id="anio" class="form-control" #anio_reins="ngModel" [(ngModel)]="anioRselected">
                                 <option *ngFor="let anio of anios_reinscripcion">{{anio}}</option>
+=======
+                            <select name="anio_ins" id="anio" class="form-control">
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
                             </select>
                         </div>
                     </div>

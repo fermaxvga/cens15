@@ -50,12 +50,18 @@
     </div>
 </div>
 <div class="container main justify-content-center">
+<<<<<<< HEAD
     <div class="main2 jumbotron m-4 p-10">
         <h1>
             <b>Configuración SemiPresencial</b>
         </h1>
         <hr>
         <h1>Rutas</h1>
+=======
+
+    <div class="main2 jumbotron m-4 p-10">
+        <h1 class="display-4 ">Rutas</h1>
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
         <hr class="my-4">
         <div class="row justify-content-end mb-4">
             <div class="col-auto">
@@ -64,6 +70,7 @@
         </div>
         <div class="container" *ngFor="let ruta of rutas">
             <div class="row justify-content-center titulo-ruta">
+<<<<<<< HEAD
                 <div class="col" *ngIf="rutaAeditar?.id!=ruta.id">
                     <h3>{{ruta.ruta}}</h3>
                 </div>
@@ -72,6 +79,13 @@
                 </div>
                 <div class="col">
                         <button class="btn btn-warning" (click)="editarRuta(ruta)"><fa-icon [icon]="edit"></fa-icon> </button>
+=======
+                <div class="col">
+                    <h3>{{ruta.ruta}}</h3>
+                </div>
+                <div class="col">
+                        <button class="btn btn-warning"><fa-icon [icon]="edit"></fa-icon> </button>
+>>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
                         &nbsp;
                         <button class="btn btn-danger" (click)="eliminarRuta(ruta.id)"> <fa-icon [icon]="trash"></fa-icon> </button>
                 </div>
