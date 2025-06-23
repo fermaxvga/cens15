@@ -1,19 +1,35 @@
 <div class="contanier main mt-4" id="boletin">
-    <div class="row justify-content-center" *ngIf="alumno">
-        <div class="col">
+    <div class="row justify-content-center mt-3 mb-3" *ngIf="alumno">
+        <div class="col-auto">
+            <button class="btn btn-secondary" [routerLink]="['/alumnos/boletin/',alumno[0]?.id]">Ir a boletín <fa-icon [icon]="download"></fa-icon>
+            </button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-warning" [routerLink]="['/alumnos/listado-por-curso/',alumno[0]?.curso_id]"><fa-icon [icon]="listado"></fa-icon> Volver al curso
+            </button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" [routerLink]="['/alumnos/lista']"><fa-icon [icon]="listado"></fa-icon> Volver al listado
+            </button>
+        </div>
+        
+        <div class="col-auto">
+            <button class="btn btn-dark" [routerLink]="['/alumnos/detail/',alumno[0]?.id]"><fa-icon [icon]="datos"></fa-icon> Volver a datos del alumno
+            </button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-danger" (click)="deleteCiclo(alumno[0].id)" [disabled]="(identity && identity.role==3)||!identity"><fa-icon [icon]="borrar"></fa-icon> Eliminar un ciclo
+            </button>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
             <h3>
                 Notas del Alumno: {{alumno[0]?.apellido}}, {{alumno[0]?.nombre}}
             </h3>
         </div>
-        <div class="col-3">
-            <button class="btn btn-secondary" [routerLink]="['/alumnos/boletin/',alumno[0]?.id]">Ir a boletín <fa-icon [icon]="download"></fa-icon>
-            </button>
-        </div>
-        <div class="col-3">
-            <button class="btn btn-primary" [routerLink]="['/alumnos/lista']"><fa-icon></fa-icon>Volver al listado
-            </button>
-        </div>
     </div>
+  
     <hr>
    <!-- <pre>
        {{notas | json}}
@@ -35,11 +51,8 @@
                             <fa-icon [icon]="edit"></fa-icon>
                         </button>
                     </th>
-                    <th>
-                        <button class="btn btn-circle btn-lg btn-edit" data-toggle="tooltip"
-                        data-placement="Eliminar Ciclo" title="Eliminar Ciclo" (click)="borrarCiclo(curso)"  [disabled]="!identity || (identity?.role!=1 && identity?.role!=2)">
-                        <fa-icon [icon]="borrar"></fa-icon>
-                    </button>
+                    <th class="header-curso">
+                        Inscripción
                     </th>
                 </tr>
             </thead>
@@ -49,7 +62,17 @@
                     <td *ngIf="curso == nota.curso">{{nota.materia}}</td>
                         <td class="text-center" *ngIf="curso == nota.curso">
                             <div *ngIf="!editar">
-                                {{nota.cuatrimestre1}}
+                                <div *ngIf="!editar">
+                                    <p *ngIf="nota.cuatrimestre1>0">
+                                        {{nota.cuatrimestre1}}
+                                    </p>
+                                    <p *ngIf="nota.cuatrimestre1==0">
+                                        A
+                                    </p>
+                                    <p *ngIf="nota.cuatrimestre1<0">
+                                        S/C
+                                    </p>
+                                </div>
                             </div>
                             <select class="form-control" name="nota1" id="nota1" #nota1="ngModel" [(ngModel)]="nota.cuatrimestre1" (change)="modifNota(nota,1)" *ngIf="editar">
                                 <option value="1">1</option>
@@ -63,6 +86,7 @@
                                 <option value="9">9</option>
                                 <option value="10">10</option>
                                 <option value="0">A</option>
+                                <option value="-1">S/C</option>
                                 <option value=""></option>
                             </select>
                             <!-- <input type="number" min="0" max="10" class="form-control calificacion" name="nota1" id="nota1"
@@ -75,7 +99,15 @@
                         </td>
                         <td class="text-center" *ngIf="curso == nota.curso">
                             <div *ngIf="!editar">
-                                {{nota.cuatrimestre2}}
+                                <p *ngIf="nota.cuatrimestre2>0">
+                                    {{nota.cuatrimestre2}}
+                                </p>
+                                <p *ngIf="nota.cuatrimestre2==0">
+                                    A
+                                </p>
+                                <p *ngIf="nota.cuatrimestre2<0">
+                                    S/C
+                                </p>
                             </div>
                             <select class="form-control" name="nota2" id="nota2" #nota1="ngModel" [(ngModel)]="nota.cuatrimestre2" (change)="modifNota(nota,2)" *ngIf="editar" [disabled]="nota.cuatrimestre1==null">
                                 <option value="1">1</option>
@@ -89,7 +121,8 @@
                                 <option value="9">9</option>
                                 <option value="10">10</option>
                                 <option value="0">A</option>
-                                <option value="null"></option>
+                                <option value="-1">S/C</option>
+                                <option value=""></option>
                             </select>
                             <!-- <input type="number" min="0" max="10" class="form-control calificacion" name="nota2" id="nota2"
                             #nota2="ngModel" [(ngModel)]="nota.cuatrimestre2" [disabled]="!editar"
@@ -107,7 +140,15 @@
                         </td> 
                         <td class="text-center" *ngIf="curso == nota.curso">
                             <div *ngIf="!editar">
-                                {{nota.diciembre}}
+                                <p *ngIf="nota.diciembre>0">
+                                    {{nota.diciembre}}
+                                </p>
+                                <p *ngIf="nota.diciembre==0">
+                                    A
+                                </p>
+                                <p *ngIf="nota.diciembre<0">
+                                    S/C
+                                </p>
                             </div>
                             <select class="form-control" name="notaDic" id="notaDic" #notaDic="ngModel" 
                             [(ngModel)]="nota.diciembre" (change)="modifNota(nota,4)" *ngIf="editar" 
@@ -136,7 +177,15 @@
                         </td>
                         <td class="text-center" *ngIf="curso == nota.curso">
                             <div *ngIf="!editar">
-                                {{nota.febrero}}
+                                <p *ngIf="nota.febrero>0">
+                                    {{nota.febrero}}
+                                </p>
+                                <p *ngIf="nota.febrero==0">
+                                    A
+                                </p>
+                                <p *ngIf="nota.febrero<0">
+                                    S/C
+                                </p>
                             </div>
                             <select class="form-control" name="notaFeb" id="notaFeb" #notaFeb="ngModel" 
                             [(ngModel)]="nota.febrero" (change)="modifNota(nota,5)" *ngIf="editar" 
@@ -165,7 +214,15 @@
                         <td class="text-center" *ngIf="curso == nota.curso">
                             <input type="number" min="0" max="10" class="form-control calificacion" name="notaDefinitiva"
                             id="notaFinal" #notaAnual="ngModel" [(ngModel)]="nota.definitiva" [disabled]="!editar"
-                            (change)="modifNota(nota,8)" [ngClass]="{'aprobado':nota.definitiva>=6,'desaprobado':nota.definitiva<6}" readonly>
+                            (change)="modifNota(nota,8)" [ngClass]="{
+                                                                    'aprobado':(nota.definitiva>=6&&nota.modalidad=='Adolescentes' &&nota.observaciones=='Aprobado')
+                                                                    ||
+                                                                    (nota.definitiva>=4&&nota.modalidad=='Adultos' &&nota.observaciones=='Aprobado'),
+                                                                    'desaprobado':(nota.definitiva<6&&nota.modalidad=='Adolescentes' )
+                                                                    ||
+                                                                    (nota.definitiva<4&&nota.modalidad=='Adultos')
+                                                                    }" 
+                                                                    readonly>
                         </td>
                         <td *ngIf="curso == nota.curso">
                             <span class="badge badge-secondary">{{nota.observaciones}}</span>
@@ -177,4 +234,39 @@
                 </tbody> 
             </table> 
         </div>
+
+
+        <div class="modal fade" id="eliminarCiclo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Eliminar Ciclo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <h3>Cursos para el alumno</h3>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <table class="table">
+                            <tbody>
+                              <tr *ngFor="let ciclo of ciclos">
+                                  <td>{{ciclo.curso}}</td>
+
+                                  <td><button class="btn btn-danger" (click)="borrarCiclo(alumno[0]?.id,ciclo.id_curso)">Eliminar este ciclo</button></td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
 

@@ -82,8 +82,8 @@
             <div class="row mt-4 ml-4" *ngFor="let curso of cursos">
               <h5 class="course" (click)="alumnosPorCurso(curso.id)">
                   {{curso.curso}} - {{curso.division}} - {{curso.especialidad}} - {{curso.modalidad}}
-              </h5>
-            </div>
+             </h5>
+                 <h5 *ngIf="curso.semipresencial==1">(Semi)</h5>
         </div>
         <!-- <app-listado-por-curso></app-listado-por-curso> -->
         <!-- <div class="text-center ">

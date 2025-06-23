@@ -202,16 +202,16 @@ class UserSgaController extends Controller
         $json=$request->input('json',null);
         
         $params=json_decode($json);
-
+        //dd($params);
         $repetido=UserPrecarga::select('id')->where('dni',$params->dni)->count();
        
         if($repetido==0){
             $user=new UserPrecarga();
-            
+         //   dd($user);
             $user->dni = $params->dni;
-          //  dd($params->role);
-           // dd($role[0]->id);
+            // dd($role[0]->id);
             $user->role = $params->role;
+            //dd($user);
             
             $user->status = 0;
 

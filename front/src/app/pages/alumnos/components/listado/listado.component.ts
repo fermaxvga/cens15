@@ -51,9 +51,12 @@ export class ListadoComponent implements OnInit,DoCheck {
     this._alumnosService.getAlumnos().subscribe(
       (response:any)=>{
         Swal.close();
+        // console.log(response); 
+        // this.alumnos=response; 
+
         this.listado=true;
         if(response.status=='success'){
-          console.log(response);
+//          console.log(response);
           this.alumnos=response.alumnos; 
         }else{
           console.log(response.message);
@@ -75,7 +78,7 @@ export class ListadoComponent implements OnInit,DoCheck {
       this._cursosService.getCursos().subscribe(
         response=>{
           if(response.status=='success'){
-            console.log(response.cursos);
+  //          console.log(response.cursos);
             this.cursos=response.cursos; 
             }
         },

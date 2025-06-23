@@ -4,6 +4,10 @@ import { faEye, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icon
 import { UsersService } from 'src/app/pages/users/services/users.service';
 import Swal from 'sweetalert2';
 import { AlumnosService } from '../../services/alumnos.service';
+import { CursosService } from 'src/app/pages/cursos/services/cursos.service';
+import * as moment from 'moment';
+import * as XLSX from 'xlsx';
+import { Month } from '../../models/Month';
 
 @Component({
   selector: 'app-listado-por-curso',
@@ -21,6 +25,15 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
   varones:number=0;
   mujeres:number=0;
   ver=faEye; 
+  anios:any; 
+  mes_selected:any; 
+  alumnos_filtrados: any;
+  meses:any;
+  month: Month |undefined;
+  fileName: string|undefined;
+  verDatos=true; 
+  lastYear: any;
+  curentYear: any | undefined;
 
 
 
@@ -28,35 +41,96 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
   constructor(
     private _route: ActivatedRoute,
     private _alumnosService: AlumnosService,
-    private _userService:UsersService
+    private _userService:UsersService,
+    private _cursosService:CursosService
 
-  ) { }
+  ) {
+    this.month={mes:'',dias:[]}
+  }
 
   ngOnInit(): void {
-    
+    this.calendario(); 
+    //**Por url obtenemos el id del curso */
     this._route.params.subscribe(
-      params=>{
+      async params=>{
         this.id=+params['id_curso'];
-        console.log(this.id);
-        this.getAlumnosByCurso(this.id);
+        this.alumnos = await this.getAlumnosByCurso(this.id);
+        //**Traer los años de inscripción disponibles.  */
+        this.anios=await this.getAnios(this.id); 
+        console.log(this.anios);
+        //**Obtener el último para que quede por defecto */
+        this.lastYear=this.anios[this.anios.length-1]; 
+       //**Filtrar el listado de alumnos por año de inscripción.  */
+        this.filtrarAnio(this.lastYear);
         }
     );
 
-    // this._alumnosService.getAlumnoByCurso(this.id).subscribe(
-    //   (response:any)=>{
-    //     console.log(response);
-    //     this.alumnos=response.alumnos; 
-    //   },
-    //   (error:any)=>{
-    //     console.log(<any>error); 
-    //   }
-    // );
-  
+  }
+
+  mesSelect(){
+    console.log(this.mes_selected);
+    (this.mes_selected);
   }
 
   ngDoCheck(){
     this.identity = this._userService.getIdentity();
   }
+
+  calendario(){
+    
+    this.month={mes:'',dias:[]};
+    this.meses=[];
+    let mes='';
+    moment.locale("es");
+    let i=0;
+    do{
+      this.month={mes:'',dias:[]};
+      mes=moment().add(i,'months').format('MMMM');
+      let dia=moment().add(i,'months').format('DD');
+      let comienzo_mes=(moment().add(i,'months').subtract(parseInt(dia)-1,'days').format());//console.log(dia); 
+      let nro_mes=moment().add(i,'months').format('MM');
+      this.month.mes=mes;
+    //  console.log('Para el mes de: ' + mes+' calcular días, mes nro: ' + nro_mes);
+    //  console.log('dia comienzo del mes: '+comienzo_mes);
+      let cantDias=this.diasEnUnMes(nro_mes,2023);
+      //console.log('tiene '+cantDias+' días');
+      let k=0;
+        for (let j = 0; j < cantDias; j++) {
+          if((moment(comienzo_mes).add(j,'days').format('dd'))!='sá' && (moment(comienzo_mes).add(j,'days').format('dd'))!='do'){
+
+            this.month.dias[k]=moment(comienzo_mes).add(j,'days').format('dd DD'); 
+            k++; 
+          }
+        //  console.log(j); 
+    //      console.log(moment(comienzo_mes).add(j,'days').format('dd DD'));
+        }     
+       
+      console.log(this.month);
+      this.meses[i]=this.month; 
+      i++;
+      //this.meses.push(mes);
+      
+    }while(mes!='diciembre');
+    //console.log(this.meses);
+  }
+
+  diasEnUnMes(mes:any, año:any) {
+    return new Date(año, mes, 0).getDate();
+  }
+
+  getAnios(id_curso:any){
+    return new Promise((resolve, reject) =>{
+      this._cursosService.getAnios(id_curso).subscribe(
+        r=>{
+          resolve(r.anios);
+        },
+        e=>{
+          console.log(<any>e);
+        }
+    );
+    });
+  }
+
 
   eliminarAlumno(alumno:any){
     console.log(alumno); 
@@ -99,27 +173,57 @@ export class ListadoPorCursoComponent implements OnInit,DoCheck {
   }
 
   getAlumnosByCurso(id:any){
-    this._alumnosService.getAlumnoByCurso(id).subscribe(
-      (response:any)=>{
-        console.log(response);
-        this.alumnos=response.alumnos; 
-        
-        for (const alumno of this.alumnos) {
-          if(alumno.sexo=='varon'){
-            this.varones++;
-          }
-          if(alumno.sexo=='mujer'){
-            this.mujeres++;
-          }
-        }
-        console.log(this.varones);
-        console.log(this.mujeres);
+    return new Promise((resolve, reject) =>{
+      this._alumnosService.getAlumnoByCurso(id).subscribe(
+        (response:any)=>{
+          console.log(response);
+     //     this.alumnos=response.alumnos; 
+          resolve(response.alumnos);
+          // resolve(response);
 
-      },
-      (error:any)=>{
-        console.log(<any>error); 
+         // console.log(this.varones);
+          //console.log(this.mujeres);
+  
+        },
+        (error:any)=>{
+          console.log(<any>error); 
+          reject(<any>error);
+        }
+      );
+    });
+  }
+
+  filtrarAnio(anio:any){  
+    console.log(anio);
+    this.curentYear=anio; 
+    this.alumnos_filtrados=this.alumnos?.filter((alumno: { inscripcion: any; })=>alumno.inscripcion==anio);
+    console.log(this.alumnos_filtrados);
+    for (const alumno of this.alumnos_filtrados) {
+      if(alumno.sexo=='varon'){
+        this.varones++;
       }
-    );
+      if(alumno.sexo=='mujer'){
+        this.mujeres++;
+      }
+    }
+    console.log(this.varones,":varones");
+    console.log(this.mujeres,":mujeres");
+
+  }
+
+  exportarExcel(id:any){
+    let f=new Date();
+    this.fileName=id+'_'+f.getDate()+f.getMonth()+f.getFullYear()+f.getHours()+f.getMinutes()+f.getSeconds()+'.xlsx';
+    /* pasar tabla*/
+    console.log(id);
+    let element =document.getElementById(id);
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    // Generar WorkBOOK
+    const wb:XLSX.WorkBook=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws,"Hoja1");
+    var dateTime=new Date();
+    // GuardarArchivo
+    XLSX.writeFile(wb,this.fileName);
   }
 
 }

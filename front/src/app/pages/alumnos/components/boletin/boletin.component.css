@@ -2,11 +2,12 @@
 .A4{
     border: 1px solid black;
     width: 210mm;
-    height: 297mm;
+    /* height: 297mm; */
     font-family: 'Courier New', Courier, monospace;
     margin-top: 0px;
     margin-bottom: 0px;
-    padding: 10px;
+    padding: 2px;
+    font-weight: bold;
 
 }
 
@@ -31,24 +32,41 @@
 }
 
 .tabla-notas{
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .table{
-    font-size: 12px;
+    font-size: 11px;
+
+}
+td{
+    width: 0px;
 }
 
 .notas-renglon{
     line-height: 0%;
     border-top:1px solid black ;
-    font-size: 11px;
+    font-size: 12px;
+    
 }
 
 footer{
     position: relative;
     margin-left: 60px;
     margin-top: 100px;
+}
+.footer{
+    margin-top: 0px;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.text-materia{
+    white-space: nowrap;
+    overflow: hidden; 
+   /* text-overflow: ellipsis !important;; */
+    /* width: 100px;  */
 }
 
 

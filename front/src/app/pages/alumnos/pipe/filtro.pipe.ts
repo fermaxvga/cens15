@@ -9,9 +9,9 @@ export class FiltroPipe implements PipeTransform {
     const resultAlumno=[];
     for(const alumno of value){
       if(
-        (alumno.nombre.toLowerCase().indexOf(arg.toLowerCase())>-1) ||
-        (alumno.apellido.toLowerCase().indexOf(arg.toLowerCase())>-1) ||
-        (alumno.dni.toLowerCase().indexOf(arg.toLowerCase())>-1) 
+        (alumno.nombre?.toLowerCase().indexOf(arg.toLowerCase())>-1) ||
+        (alumno.apellido?.toLowerCase().indexOf(arg.toLowerCase())>-1) ||
+        (alumno.dni?.toLowerCase().indexOf(arg.toLowerCase())>-1) 
         ){
         resultAlumno.push(alumno); 
       };

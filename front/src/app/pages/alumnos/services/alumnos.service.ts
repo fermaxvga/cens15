@@ -9,6 +9,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class AlumnosService {
   url: string | undefined;
+  url2: string | undefined; 
   historialInscripciones = new  EventEmitter<boolean>();
   menu_obs = new EventEmitter<boolean>();
 
@@ -17,12 +18,22 @@ export class AlumnosService {
 
   ) {
     this.url = environment.url;
+  //  this.url2 = environment.url2;
+
    }
-   getAlumnos():Observable<any>{
-     console.log('buscando alumnos..');
-    let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
-    return this._http.get(this.url+'alumnos/listado', {headers: headers});
-  }
+  //  getAlumnos():Observable<any>{
+  //    console.log('buscando alumnos..');
+  //   let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+  //   return this._http.get(this.url+'alumnos/listado', {headers: headers});
+  // }
+
+  getAlumnos():Observable<any>{
+    console.log('buscando alumnos..');
+   let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+   return this._http.get(this.url+'alumnos/listado', {headers: headers});
+   //return this._http.get(this.url2+'Alumnos', {headers: headers});
+
+ }
   sendAlumno(alumno:any):Observable<any>{
     let json=JSON.stringify(alumno);
     let params = "json="+json;
@@ -46,6 +57,8 @@ export class AlumnosService {
   getAlumnoByCurso(id_curso:number):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.get(this.url+'alumnos/listado-por-curso/'+id_curso,{headers: headers});
+   // return this._http.get(this.url2+'Alumnos/GetAlumnosByCursoId/'+id_curso,{headers: headers});
+
   }
 
 
@@ -68,9 +81,11 @@ export class AlumnosService {
     return this._http.put(this.url+'notas/insertar-nota',params,{headers: headers});
   }
 
-  elminarCiclo(alumno:any,curso:any):Observable<any>{
+  elminarCiclo(id_alumno:any,id_curso:any):Observable<any>{
+    console.log('id_alunmo: ' + id_alumno);
+    console.log('id_curso: ' + id_curso);
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
-    return this._http.get(this.url+'notas/eliminar-ciclo/'+alumno+'/'+curso,{headers: headers});
+    return this._http.get(this.url+'notas/eliminar-ciclo/'+id_alumno+'/'+id_curso,{headers: headers});
   }
 
   getInscrOrientacion(id_alumno:any):Observable<any>{
@@ -82,6 +97,7 @@ export class AlumnosService {
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.delete(this.url+'alumnos/eliminar-alumno/'+id,{headers: headers});
   }
+  
   editAlumno(id:number,alumno:any):Observable<any>{
     let json=JSON.stringify(alumno);
     let params = "json="+json;
@@ -89,6 +105,8 @@ export class AlumnosService {
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.put(this.url+'alumnos/editar-alumno/'+id,params,{headers: headers});
   }
+
+
 
 
   getIdCursoByCurso(curso:any):Observable<any>{
@@ -102,5 +120,16 @@ export class AlumnosService {
     console.log(params);
     let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
     return this._http.post(this.url+'alumnos/inscripcion-masiva',{headers: headers});
+  }
+
+  getCiclosByIdAlumnos(id_alumno:number):Observable<any>{
+    let headers= new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'notas/ciclos-alumno/' + id_alumno, {headers:headers});
+  }
+
+  deleteCiclo(id_alumno:number,id_curso:number):Observable<any>{
+    console.log(id_alumno,id_curso);
+    let headers= new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.delete(this.url + 'notas/eliminar-ciclo/'+ id_alumno+'/'+ id_curso, {headers:headers});
   }
 }

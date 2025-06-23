@@ -33,6 +33,13 @@
     width: 80px;
 }
 
+a{
+    color: black !important;
+}
+a:hover{
+    scale: 110%;
+}
+
 .barra-lateral.active {
     transform: translateX(0%);
 }

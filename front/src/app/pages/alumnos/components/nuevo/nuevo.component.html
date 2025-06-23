@@ -98,6 +98,7 @@
               Ingresar solo números
             </span>
           </div>
+  
           <div class="col-md-5">
             <label for="nacimiento"><b>Fecha de Nacimiento</b></label>
             <input 
@@ -302,17 +303,57 @@
         <br>
         <div class="row">
           <div class="col" style="font-size: 22px;">
+            Nro de cuil
+          </div> 
+        </div>
+        <div class="row">
+          <div class="col" style="font-size: 22px;">
+            Primaria Completa SI - NO
+          </div> 
+        </div>
+        <div class="row">
+          <div class="col" style="font-size: 22px;">
+            Secundaria Incompleta ? 
+          </div> 
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col" style="font-size: 22px;">
             Curso al que se inscribe
           </div> 
         </div>
         <hr>
         <br>
+        <!-- {{rutasSemipresencial|json}}
+        {{cursos | json}} -->
+        <!-- {{alumnForm.value | json}}  -->
         <div class="row justify-content-center mt-2 mb-2">
           <div class="col-md-6">
-            <select id="curso"  name="curso" class="form-control"  formControlName="curso" >
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="presencial" name="modo" (change)="elegirModalidad($event)" class="custom-control-input" checked>
+              <label class="custom-control-label" for="presencial">   <h5>Presencial</h5></label>
+            </div>
+            <select  id="curso"  name="curso" class="form-control"  formControlName="curso">
               <option></option>
-              <option *ngFor="let curso of cursos" value="{{curso.id}}">{{curso.curso}} - {{curso.division}} - {{curso.especialidad}} - {{curso.modalidad}} - {{curso.semipresencial}} </option>
+              <option *ngFor="let curso of cursosPresencial" value="{{curso.id}}">{{curso.curso}} - {{curso.division}} - {{curso.especialidad}} - {{curso.modalidad}} </option>
             </select>
+          </div>
+          <div class="col-md-6">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="semipresencial" name="modo" (change)="elegirModalidad($event)" class="custom-control-input">
+              <label class="custom-control-label" for="semipresencial"><h5>SemiPresencial</h5></label>
+            </div>
+            <select  id="ruta"  name="ruta" class="form-control"  formControlName="ruta" (change)="getCursosByIdRuta($event)">
+              <option></option>
+              <option *ngFor="let ruta of rutasSemipresencial" value="{{ruta.id}}">{{ruta.ruta}}</option>
+            </select>
+              <div *ngIf="cursosRuta && !modoPresencial" class="col mt-2">
+                <ul>
+                  <li class="row" *ngFor="let curso of cursosRuta">
+                    {{curso.curso.curso}} {{curso.curso.dvision}} - {{curso.curso.especialidad}} - {{curso.curso.modalidad}} 
+                  </li>
+                </ul>
+            </div>
           </div>
         </div>
         <hr>
@@ -324,7 +365,7 @@
         <hr>
         <div class="row justify-content-center">
           <div class="col-md-4">
-            <select id="inscr"  name="inscr" class="form-control"  formControlName="inscripcion" >
+            <select id="inscr"  name="inscr" class="form-control"  formControlName="inscripcion">
               <option></option>
               <option *ngFor="let anio of years">{{anio}} </option>
             </select>
@@ -334,15 +375,14 @@
           <div class="col-2">
             <!-- <button type="submit" class="btn btn-primary" [disabled]="alumnForm.invalid">Continuar</button> -->
             <button type="submit" class="btn btn-primary">Continuar</button>
-
           </div>
         </div>
     </form>
 </div>
 <div class="row justify-content-start">
-  <!-- <div class="col-2">
+  <div class="col-2">
     <button class="btn btn-info" (click)="onSetDefault()">Default</button>
-  </div> -->
+  </div>
   <!-- <div class="col-2">
     <button class="btn btn-info" (click)="onPatchValue()">Patch</button>
   </div>

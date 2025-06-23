@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class HomeComponent implements OnInit {
   identity: any;
   token: any;
+  sedes: string[] | undefined;
 
   constructor(
     private _route:Router,
@@ -22,7 +23,13 @@ export class HomeComponent implements OnInit {
   ) {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
-
+    this.sedes=[
+      'Esc. 1',
+      'Esc. 13',
+      'Esc. 30',
+      'Esc. 41',
+      'UPCN'
+    ];
    }
 
   ngOnInit(): void {

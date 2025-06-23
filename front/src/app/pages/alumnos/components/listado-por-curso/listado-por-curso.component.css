@@ -41,3 +41,14 @@
 .course:hover{
 font-weight: bold;
 }
+
+#datos_alumnos{
+    overflow-x: scroll;
+}
+
+.active{
+    background: rgb(112, 107, 107) !important;
+    border: black 1px solid !important ;
+    box-shadow: none !important;
+    scale: 110%;
+}

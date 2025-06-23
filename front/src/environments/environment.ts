@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
- url: 'http://localhost/cens15/api/public/api/'
+ url: 'http://localhost/cens15/api/public/api/',
+ url2: ' https://localhost:7127/api/',
 };
 
 /*

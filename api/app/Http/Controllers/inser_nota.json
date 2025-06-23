@@ -1,0 +1,18 @@
+{
+    "id": 204,
+    "id_alumno": 742,
+    "id_curso": 36,
+    "curso": "1° A Administración  Adultos",
+    "modalidad": "Adultos",
+    "materia": "Historia y Geografía",
+    "anio": 2022,
+    "cuatrimestre1": "10",
+    "cuatrimestre2": "-1",
+    "final_anual": null,
+    "diciembre": null,
+    "febrero": null,
+    "definitiva": null,
+    "observaciones": null,
+    "created_at": "2022-12-02T23:01:55.000000Z",
+    "updated_at": "2022-12-02T23:01:55.000000Z"
+}

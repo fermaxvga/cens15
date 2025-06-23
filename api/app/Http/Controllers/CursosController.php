@@ -11,6 +11,9 @@ use App\CursoNumero;
 use App\Materia;
 use App\Nota; 
 use App\Preceptor;
+use App\Alumno;
+use App\CursoRutaList; 
+use App\CursoRutaDetail; 
 
 class CursosController extends Controller
 {
@@ -300,8 +303,59 @@ class CursosController extends Controller
     //     $id_curso=Curso::select('id')->where('
     // }
 
+    public function getAniosCursos($id_curso){
+        header('Access-Control-Allow-Origin','*');
+        header('Access-Control-Allow-Methods','*');
+        $anios=Alumno::select('inscripcion')->where('curso_id',$id_curso)->groupBy('inscripcion')->get();
+        $i=0;
+        foreach($anios as $anio){
+            $years[$i]=$anio->inscripcion;
+            $i++;
+        }
+        $data=array(
+            'anios'=>$years,
+            'status'=>'success'
+        );
+        return response()->json($data,200);
+    }
 
+    public function getRutas(){
+        header('Access-Control-Allow-Origin','*');
+        header('Access-Control-Allow-Methods','*');
 
+        $rutas=CursoRutaList::with('detail.curso')->get();
+
+        $data=array(
+            'rutas'=>$rutas,
+            'status'=>'success'
+        );
+        return response()->json($data,200);
+    }
+
+    public function crearRuta(Request $request){
+        header('Access-Control-Allow-Origin','*');
+        header('Access-Control-Allow-Methods','*');
+
+        $json=$request->input('json',null);
+        $params=json_decode($json);
+      //  dd($params);
+        $ruta= new CursoRutaList();
+
+        $ruta->ruta=$params->ruta;
+
+        $ruta->save();
+
+        
+        foreach ($params->cursos as $detail) {
+            $detalle= new CursoRutaDetail();
+            $detalle->id_ruta=$ruta->id;
+            $detalle->id_curso=$detail->id_curso;
+            $detalle->orden=$detail->orden;
+            $detalle->save(); 
+        }
+
+        //dd($details); 
+   }
+        
     
-
 }

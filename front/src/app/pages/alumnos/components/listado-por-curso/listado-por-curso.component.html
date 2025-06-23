@@ -1,11 +1,21 @@
 <app-botonera-alumnos></app-botonera-alumnos>
 
 <div class="contenedor">
-    <div class="row justify-content-center mt-4" *ngIf="alumnos">
-        <h3>{{alumnos[0]?.curso.curso}} - {{alumnos[0]?.curso.division}} - {{alumnos[0]?.curso.especialidad}} - {{alumnos[0]?.curso.modalidad}}</h3>
+    <div class="row justify-content-center mt-2 mt-b">
+        <div class="col-auto">
+            <h3>Cliclo Lectivo</h3>
+        </div>
     </div>
+    <div *ngIf="anios && curentYear" class="row justify-content-center mt-4">
+        <div *ngFor="let anio of anios" class="col-auto">
+            <button class="btn btn-primary" role="button" (click)="filtrarAnio(anio)" [ngClass]="{'active':anio==curentYear}">
+                {{anio}}
+            </button>    
+        </div>
+    </div>
+
     <div class="row">
-        
+
         <div class="col-10">
             <table class="table my-list mt-5" id="cars-list">
                 <thead class="thead" id="thead">
@@ -16,11 +26,11 @@
                         <th> CURSO </th>
                         <th> ORIENTACION </th>
                         <th> Última Inscripción </th>
-                        <th>  </th> 
-                        <th>  </th> 
-                </tr>
+                        <th> </th>
+                        <th> </th>
+                    </tr>
                 </thead>
-                <tr class="fila" *ngFor="let alumno of alumnos" [routerLink]="['/alumnos/detail/',alumno.id]">
+                <tr class="fila" *ngFor="let alumno of alumnos_filtrados" [routerLink]="['/alumnos/detail/',alumno.id]">
                     <td>
                         {{alumno?.apellido}}
                     </td>
@@ -40,10 +50,15 @@
                         {{alumno?.inscripcion}}
                     </td>
                     <td>
-                        <button class="btn btn-primary"  [routerLink]="['/alumnos/detail/',alumno.id]"> <fa-icon [icon]="ver"></fa-icon></button>
+                        <button class="btn btn-primary" [routerLink]="['/alumnos/detail/',alumno.id]">
+                            <fa-icon [icon]="ver"></fa-icon>
+                        </button>
                     </td>
                     <td>
-                        <button class="btn btn-danger" *ngIf="identity?.role==1 && identity?.role==2" (click)="eliminarAlumno(alumno)"> <fa-icon [icon]="delete"></fa-icon></button>
+                        <button class="btn btn-danger" *ngIf="identity?.role==1 && identity?.role==2"
+                            (click)="eliminarAlumno(alumno)">
+                            <fa-icon [icon]="delete"></fa-icon>
+                        </button>
                     </td>
 
                 </tr>
@@ -51,13 +66,149 @@
             <hr>
             <div class="row justify-content-start">
                 <div class="col-auto">
-                    <b>Total:</b> {{alumnos.length}}
+                    <b>Total:</b> {{alumnos_filtrados?.length}}
                 </div>
                 <div class="col-auto">
                     <b>Varones:</b> {{varones}}
                 </div>
                 <div class="col-auto">
-                <b>Mujeres: {{mujeres}}</b>
+                    <b>Mujeres: {{mujeres}}</b>
+                </div>
+            </div>
+        </div>
+<!--LISTA PARA DESCARGAR PARA ASISTENCIA-->
+<!-- {{meses | json}} -->
+        <div class="col-10 mt-4">
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <h3>Planilla para asistencia</h3>
+                </div>
+            </div>
+            <div class="row align-items-center mt-4">
+                <div class="col-auto">
+                    MES:
+                </div>
+                <div class="col-auto">
+                    <select name="mes_select" #mes_select="ngModel" [(ngModel)]="mes_selected" class="form-control" (change)="mesSelect()">
+                        <option [ngValue]="mes" *ngFor="let mes of meses">{{mes.mes}}</option>
+                    </select>
+                </div>
+            </div>
+      
+            <div class="row justify-content-end" *ngIf="mes_selected">
+                <div class="col-auto">
+                    <button class="btn btn-success" (click)="exportarExcel('asistencia')">Exportar</button>
+                </div>
+            </div>
+            <table class="table table-bordered my-list" id="asistencia" *ngIf="mes_selected">
+                <thead>
+                    <tr>
+                      <th>
+                          MES:
+                      </th>
+                        <th colspan="2" class="text-center">
+                            {{mes_selected.mes?.toUpperCase()}}
+                        </th>
+                    </tr>
+                    <tr>
+                                    <th> Apellido</th>
+                                    <th> Nombre </th>
+                                    <th *ngFor="let dia of mes_selected.dias">
+                                            {{dia}}
+                                    </th>
+                    </tr>
+                </thead>
+     
+                <tbody>
+                    <tr class="fila" *ngFor="let alumno of alumnos_filtrados">
+                        <td>
+                            {{alumno?.apellido}}
+                        </td>
+                        <td>
+                            {{alumno?.nombre}}
+                        </td>
+                        
+                        
+                        <td *ngFor="let dia of mes_selected.dias">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <div class="row mt-4">
+                <div class="col">
+                    <h3>Planilla de Datos</h3>
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <button class="btn btn-secondary" (click)="exportarExcel('datos_alumnos')">Exportar Datos</button>
+            </div>
+            <table class="table table-bordered my-list" id="datos_alumnos" *ngIf="verDatos">
+                <thead>
+                    <tr>
+                        <th> Apellido</th>
+                        <th> Nombre </th>
+                        <th> Tipo Documento</th>
+                        <th> DNI </th>
+                        <th> CUIL </th>
+                        <th> SEXO </th>
+                        <th> Fecha de Nacimiento </th>
+                        <th> Pais de Nacimiento </th>
+                        <th> Nacionalidad </th>
+                        <th> Provincia de Nacimiento </th>
+                        <th> Lugar de Nacimiento </th>
+                    </tr>
+                </thead>
+     
+                <tbody>
+                    <tr class="fila" *ngFor="let alumno of alumnos_filtrados">
+                        <td>
+                            {{alumno?.apellido}}
+                        </td>
+                        <td>
+                            {{alumno?.nombre}}
+                        </td>
+                        <td>
+                            DNI
+                        </td>
+                        <td>
+                            {{alumno?.dni}}
+                        </td>
+                        <td>
+                           {{alumno?.dni}}
+                        </td>
+                        <td>
+                              {{alumno?.sexo}}
+                         </td>
+                        <td>
+                            {{alumno?.fecha_de_nacimiento}}
+                         </td>
+                         <td>
+                            {{alumno?.pais_nac}}
+                       </td>
+                        <td>
+                             Argentino
+                        </td> 
+                        <td>
+                             {{alumno?.prov_nac}}
+                        </td> 
+                        <td>
+                            {{alumno?.loc_nac}}
+                       </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <div class="row justify-content-start">
+                <div class="col-auto">
+                    <b>Total:</b> {{alumnos_filtrados?.length}}
+                </div>
+                <div class="col-auto">
+                    <b>Varones:</b> {{varones}}
+                </div>
+                <div class="col-auto">
+                    <b>Mujeres: {{mujeres}}</b>
                 </div>
             </div>
         </div>

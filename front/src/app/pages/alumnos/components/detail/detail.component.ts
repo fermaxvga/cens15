@@ -1,13 +1,14 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { AlumnosService } from '../../services/alumnos.service';
-import { faAddressCard, faBook, faFileContract, faFileSignature, faMarker, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAddressCard, faBook, faFileContract, faFileSignature, faList, faMarker, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { CompartidosService } from '../../../../shared/services/compartidos.service';
 import * as $AB from 'jquery';
 import { TemplateService } from '../../../../template/services/template.service';
 import { CursosService } from '../../../cursos/services/cursos.service';
 import Swal from 'sweetalert2';
 import { UsersService } from '../../../users/services/users.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -32,6 +33,10 @@ export class DetailComponent implements OnInit,DoCheck {
   identity: any;
   token: any;
   constancia=faFileSignature; 
+  listado=faList; 
+  anios_reinscripcion:number[] | undefined;
+  anioRselected:number[] | undefined;
+
 
   
   
@@ -48,6 +53,10 @@ export class DetailComponent implements OnInit,DoCheck {
     this.editar=false; 
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    const anioActual = moment().year();
+    const anioSiguiente = moment().add(1, 'year').year();
+
+    this.anios_reinscripcion = [anioActual, anioSiguiente];
 
   }
 
