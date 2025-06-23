@@ -45,7 +45,7 @@ class UserSgaController extends Controller
             //comprobar duplicado
             $isset_user=User::where('email','=',$email)->first();
 
-           // dd($isset_user);
+            //dd($isset_user);
             if(!$isset_user){
                     $user->save(); 
                     $dni=ValidarDni::select('dni')->where('dni',$dni)->update(['status'=>1]);
