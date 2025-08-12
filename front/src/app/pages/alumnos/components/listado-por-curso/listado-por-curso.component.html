@@ -6,25 +6,12 @@
             <h3>Cliclo Lectivo</h3>
         </div>
     </div>
-<<<<<<< HEAD
     <div *ngIf="anios && curentYear" class="row justify-content-center mt-4">
         <div *ngFor="let anio of anios" class="col-auto">
             <button class="btn btn-primary" role="button" (click)="filtrarAnio(anio)" [ngClass]="{'active':anio==curentYear}">
                 {{anio}}
             </button>    
         </div>
-=======
-    <div *ngIf="anios" class="row justify-content-center mt-4">
-        <div *ngFor="let anio of anios" class="col-auto">
-            <button class="btn btn-primary" role="button" (click)="filtrarAnio(anio)">
-                {{anio}}
-            </button>    
-        </div>
-    </div>
-    <div class="row justify-content-center mt-4" *ngIf="alumnos_filtrados">
-        <h3>{{alumnos[0]?.curso.curso}} - {{alumnos[0]?.curso.division}} - {{alumnos[0]?.curso.especialidad}} -
-            {{alumnos[0]?.curso.modalidad}}</h3>
->>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
     </div>
 
     <div class="row">
@@ -127,7 +114,6 @@
                     <tr>
                                     <th> Apellido</th>
                                     <th> Nombre </th>
-<<<<<<< HEAD
                                     <th *ngFor="let dia of mes_selected.dias">
                                             {{dia}}
                                     </th>
@@ -135,20 +121,6 @@
                 </thead>
      
                 <tbody>
-=======
-                                    <th> Teléfono </th>
-                                    <th *ngFor="let dia of mes_selected.dias">
-                                            {{dia}}
-                                    </th>
-  
-                    </tr>
-       
-        
-                </thead>
-     
-                <tbody>
-
->>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
                     <tr class="fila" *ngFor="let alumno of alumnos_filtrados">
                         <td>
                             {{alumno?.apellido}}
@@ -156,7 +128,6 @@
                         <td>
                             {{alumno?.nombre}}
                         </td>
-<<<<<<< HEAD
                         
                         
                         <td *ngFor="let dia of mes_selected.dias">
@@ -225,13 +196,6 @@
                         <td>
                             {{alumno?.loc_nac}}
                        </td>
-=======
-                         <td>
-                             {{alumno?.tel_tutor}} / {{alumno?.tel_alumno}}
-                        </td>
-                        <td *ngFor="let dia of mes_selected.dias">
-                        </td>
->>>>>>> 3448f51ab4e12b8cf4d9a5f3973175d48ac96f6e
                     </tr>
                 </tbody>
             </table>
